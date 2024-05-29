@@ -1,0 +1,84 @@
+---
+title: Searching Series
+description: A reference page in my new Starlight docs site.
+sidebar:
+  order: 8
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Request
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$series = $tcgdex->fetchSeries();
+		```
+		_[See how to setup the PHP SDK](/sdks/php)_
+
+		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		const series = await tcgdex.fetch('series');
+		```
+		_[See how to setup the Javascript SDK](/sdks/javascript)_
+
+		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		const series = await tcgdex.fetch('series');
+		```
+		_[See how to setup the Typescript SDK](/sdks/typescript)_
+
+		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		ArrayList<SerieResume> series = tcgdex.fetchSeries();
+		```
+		_[See how to setup the Java SDK](/sdks/java)_
+
+		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		val series = tcgdex.fetchSeries()
+		```
+		_[See how to setup the Kotlin SDK](/sdks/kotlin)_
+
+		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/en/series
+		```
+		_[See how to prepare your URLs](/rest)_
+
+		_[Filtering documentation](/rest/filtering-sorting-pagination)_
+	</TabItem>
+</Tabs>
+
+## Sample Response
+
+The request return [an array of `SerieBrief` objects](/reference/serie-brief)
+
+```json
+[
+	{
+		"id": "base",
+		"name": "Base",
+		"logo": "https://assets.tcgdex.net/en/base/base1/logo"
+	},
+	// ...
+	{
+		"id": "xy",
+		"name": "XY",
+		"logo": "https://assets.tcgdex.net/en/xy/xyp/logo"
+	}
+]
+```

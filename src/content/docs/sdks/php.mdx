@@ -1,0 +1,64 @@
+---
+title: The PHP SDK
+description: A reference page in my new Starlight docs site.
+---
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="https://packagist.org/packages/tcgdex/sdk">
+		<img src="https://img.shields.io/github/v/release/tcgdex/php-sdk?include_prereleases&style=flat-square" alt="Packagist Version"/>
+	</a>
+	<a href="https://github.com/tcgdex/php-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/php-sdk?style=flat-square" alt="Github stars" />
+	</a>
+	<a href="https://packagist.org/packages/tcgdex/sdk">
+		<img src="https://img.shields.io/packagist/dt/tcgdex/sdk?style=flat-square" alt="NPM Downloads" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/php-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/php-sdk?style=flat-square&token=MCENGBDCXN" alt="Coverage" />
+	</a>
+	<a href="https://github.com/tcgdex/php-sdk/actions/workflows/build-test.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/php-sdk/build-test.yml?style=flat-square" alt="the TCGdex PHP SDK's automated builds." />
+	</a>
+</p>
+
+## Installation
+
+<Steps>
+1. Install the SDK using Composer
+	```bash
+	composer require tcgdex/sdk
+	```
+
+2. if you don't have the PSRs 16,17 & 18 implementations, you can quickly add them using thie command
+	```bash
+	composer require symfony/cache nyholm/psr7 kriswallsmith/buzz
+	```
+</Steps>
+
+## Usage
+
+```php
+// import the package
+use TCGdex\TCGdex;
+
+// Is you are using your own PSRs implementations add them here before loading the class
+// else TCGdex will try to load the one installed on step 2
+TCGdex::$cache = /* PSR16 CacheInterface */;
+TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
+TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
+TCGdex::$client = /* PSR18 ClientInterface */;
+
+// initialize the SDK with the language
+$tcgdex = new TCGdex("en");
+
+// Fetch the cards !
+$card = $tcgdex->fetchCard('136', 'swsh3');
+```
+
+You can check in [the JSON REST API docs](/rest) and select the correct tab to see the command specific for your SDK
+
+
+### Source Code
+
+[The source code for the SDK is available on Github !](https://github.com/tcgdex/php-sdk)

@@ -1,0 +1,53 @@
+---
+title: Getting Started
+description: A reference page in my new Starlight docs site.
+sidebar:
+  order: 1
+---
+import { LinkCard, CardGrid } from '@astrojs/starlight/components'
+
+The REST API is the main way of obtaining the Pokemon TCG informations you search.
+
+## Usage
+
+You can use the REST API multiple ways.
+
+1. Using one of the [SDKs](/sdks)
+2. Querying directly one the API
+
+Everything is detailled in the documentation to allow you to do both.
+
+<CardGrid>
+  <LinkCard title="Try one of our SDKs" href="/sdks" />
+  <LinkCard title="Loop at the API" href="/rest/card" />
+</CardGrid>
+
+## Informations
+
+The REST API return predictable Objects defined under each requests.
+
+It is only available in HTTPS (HTTP requests are redirected to HTTPS)
+
+Every request MUST be GET requests.
+
+the API returns JSON responses in the body
+
+We use standard HTTP response codes and every response possibles are indicated on each pages
+
+## History
+
+### V2
+
+The V2 of the API is the current one and was first enabled on January 2021.
+
+It currently Achieve more than 2 Millions requests per months.
+
+### V1
+
+The V1 of the API was active from february 2020 to August 2021.
+
+It achived at it's peak (february 2021) Around 200k requests per month.
+
+The V1 was deprecated in february 2021 and was completelly removed after 6 month in deprecation with :
+- every SDKs working with the v2
+- receiving less than 1k requests per months during the two previous months on it.

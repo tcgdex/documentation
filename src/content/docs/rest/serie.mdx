@@ -1,0 +1,98 @@
+---
+title: Getting a single Serie
+description: A reference page in my new Starlight docs site.
+sidebar:
+  order: 7
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Request
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$serie = $tcgdex->fetchSerie('swsh');
+		```
+		_[See how to setup the PHP SDK](/sdks/php)_
+	</TabItem>
+	<TabItem label="Javascript">
+		```javascript
+		const serie = await tcgdex.fetch('series', 'swsh');
+		```
+		_[See how to setup the Javascript SDK](/sdks/javascript)_
+
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		const serie = await tcgdex.fetch('series', 'swsh');
+		```
+		_[See how to setup the Typescript SDK](/sdks/typescript)_
+
+	</TabItem>
+	<TabItem label="Java">
+		```java
+		Serie serie = tcgdex.fetchSerie("swsh");
+		```
+		_[See how to setup the Java SDK](/sdks/java)_
+
+	</TabItem>
+	<TabItem label="Kotlin">
+		```kotlin
+		val serie = tcgdex.fetchSerie("swsh")
+		```
+		_[See how to setup the Kotlin SDK](/sdks/kotlin)_
+	</TabItem>
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/en/series/swsh
+		```
+		_[See how to prepare your URLs](/rest)_
+
+	</TabItem>
+</Tabs>
+
+## Sample Response
+
+### 200 Response
+
+The request return [a Serie object](/reference/serie)
+
+```json
+{
+	"id": "swsh",
+	"logo": "https://assets.tcgdex.net/en/swsh/swshp/logo",
+	"name": "Sword & Shield",
+	"sets": [
+		{
+			"cardCount": {
+				"official": 107,
+				"total": 166
+			},
+			"id": "swshp",
+			"logo": "https://assets.tcgdex.net/en/swsh/swshp/logo",
+			"name": "SWSH Black Star Promos",
+			"symbol": "https://assets.tcgdex.net/univ/swsh/swshp/symbol"
+		},
+		// ...
+		{
+			"cardCount": {
+				"official": 159,
+				"total": 230
+			},
+			"id": "swsh12.5",
+			"logo": "https://assets.tcgdex.net/en/swsh/swsh12.5/logo",
+			"name": "Crown Zenith"
+		}
+	]
+}
+```
+
+### 404 Response
+
+The serie was not found :( it will return a global error message (not translated)
+
+```json
+{
+	"error": "Endpoint or id not found"
+}
+```

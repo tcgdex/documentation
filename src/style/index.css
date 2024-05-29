@@ -1,0 +1,41 @@
+/* Dark mode colors. */
+:root {
+	--sl-color-accent-low: #401118;
+	--sl-color-accent: #c5003f;
+	--sl-color-accent-high: #f4b6b9;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eeeded;
+	--sl-color-gray-2: #c2c2c2;
+	--sl-color-gray-3: #8d8b8b;
+	--sl-color-gray-4: #595858;
+	--sl-color-gray-5: #393838;
+	--sl-color-gray-6: #282626;
+	--sl-color-black: #191818;
+}
+
+/* Make sure the content is at least 70% of the page when on PC */
+@media (min-width: 1152px) {
+	:root {
+		--sl-content-width: 70%;
+	}
+}
+/* Light mode colors. */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #f9c9cb;
+	--sl-color-accent: #c80040;
+	--sl-color-accent-high: #5e0f1f;
+	--sl-color-white: #191818;
+	--sl-color-gray-1: #282626;
+	--sl-color-gray-2: #393838;
+	--sl-color-gray-3: #595858;
+	--sl-color-gray-4: #8d8b8b;
+	--sl-color-gray-5: #c2c2c2;
+	--sl-color-gray-6: #eeeded;
+	--sl-color-gray-7: #f6f6f6;
+	--sl-color-black: #ffffff;
+}
+
+/* on PC, make sure the header search bar is "mostly" centered */
+header.header > .header > .sl-flex:not(:first-child) {
+	justify-content: center;
+}

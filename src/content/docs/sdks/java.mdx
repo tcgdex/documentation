@@ -1,0 +1,80 @@
+---
+title: The Java SDK
+description: The TCGdex API Java SDK
+---
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="https://jitpack.io/#net.tcgdex/java-sdk">
+		<img src="https://img.shields.io/jitpack/v/github/tcgdex/java-sdk?style=flat-square" alt="Package Version" />
+	</a>
+	<a href="https://github.com/tcgdex/java-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/java-sdk?style=flat-square" alt="Github stars" />
+	</a>
+	<a href="https://github.com/tcgdex/java-sdk/blob/master/LICENSE.md">
+		<img src="https://img.shields.io/github/license/tcgdex/java-sdk?style=flat-square" alt="the TCGdex Java SDK is released under the MIT license." />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
+	</a>
+</p>
+
+## Installation
+
+<Tabs>
+	<TabItem label="Gradle">
+		<Steps>
+			1. add the repository in your `build.gradle`
+
+				```gradle
+				repositories {
+					...
+					maven { url 'https://jitpack.io' }
+				}
+				```
+
+			2. Add the dependency in your `build.gradle`
+
+				```gradle
+				dependencies {
+					implementation 'net.tcgdex:java-sdk:{Version}'
+				}
+				```
+		</Steps>
+	</TabItem>
+	
+	<TabItem label="Maven">
+		<Steps>
+			1. add the **repository** in your `pom.xml`
+
+				```xml
+				<repositories>
+					<repository>
+						<id>jitpack.io</id>
+						<url>https://jitpack.io</url>
+					</repository>
+				</repositories>
+				```
+
+			2. Add the **depedency** in your `pom.xml`
+
+				```xml
+				<dependency>
+					<groupId>net.tcgdex</groupId>
+					<artifactId>java-sdk</artifactId>
+					<version>{Version}</version>
+				</dependency>
+				```
+		</Steps>
+	</TabItem>
+</Tabs>
+
+## Usage
+
+WIP
+
+You can check in [the JSON REST API docs](/rest) and select the correct tab to see the command specific for your SDK
+
+### Source Code
+
+[The source code for the SDK is available on Github !](https://github.com/tcgdex/java-sdk)

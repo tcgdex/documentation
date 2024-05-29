@@ -1,0 +1,127 @@
+---
+title: Filtering, Sorting & Pagination
+description: A brief Pokémon TCG card (used in lists)
+sidebar:
+  order: 11
+---
+
+Most endpoints that return arrays can have filters, sorting, and paginations informations added in the query to help you buid on them
+
+## Filtering
+
+You can add filtering to the request you are making it will check if the field you are checking contains the defined string element or number
+
+It is constructed like so : `object.key=value` ex: `name=pikachu`
+
+### Example
+
+Request:
+```
+https://api.tcgdex.net/v2/en/cards?name=pikachu
+```
+
+Response:
+```json
+[
+	{
+		"id": "basep-1",
+		"localId": "1",
+		"name": "Pikachu",
+		"image": "https://assets.tcgdex.net/en/base/basep/1"
+	},
+	// ...
+	{
+		"id": "xyp-XY95",
+		"localId": "XY95",
+		"name": "Pikachu",
+		"image": "https://assets.tcgdex.net/en/xy/xyp/XY95"
+	}
+]
+```
+
+
+## Sorting
+
+Sorting is done by default in the API depending on the array returned `releaseDate > localId > id`
+
+You can override the default sorting algorithm by adding parameters to your request :
+
+| query parameter | default value              | possible values   | description                                                                                    |
+| --------------- | -------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| `sort:field`    | releaseDate > localId > id | key of the object | change the field that is used to sort (**MUST** be the name of one of the field of the object) |
+| `sort:order`    | ASC                        | `ASC`, `DESC`     | change the ordering done on the field                                                          |
+
+### Example
+
+Request:
+```
+https://api.tcgdex.net/v2/en/sets?sort:field=name&sort:order=DESC
+```
+
+Response:
+```json
+[
+	{
+		"id": "sma",
+		"name": "Yellow A Alternate",
+		"symbol": "https://assets.tcgdex.net/univ/sm/sma/symbol",
+		"cardCount": {
+			"total": 94,
+			"official": 94
+		}
+	},
+	// ...
+	{
+		"id": "sv03.5",
+		"name": "151",
+		"logo": "https://assets.tcgdex.net/en/sv/sv03.5/logo",
+		"symbol": "https://assets.tcgdex.net/univ/sv/sv03.5/symbol",
+		"cardCount": {
+			"total": 207,
+			"official": 165
+		}
+	}
+]
+```
+
+## Pagination
+
+Pagination is not done automatically to speed requests on your end.
+
+you can still add it back by using the following query parameters:
+
+| query parameter           | default value                         | possible values | description                                          |
+| ------------------------- | ------------------------------------- | --------------- | ---------------------------------------------------- |
+| `pagination:page`         | `1`                                   | Number          | Indicate on which page you are at                    |
+| `pagination:itemsPerPage` | `100` (when `pagination:page` is set) | Number          | indicate the number of items displayed on each pages |
+
+### Example
+
+Request:
+```
+https://api.tcgdex.net/v2/en/sets?pagination:page=3&pagination:itemsPerPage=2
+```
+
+Response:
+```json
+[
+	{
+		"id": "base3",
+		"name": "Fossil",
+		"logo": "https://assets.tcgdex.net/en/base/base3/logo",
+		"symbol": "https://assets.tcgdex.net/univ/base/base3/symbol",
+		"cardCount": {
+			"total": 62,
+			"official": 62
+		}
+	},
+	{
+		"id": "jumbo",
+		"name": "Jumbo cards",
+		"cardCount": {
+			"total": 160,
+			"official": 160
+		}
+	}
+]
+```

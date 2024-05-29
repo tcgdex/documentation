@@ -1,0 +1,81 @@
+---
+title: The TypeScript SDK
+description: A reference page in my new Starlight docs site.
+---
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="NPM Version" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Github stars" />
+	</a>
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="NPM Downloads" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="npm version" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
+	</a>
+</p>
+
+
+## Installation
+
+<Tabs>
+	<TabItem label="NPM">
+		```bash
+		npm i @tcgdex/sdk
+		```
+	</TabItem>
+	
+	<TabItem label="Bun">
+		```bash
+		bun i @tcgdex/sdk
+		```
+	</TabItem>
+	
+	<TabItem label="Yarn">
+		```bash
+		yarn add @tcgdex/sdk
+		```
+	</TabItem>
+	
+	<TabItem label="PNPM">
+		```bash
+		pnpm add @tcgdex/sdk
+		```
+	</TabItem>
+</Tabs>
+
+<Aside title="Browser Usage" type="tip">
+TypeScript is not meant to run directly in the browser.
+
+You might want to checkout [the JavaScript SDK](/sdks/javascript) for this case.
+</Aside>
+
+## Usage
+
+```typescript
+// Import the SDK
+import TCGdex from '@tcgdex/sdk'
+
+// Instantiate the SDK
+const tcgdex = new TCGdex('en');
+
+// go into an async context
+(async () => {
+	// Card will be Furret from the Darkness Ablaze Set
+	const card = await tcgdex.fetch('cards', 'swsh3-136');
+})();
+```
+
+You can check in [the JSON REST API docs](/rest) and select the correct tab to see the command specific for your SDK
+
+
+### Source Code
+
+[The source code for the SDK is available on Github !](https://github.com/tcgdex/javascript-sdk)

@@ -1,0 +1,102 @@
+---
+title: Getting a set
+description: A reference page in my new Starlight docs site.
+sidebar:
+  order: 4
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Request
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$set = $tcgdex->fetchSet('swsh3');
+		```
+		_[See how to setup the PHP SDK](/sdks/php)_
+	</TabItem>
+	<TabItem label="Javascript">
+		```javascript
+		const set = await tcgdex.fetch('sets', 'swsh3');
+		```
+		_[See how to setup the Javascript SDK](/sdks/javascript)_
+
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		const set = await tcgdex.fetch('sets', 'swsh3');
+		```
+		_[See how to setup the Typescript SDK](/sdks/typescript)_
+
+	</TabItem>
+	<TabItem label="Java">
+		```java
+		Set set = tcgdex.fetchSet("swsh3");
+		```
+		_[See how to setup the Java SDK](/sdks/java)_
+
+	</TabItem>
+	<TabItem label="Kotlin">
+		```kotlin
+		val set = tcgdex.fetchSet("swsh3")
+		```
+		_[See how to setup the Kotlin SDK](/sdks/kotlin)_
+	</TabItem>
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/en/sets/swsh3
+		```
+		_[See how to prepare your URLs](/rest)_
+
+	</TabItem>
+</Tabs>
+
+## Sample Response
+
+```json
+{
+	"cardCount": {
+		"firstEd": 0,
+		"holo": 64,
+		"normal": 137,
+		"official": 189,
+		"reverse": 155,
+		"total": 201
+	},
+	"cards": [
+		{
+			"id": "swsh3-1",
+			"image": "https://assets.tcgdex.net/en/swsh/swsh3/1",
+			"localId": "1",
+			"name": "Butterfree V"
+		},
+		// ...
+		{
+			"id": "swsh3-136",
+			"image": "https://assets.tcgdex.net/en/swsh/swsh3/136",
+			"localId": "136",
+			"name": "Furret"
+		},
+		// ...
+		{
+			"id": "swsh3-201",
+			"image": "https://assets.tcgdex.net/en/swsh/swsh3/201",
+			"localId": "201",
+			"name": "Capture Energy"
+		}
+	],
+	"id": "swsh3",
+	"legal": {
+		"expanded": true,
+		"standard": false
+	},
+	"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+	"name": "Darkness Ablaze",
+	"releaseDate": "2020-08-14",
+	"serie": {
+		"id": "swsh",
+		"name": "Sword & Shield"
+	},
+	"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+}
+```

@@ -1,0 +1,128 @@
+---
+title: Assets Management
+description: How assets are stored inside the TCGdex API
+---
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components'
+
+When you try to get an image from the API you might mostly get an url ending without any extension like below.
+
+```url
+https://assets.tcgdex.net/swsh/swsh3/swsh3-136
+```
+
+**That's normal.** 
+
+We allows you to customise the extension and quality _(for Cards)_ of the image you want.
+
+<Tabs>
+	<TabItem label="Cards">
+		For `cards` the url can be reconstructed as such
+
+		```bash
+		https://assets.tcgdex.net/swsh/swsh3/swsh3-136/{quality}.{extension}
+		```
+
+		with `{quality}` being replaced by `high` or `low`
+
+		and `{extension}` being replaced by `png`, `webp` or `jpg`
+
+		_[see details below](#extension)_
+	</TabItem>
+
+	<TabItem label="Symbols/Logos">
+		for `symbols` and `logos` the url can be reconstructed as such
+
+		```bash
+		https://assets.tcgdex.net/swsh/swsh3/symbol.{extension}
+		```
+
+		with `{extension}` being replaced by `png`, `webp` or `jpg`
+
+		_[see details below](#extension)_
+	</TabItem>
+</Tabs>
+
+-----------
+
+Some of the SDKs have helpers to easily reconstruct them
+
+<Tabs>
+	<TabItem label="Kotlin">
+		on a `Card` object
+
+		```kotlin
+			// get the final url
+			val url = card.getImageUrl("high", "webp")
+			// you can even get the image directly
+			val image = card.getImage("high", "webp")
+		```
+		on a `Set` object
+
+		```kotlin
+			// get the final url
+			val symbolURL = set.getSymbolUrl("webp")
+			// get the symbol image buffer directly
+			val symbol = set.getSymbol("webp")
+
+			// get the final url
+			val logoURL = set.getLogoUrl("webp")
+			// get the logo image buffer directly
+			val logo = set.getLogo("webp")
+		```
+	</TabItem>
+
+	<TabItem label="Java">
+		on a `Card` object
+
+		```java
+			// get the final url
+			String url = card.getImageUrl("high", "webp")
+			// you can even get the image directly
+			BufferedImage image = card.getImage("high", "webp")
+		```
+		on a `Set` object
+
+		```java
+			// get the final url
+			String symbolURL = set.getSymbolUrl("webp")
+			// get the symbol image buffer directly
+			BufferedImage symbol = set.getSymbol("webp")
+
+			// get the final url
+			String logoURL = set.getLogoUrl("webp")
+			// get the logo image buffer directly
+			BufferedImage logo = set.getLogo("webp")
+		```
+	</TabItem>
+</Tabs>
+
+
+
+## Extension
+
+Every assets are available with three extensions :
+- `png`: card with Transparent background
+- `jpg`: card with Black background **(not Recommanded)**
+- `webp`: Modern format that is more compact than png/jpg with a transparent background **(Recommanded)**
+
+<Aside type="tip">
+
+When displaying your image on the web it is highly recommanded o display a `webp` image
+
+for other formats, the `png` should be used as won't lose the transparent background
+
+</Aside>
+
+## Quality
+
+Every assets are available with three extensions :
+- `high`: get the image in a 600x825 format
+- `low`: get the image in a 245x337 format
+
+<Aside type="tip">
+
+When you want to display a lot of images that are not big, use `low`
+
+When the image is the main attraction, use `high`
+
+</Aside>
