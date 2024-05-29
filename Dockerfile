@@ -36,3 +36,5 @@ ADD ./nginx.conf /etc/nginx/nginx.conf
 
 # Copy dist fro mthe build image
 COPY --from=BUILD_IMAGE /home/node/dist ./
+
+EXPOSE 3000
