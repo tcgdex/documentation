@@ -138,6 +138,9 @@ export default defineConfig({
 				directory: 'rest'
 			},
 		}, {
+			label: 'GraphQL API',
+			link: '/graphql'
+		}, {
 			label: 'SDKs',
 			autogenerate: {
 				directory: 'sdks'
