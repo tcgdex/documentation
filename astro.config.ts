@@ -14,7 +14,8 @@ export default defineConfig({
 			alt: 'TCGdex logo'
 		},
 		customCss: [
-			"./src/style/index.css"
+			"./src/style/index.css",
+			'@fontsource-variable/lexend'
 		],
 		favicon: '/favicon.svg',
 		head: [{
@@ -22,7 +23,7 @@ export default defineConfig({
 			attrs: {
 				defer: '',
 				'data-domain': 'tcgdex.dev',
-				'src': '/js/script.js'
+				src: '/js/script.js'
 			}
 		}, {
 			tag: 'link',

@@ -11,6 +11,7 @@
 	--sl-color-gray-5: #393838;
 	--sl-color-gray-6: #282626;
 	--sl-color-black: #191818;
+	--sl-font: 'Lexend Variable', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
 }
 
 /* Make sure the content is at least 70% of the page when on PC */
@@ -19,6 +20,7 @@
 		--sl-content-width: 70%;
 	}
 }
+
 /* Light mode colors. */
 :root[data-theme='light'] {
 	--sl-color-accent-low: #f9c9cb;
