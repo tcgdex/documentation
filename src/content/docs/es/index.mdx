@@ -1,0 +1,66 @@
+---
+title: La API multilingüe de Pokémon TCG
+description: TCGdex es una API integral y multilingüe para el TCG de Pokémon (juego de cartas coleccionables), que ofrece información detallada sobre conjuntos de cartas, cartas individuales e información relacionada. Todo está disponible en 6 idiomas.
+# template: splash
+hero:
+  tagline: ¡Toda la información de tus cartas disponible gratuitamente y de código abierto!
+  image:
+    file: ../../../assets/furret_card.png
+  actions:
+    - text: Prueba con un SDK
+      link: /sdks
+      icon: right-arrow
+      variant: primary
+    - text: Revisa los endpoints
+      link: /rest
+      variant: minimal
+tableOfContents: false
+lastUpdated: false
+editUrl: false
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
+
+## Qué está disponible
+
+<CardGrid stagger>
+	<Card title="6 idiomas y contando" icon="heart">
+	¡Toda la API está disponible en 6 idiomas!
+	- Inglés
+	- Francés
+	- Alemán
+	- Portugués (Brasileño)
+	- Italiano
+	- Español
+	- y [¡más están por venir!](https://github.com/tcgdex/cards-database/pull/481)
+	</Card>
+	<Card title="una API REST en JSON" icon="add-document">
+		Una [API REST en JSON completa](/rest) para obtener cualquier información sobre las cartas
+
+		- Endpoints de cartas
+		- Endpoints de conjuntos
+		- Endpoints de series
+		- Endpoints de campos de cartas
+
+		El filtrado y la paginación también son compatibles para las operaciones de listado
+
+		Hay varios SDKs disponibles para ayudarte a comenzar
+	</Card>
+	<Card title="una API GraphQL" icon="setting">
+	La [API GraphQL](/graphql) te permite hacer tus propias solicitudes
+		- `Card` y `Cards` para obtener carta(s)
+		- `Set` y `Sets` para obtener conjunto(s)
+		- `Serie` y `Series` para obtener serie(s)
+
+		Las consultas admiten filtrado y paginación
+	</Card>
+</CardGrid>
+
+## ¿Quieres ayudar a la comunidad? ¡Únete a nosotros!
+
+<CardGrid>
+	<LinkCard href="https://discord.gg/NehYTAhsZE" title="Únete a nuestro Discord" description="Discord es nuestra principal forma de comunicación entre los miembros de la comunidad" />
+	<LinkCard href="https://github.com/tcgdex/cards-database" title="¡Dale una estrella al repositorio!" description="Ayuda a nuestro repositorio a alcanzar la luna dándole una estrella en Github" />
+	<LinkCard href="https://github.com/tcgdex/cards-database" title="Contribuir" description="Contribuir te ayudará a ti y a otros miembros de la comunidad" />
+	<LinkCard href="https://github.com/sponsors/tcgdex" title="Patrocina el proyecto" description="La API es costosa de ejecutar, además obtendrás algo a cambio de tu inversión :D" />
+</CardGrid>

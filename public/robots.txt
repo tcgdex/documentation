@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://tcgdex.dev/sitemap-index.xml

@@ -1,6 +1,6 @@
 ---
 title: String Endpoint Object
-description: A reference page in my new Starlight docs site.
+description: Reference of the StringEndpoint Object used by some endpoints
 draft: true
 ---
 

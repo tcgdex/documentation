@@ -133,6 +133,11 @@ export default defineConfig({
 			label: 'Assets Management',
 			link: '/assets'
 		}, {
+			label: 'SDKs',
+			autogenerate: {
+				directory: 'sdks'
+			}
+		}, {
 			label: 'JSON REST API',
 			autogenerate: {
 				directory: 'rest'
@@ -141,14 +146,10 @@ export default defineConfig({
 			label: 'GraphQL API',
 			link: '/graphql'
 		}, {
-			label: 'SDKs',
-			autogenerate: {
-				directory: 'sdks'
-			}
-		}, {
 			label: 'Reference',
 			autogenerate: {
-				directory: 'reference'
+				directory: 'reference',
+				collapsed: true
 			}
 		}],
 		lastUpdated: true
