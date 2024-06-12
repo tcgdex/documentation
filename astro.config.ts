@@ -7,6 +7,9 @@ import tailwind from "@astrojs/tailwind"
 export default defineConfig({
 	integrations: [starlight({
 		title: 'TCGdex API Docs',
+		components: {
+			TableOfContents: './src/components/TableOfContents.astro',
+		},
 		logo: {
 			dark: './src/assets/logo-dark.svg',
 			light: './src/assets/logo-light.svg',
