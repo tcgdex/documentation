@@ -1,0 +1,112 @@
+---
+title: Obtenir un set
+description: Obtenir un set du JCC Pokémon en utilisant l'API TCGdex
+sidebar:
+  order: 4
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$set = $tcgdex->fetchSet('swsh3');
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+	</TabItem>
+	<TabItem label="Javascript">
+		```javascript
+		const set = await tcgdex.fetch('sets', 'swsh3');
+		```
+		_[Voir comment configurer le SDK Javascript](/sdks/javascript)_
+
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		const set = await tcgdex.fetch('sets', 'swsh3');
+		```
+		_[Voir comment configurer le SDK Typescript](/sdks/typescript)_
+
+	</TabItem>
+	<TabItem label="Java">
+		```java
+		Set set = tcgdex.fetchSet("swsh3");
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+
+	</TabItem>
+	<TabItem label="Kotlin">
+		```kotlin
+		val set = tcgdex.fetchSet("swsh3")
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+	</TabItem>
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/sets/swsh3
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+
+	</TabItem>
+</Tabs>
+
+## Exemple de Réponse 200
+
+```json
+{
+	"cardCount": {
+		"firstEd": 0,
+		"holo": 64,
+		"normal": 137,
+		"official": 189,
+		"reverse": 155,
+		"total": 201
+	},
+	"cards": [
+		{
+			"id": "swsh3-1",
+			"image": "https://assets.tcgdex.net/fr/swsh/swsh3/1",
+			"localId": "1",
+			"name": "Papilusion V"
+		},
+		// ...
+		{
+			"id": "swsh3-136",
+			"image": "https://assets.tcgdex.net/fr/swsh/swsh3/136",
+			"localId": "136",
+			"name": "Fouinar"
+		},
+		// ...
+		{
+			"id": "swsh3-201",
+			"image": "https://assets.tcgdex.net/fr/swsh/swsh3/201",
+			"localId": "201",
+			"name": "Énergie Capture"
+		}
+	],
+	"id": "swsh3",
+	"legal": {
+		"expanded": true,
+		"standard": false
+	},
+	"logo": "https://assets.tcgdex.net/fr/swsh/swsh3/logo",
+	"name": "Ténèbres Embrasées",
+	"releaseDate": "2020-08-14",
+	"serie": {
+		"id": "swsh",
+		"name": "Épée et Bouclier"
+	},
+	"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+}
+```
+
+### Réponse 404
+
+Le set n'a pas été trouvée :( elle retournera un message d'erreur global (non traduit)
+
+```json
+{
+	"error": "Endpoint or id not found"
+}
+```

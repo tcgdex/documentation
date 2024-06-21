@@ -1,0 +1,127 @@
+---
+title: Filtrage, Tri et Pagination
+description: Comment filtrer, trier et paginer les résultats de l'API REST
+sidebar:
+  order: 11
+---
+
+La plupart des endpoints qui renvoient des tableaux peuvent inclure des informations de filtrage, de tri et de pagination dans la requête pour vous aider à gérer les résultats de manière efficace.
+
+## Filtrage
+
+Vous pouvez ajouter des filtres à votre requête pour vérifier si le champ que vous spécifiez contient une chaîne de caractères ou un nombre spécifique.
+
+La structure est la suivante : `objet.clé=valeur`, par exemple : `name=pikachu`.
+
+### Exemple
+
+Requête :
+```
+https://api.tcgdex.net/v2/en/cards?name=pikachu
+```
+
+Réponse :
+```json
+[
+	{
+		"id": "basep-1",
+		"localId": "1",
+		"name": "Pikachu",
+		"image": "https://assets.tcgdex.net/fr/base/basep/1"
+	},
+	// ...
+	{
+		"id": "xyp-XY95",
+		"localId": "XY95",
+		"name": "Pikachu",
+		"image": "https://assets.tcgdex.net/fr/xy/xyp/XY95"
+	}
+]
+```
+
+
+## Tri
+
+Le tri est effectué par défaut dans l'API en fonction des champs `releaseDate > localId > id`.
+
+Vous pouvez remplacer l'algorithme de tri par défaut en ajoutant des paramètres à votre requête :
+
+| paramètre de requête | valeur par défaut            | valeurs possibles | description                                                                                     |
+| -------------------- | ---------------------------- | ----------------- | ----------------------------------------------------------------------------------------------- |
+| `sort:field`         | releaseDate > localId > id   | clé de l'objet    | change le champ utilisé pour le tri (**DOIT** être le nom d'un champ de l'objet)                |
+| `sort:order`         | ASC                          | `ASC`, `DESC`     | change l'ordre de tri sur le champ spécifié                                                     |
+
+### Exemple
+
+Requête :
+```
+https://api.tcgdex.net/v2/fr/sets?sort:field=name&sort:order=DESC
+```
+
+Réponse :
+```json
+[
+	{
+		"id": "sma",
+		"name": "Yellow A Alternate",
+		"symbol": "https://assets.tcgdex.net/univ/sm/sma/symbol",
+		"cardCount": {
+			"total": 94,
+			"official": 94
+		}
+	},
+	// ...
+	{
+		"id": "sv03.5",
+		"name": "151",
+		"logo": "https://assets.tcgdex.net/fr/sv/sv03.5/logo",
+		"symbol": "https://assets.tcgdex.net/univ/sv/sv03.5/symbol",
+		"cardCount": {
+			"total": 207,
+			"official": 165
+		}
+	}
+]
+```
+
+## Pagination
+
+La pagination n'est pas effectuée automatiquement pour accélérer les requêtes côté client.
+
+Vous pouvez tout de même l'activer en ajoutant les paramètres de pagination suivants à votre requête :
+
+| paramètre de requête          | valeur par défaut                           | valeurs possibles | description                                                 |
+| ----------------------------- | ------------------------------------------- | ----------------- | ----------------------------------------------------------- |
+| `pagination:page`             | `1`                                         | Nombre            | Indique la page à afficher                                  |
+| `pagination:itemsPerPage`     | `100` (lorsque `pagination:page` est défini)| Nombre            | Indique le nombre d'éléments affichés par page              |
+
+### Exemple
+
+Requête :
+```
+https://api.tcgdex.net/v2/fr/sets?pagination:page=3&pagination:itemsPerPage=2
+```
+
+Réponse :
+```json
+[
+	{
+		"id": "base3",
+		"name": "Fossile",
+		"logo": "https://assets.tcgdex.net/fr/base/base3/logo",
+		"symbol": "https://assets.tcgdex.net/univ/base/base3/symbol",
+		"cardCount": {
+			"total": 62,
+			"official": 62
+		}
+	},
+	{
+		"id": "jumbo",
+		"name": "Cartes Jumbo",
+		"cardCount": {
+			"total": 160,
+			"official": 160
+		}
+	}
+]
+```

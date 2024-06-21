@@ -1,0 +1,88 @@
+---
+title: Recherche de cartes
+description: Comment obtenir une liste de cartes du JCC Pokémon en utilisant l'API REST
+sidebar:
+  order: 3
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$cards = $tcgdex->fetchCards();
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+
+		_Le SDK ne [prend pas actuellement en charge le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		const cards = await tcgdex.fetch('cards');
+		```
+		_[Voir comment configurer le SDK JavaScript](/sdks/javascript)_
+
+		_Le SDK ne [prend pas actuellement en charge le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Typescript">
+		```typescript
+		const cards = await tcgdex.fetch('cards');
+		```
+		_[Voir comment configurer le SDK TypeScript](/sdks/typescript)_
+
+		_Le SDK ne [prend pas actuellement en charge le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		List<CardBrief> cards = tcgdex.fetchCards();
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+
+		_Le SDK ne [prend pas actuellement en charge le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		val cards = tcgdex.fetchCards()
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+
+		_Le SDK ne [prend pas actuellement en charge le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/cards
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+
+		_[Documentation sur le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+</Tabs>
+
+## Exemple de Réponse
+
+### Réponse 200
+
+La requête retourne [un tableau d'objets `CardBrief`](/reference/card-brief)
+
+```json
+[
+	{
+		"id": "base4-1",
+		"localId": "1",
+		"name": "Alakazam",
+		"image": "https://assets.tcgdex.net/fr/base/base4/1"
+	},
+	// ...
+	{
+		"id": "xy1-1",
+		"localId": "1",
+		"name": "Florizarre EX",
+		"image": "https://assets.tcgdex.net/fr/xy/xy1/1"
+	}
+]
+```

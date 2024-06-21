@@ -1,0 +1,100 @@
+---
+title: Le SDK JavaScript
+description: Apprenez à installer et utiliser le SDK JavaScript de TCGdex
+---
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="Version NPM" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Étoiles sur Github" />
+	</a>
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="Téléchargements NPM" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="Version NPM" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="Le SDK JavaScript de TCGdex est publié sous la licence MIT." />
+	</a>
+</p>
+
+## Installation
+
+<Tabs syncKey='pouet'>
+	<TabItem label="NPM">
+		```bash
+		npm i @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Bun">
+		```bash
+		bun i @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Yarn">
+		```bash
+		yarn add @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="PNPM">
+		```bash
+		pnpm add @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Navigateur">
+		```html
+		<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
+		```
+	</TabItem>
+</Tabs>
+
+## Utilisation
+
+<Tabs syncKey='pouet'>
+	<TabItem label="Node/Bun">
+		```javascript
+		// Importer le SDK avec moduleJS
+		import TCGdex from '@tcgdex/sdk'
+		// OU avec commonJS
+		const TCGdex = require('@tcgdex/sdk').default
+
+		// Instancier le SDK
+		const tcgdex = new TCGdex('en');
+
+		// entrer dans un contexte async
+		(async () => {
+			// La carte sera Furret du set Ténèbres Embrasées
+			const card = await tcgdex.fetch('cards', 'swsh3-136');
+		})();
+		```
+	</TabItem>
+
+	<TabItem label="Navigateur">
+		```html
+		<script>
+			// Instancier le SDK
+			const tcgdex = new TCGdex('en');
+
+			// entrer dans un contexte async
+			;(async () => {
+				// La carte sera Furret du set Darkness Ablaze
+				const card = await tcgdex.fetch('cards', 'swsh3-136');
+			})();
+		</script>
+		```
+	</TabItem>
+</Tabs>
+
+Vous pouvez consulter les [docs de l'API REST JSON](/rest) et sélectionner l'onglet correct pour voir la commande spécifique à votre SDK
+
+### Code Source
+
+[Le code source du SDK est disponible sur Github !](https://github.com/tcgdex/javascript-sdk)

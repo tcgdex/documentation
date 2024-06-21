@@ -7,10 +7,10 @@ import { Aside, Tabs, TabItem } from '@astrojs/starlight/components'
 When you try to get an image from the API you might mostly get an url ending without any extension like below.
 
 ```url
-https://assets.tcgdex.net/swsh/swsh3/swsh3-136
+https://assets.tcgdex.net/en/swsh/swsh3/136
 ```
 
-**That's normal.** 
+**That's normal.**
 
 We allows you to customise the extension and quality _(for Cards)_ of the image you want.
 
@@ -19,7 +19,7 @@ We allows you to customise the extension and quality _(for Cards)_ of the image 
 		For `cards` the url can be reconstructed as such
 
 		```bash
-		https://assets.tcgdex.net/swsh/swsh3/swsh3-136/{quality}.{extension}
+		https://assets.tcgdex.net/en/swsh/swsh3/136/{quality}.{extension}
 		```
 
 		with `{quality}` being replaced by `high` or `low`
@@ -33,7 +33,7 @@ We allows you to customise the extension and quality _(for Cards)_ of the image 
 		for `symbols` and `logos` the url can be reconstructed as such
 
 		```bash
-		https://assets.tcgdex.net/swsh/swsh3/symbol.{extension}
+		https://assets.tcgdex.net/en/swsh/swsh3/symbol.{extension}
 		```
 
 		with `{extension}` being replaced by `png`, `webp` or `jpg`

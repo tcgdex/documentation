@@ -1,0 +1,133 @@
+---
+title: Obtenir une carte spécifique
+description: Obtenir une carte spécifique du JCC Pokémon en utilisant l'API TCGdex
+sidebar:
+  order: 2
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$card = $tcgdex->fetchCard('swsh3-136');
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		const card = await tcgdex.fetch('cards', 'swsh3-136');
+		```
+		_[Voir comment configurer le SDK JavaScript](/sdks/javascript)_
+	</TabItem>
+
+	<TabItem label="Typescript">
+		```typescript
+		const card = await tcgdex.fetch('cards', 'swsh3-136');
+		```
+		_[Voir comment configurer le SDK TypeScript](/sdks/typescript)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		Card card = tcgdex.fetchCard("swsh3-136");
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		val card = tcgdex.fetchCard("swsh3-136")
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/cards/swsh3-136
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+	</TabItem>
+</Tabs>
+
+## Réponse
+
+### Réponse 200
+
+La requête retourne [un objet de carte](/reference/card)
+
+```json
+{
+	"category": "Pokémon",
+	"id": "swsh3-136",
+	"illustrator": "tetsuya koizumi",
+	"image": "https://assets.tcgdex.net/fr/swsh/swsh3/136",
+	"localId": "136",
+	"name": "Fouinar",
+	"rarity": "Peu Commune",
+	"set": {
+		"cardCount": {
+			"official": 189,
+			"total": 201
+		},
+		"id": "swsh3",
+		"logo": "https://assets.tcgdex.net/fr/swsh/swsh3/logo",
+		"name": "Ténèbres Embrasées",
+		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+	},
+	"variants": {
+		"firstEdition": false,
+		"holo": false,
+		"normal": true,
+		"reverse": true,
+		"wPromo": false
+	},
+	"hp": 110,
+	"types": [
+		"Incolore"
+	],
+	"evolveFrom": "Fouinette",
+	"stage": "Niveau 1",
+	"attacks": [
+		{
+			"cost": [
+				"Incolore"
+			],
+			"name": "Mode Cool",
+			"effect": "Piochez 3 cartes."
+		},
+		{
+			"cost": [
+				"Incolore"
+			],
+			"name": "Éclate-Queue",
+			"effect": "Lancez une pièce. Si c'est pile, cette attaque ne fait rien.",
+			"damage": 90
+		}
+	],
+	"weaknesses": [
+		{
+			"type": "Combat",
+			"value": "×2"
+		}
+	],
+	"retreat": 1,
+	"regulationMark": "D",
+	"legal": {
+		"standard": false,
+		"expanded": true
+	},
+	"updated": "2021-10-26T10:40:03+02:00"
+}
+```
+
+### Réponse 404
+
+La carte n'a pas été trouvée :( elle renverra un message d'erreur global (non traduit)
+
+```json
+{
+	"error": "Endpoint or id not found"
+}
+```
