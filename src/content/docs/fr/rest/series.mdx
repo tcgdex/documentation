@@ -1,0 +1,84 @@
+---
+title: Recherche de Séries
+description: Comment obtenir une liste de séries Pokemon TCG en utilisant l'API REST de TCGdex
+sidebar:
+  order: 8
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$series = $tcgdex->fetchSeries();
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+
+		_Le SDK ne prend actuellement pas en charge [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		const series = await tcgdex.fetch('series');
+		```
+		_[Voir comment configurer le SDK Javascript](/sdks/javascript)_
+
+		_Le SDK ne prend actuellement pas en charge [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		const series = await tcgdex.fetch('series');
+		```
+		_[Voir comment configurer le SDK Typescript](/sdks/typescript)_
+
+		_Le SDK ne prend actuellement pas en charge [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		ArrayList<SerieResume> series = tcgdex.fetchSeries();
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+
+		_Le SDK ne prend actuellement pas en charge [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		val series = tcgdex.fetchSeries()
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+
+		_Le SDK ne prend actuellement pas en charge [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/series
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+
+		_[Documentation sur le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+</Tabs>
+
+## Exemple de Réponse
+
+La requête retourne [un tableau d'objets `SerieBrief`](/reference/serie-brief)
+
+```json
+[
+	{
+		"id": "base",
+		"name": "Base",
+		"logo": "https://assets.tcgdex.net/fr/base/base1/logo"
+	},
+	// ...
+	{
+		"id": "xy",
+		"name": "XY",
+		"logo": "https://assets.tcgdex.net/fr/xy/xyp/logo"
+	}
+]
+```

@@ -1,0 +1,108 @@
+---
+title: Recherche des sets
+description: Comment obtenir une liste des sets du JCC Pokémon en utilisant l'API REST TCGdex
+sidebar:
+  order: 5
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		// récupération du set
+		$sets = $tcgdex->getchSets();
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+
+		_Le SDK ne supporte actuellement pas [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		// récupération du set
+		const sets = await tcgdex.fetch('sets');
+		```
+		_[Voir comment configurer le SDK Javascript](/sdks/javascript)_
+
+		_Le SDK ne supporte actuellement pas [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Typescript">
+		```typescript
+		// récupération du set
+		const sets = await tcgdex.fetch('sets');
+		```
+		_[Voir comment configurer le SDK Typescript](/sdks/typescript)_
+
+		_Le SDK ne supporte actuellement pas [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		// récupération du set
+		ArrayList<SetResume> sets = tcgdex.getchSets();
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+
+		_Le SDK ne supporte actuellement pas [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		// Retourne un object set avec toute les informations !
+		val sets = tcgdex.getchSets()
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+
+		_Le SDK ne supporte actuellement pas [le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/sets
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+
+		_[Documentation sur le filtrage](/rest/filtering-sorting-pagination)_
+	</TabItem>
+</Tabs>
+
+## Exemple de Réponse 200
+
+```json
+[
+	{
+		"id": "base1",
+		"name": "Base Set",
+		"logo": "https://assets.tcgdex.net/en/base/base1/logo",
+		"cardCount": {
+			"total": 102,
+			"official": 102
+		}
+	},
+	// ...
+	{
+		"id": "swsh3",
+		"name": "Darkness Ablaze",
+		"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol",
+		"cardCount": {
+			"total": 201,
+			"official": 189
+		}
+	},
+	// ...
+	{
+		"id": "sv06",
+		"name": "Twilight Masquerade",
+		"logo": "https://assets.tcgdex.net/en/sv/sv06/logo",
+		"symbol": "https://assets.tcgdex.net/univ/sv/sv06/symbol",
+		"cardCount": {
+			"total": 226,
+			"official": 167
+		}
+	}
+]
+```

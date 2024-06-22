@@ -131,9 +131,15 @@ export default defineConfig({
 		titleDelimiter: '-',
 		sidebar: [{
 			label: 'Assets Management',
-			link: '/assets'
+			link: '/assets',
+			translations: {
+				fr: 'Gestion des Images'
+			}
 		}, {
 			label: 'SDKs',
+			translations: {
+				fr: 'Les SDKs'
+			},
 			autogenerate: {
 				directory: 'sdks'
 			}
@@ -142,14 +148,22 @@ export default defineConfig({
 			autogenerate: {
 				directory: 'rest'
 			},
+			translations: {
+				fr: 'API JSON REST'
+			}
 		}, {
 			label: 'GraphQL API',
-			link: '/graphql'
+			link: '/graphql',
+			translations: {
+				fr: 'API GraphQL'
+			}
 		}, {
-			label: 'Reference',
+			label: 'References',
 			autogenerate: {
 				directory: 'reference',
-				collapsed: true
+			},
+			translations: {
+				fr: 'Références'
 			}
 		}],
 		lastUpdated: true

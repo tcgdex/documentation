@@ -1,0 +1,134 @@
+---
+title: Obtenir une carte avec son ID local et l'ID de set
+description: Comment obtenir une carte Pokemon TCG avec son ID de set et ID local en utilisant l'API REST de TCGdex
+sidebar:
+  order: 6
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$set = $tcgdex->fetchCard('swsh3', '136');
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		const set = await tcgdex.fetch('sets', 'swsh3', '136');
+		```
+		_[Voir comment configurer le SDK Javascript](/sdks/javascript)_
+	</TabItem>
+
+	<TabItem label="Typescript">
+		```typescript
+		const set = await tcgdex.fetch('sets', 'swsh3', '136');
+		```
+		_[Voir comment configurer le SDK Typescript](/sdks/typescript)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		Set set = tcgdex.fetchCard("swsh3", "136");
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		val set = tcgdex.fetchCard("swsh3", "136")
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/sets/swsh3/136
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+	</TabItem>
+</Tabs>
+
+## Réponse
+
+### Réponse 200
+
+La requête renvoie [un objet Carte](/reference/card)
+
+```json
+{
+	"category": "Pokemon",
+	"id": "swsh3-136",
+	"illustrator": "tetsuya koizumi",
+	"image": "https://assets.tcgdex.net/en/swsh/swsh3/136",
+	"localId": "136",
+	"name": "Fouinar",
+	"rarity": "Uncommon",
+	"set": {
+		"cardCount": {
+			"official": 189,
+			"total": 201
+		},
+		"id": "swsh3",
+		"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+		"name": "Épée et Bouclier – Ténèbres Embrasées",
+		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+	},
+	"variants": {
+		"firstEdition": false,
+		"holo": false,
+		"normal": true,
+		"reverse": true,
+		"wPromo": false
+	},
+	"hp": 110,
+	"types": [
+		"Incolore"
+	],
+	"evolveFrom": "Fouinette",
+	"description": "Il fabrique un nid adapté à son corps long et mince. Le nid est impossible à pénétrer pour les autres Pokémon.",
+	"stage": "Niveau 1",
+	"attacks": [
+		{
+		"cost": [
+			"Incolore"
+		],
+		"name": "Je me sens bien",
+		"effect": "Piochez 3 cartes."
+		},
+		{
+		"cost": [
+			"Incolore"
+		],
+		"name": "Coup de queue",
+		"effect": "Lancez une pièce. Si c'est pile, cette attaque ne fait rien.",
+		"damage": 90
+		}
+	],
+	"weaknesses": [
+		{
+			"type": "Combat",
+			"value": "×2"
+		}
+	],
+	"retreat": 1,
+	"regulationMark": "D",
+	"legal": {
+		"standard": true,
+		"expanded": true
+	}
+}
+```
+
+### Réponse 404
+
+La carte n'a pas été trouvée :( cela renverra un message d'erreur global (non traduit)
+
+```json
+{
+	"error": "Endpoint or id not found"
+}
+```

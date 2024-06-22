@@ -1,0 +1,98 @@
+---
+title: Obtenir une seule série
+description: Obtenir une série de la Pokémon TCG en utilisant l'API TCGdex
+sidebar:
+  order: 7
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$serie = $tcgdex->fetchSerie('swsh');
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+	</TabItem>
+	<TabItem label="Javascript">
+		```javascript
+		const serie = await tcgdex.fetch('series', 'swsh');
+		```
+		_[Voir comment configurer le SDK Javascript](/sdks/javascript)_
+
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		const serie = await tcgdex.fetch('series', 'swsh');
+		```
+		_[Voir comment configurer le SDK Typescript](/sdks/typescript)_
+
+	</TabItem>
+	<TabItem label="Java">
+		```java
+		Serie serie = tcgdex.fetchSerie("swsh");
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+
+	</TabItem>
+	<TabItem label="Kotlin">
+		```kotlin
+		val serie = tcgdex.fetchSerie("swsh")
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+	</TabItem>
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/fr/series/swsh
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+
+	</TabItem>
+</Tabs>
+
+## Exemple de réponse
+
+### Réponse 200
+
+La requête retourne [un objet Série](/reference/serie)
+
+```json
+{
+	"id": "swsh",
+	"logo": "https://assets.tcgdex.net/fr/swsh/swshp/logo",
+	"name": "Épée et Bouclier",
+	"sets": [
+		{
+			"cardCount": {
+				"official": 107,
+				"total": 107
+			},
+			"id": "swshp",
+			"logo": "https://assets.tcgdex.net/fr/swsh/swshp/logo",
+			"name": "Promo SWSH",
+			"symbol": "https://assets.tcgdex.net/univ/swsh/swshp/symbol"
+		},
+		// ...
+		{
+			"cardCount": {
+				"official": 159,
+				"total": 230
+			},
+			"id": "swsh12.5",
+			"logo": "https://assets.tcgdex.net/fr/swsh/swsh12.5/logo",
+			"name": "Zénith Suprême"
+		}
+	]
+}
+```
+
+### Réponse 404
+
+La série n'a pas été trouvée :( elle retournera un message d'erreur global (non traduit)
+
+```json
+{
+	"error": "Endpoint or id not found"
+}
+```

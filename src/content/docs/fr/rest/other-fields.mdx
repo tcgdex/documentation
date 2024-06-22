@@ -1,0 +1,212 @@
+---
+title: Les autres points de l'API
+description: Les points de terminaison restants donnant un contexte supplémentaire
+sidebar:
+  order: 10
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+les points de terminaison restants de l'application principalement à des fins de listing.
+
+- `categories`: Les différentes catégories de cartes disponibles
+- `hps`: Les différents HPs disponibles
+- `illustrators`: Les différents illustrateurs de cartes
+- `rarities`: Les différentes raretés de cartes
+- `retreats`: Les différents coûts de retraite des Pokémon
+- `types`: Les différents types de Pokémon
+
+## Requête
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		// Lister les catégories de cartes
+		$categories = $tcgdex.fetchCategories();
+		// Lister les HPs des cartes
+		$hps = $tcgdex.fetchHps();
+		// Lister les illustrateurs de cartes
+		$illustrators = $tcgdex.fetchIllustrators();
+		// Lister les raretés des cartes
+		$rarities = $tcgdex.fetchRarities();
+		// Lister les coûts de retraite des cartes
+		$retreats = $tcgdex.fetchRetreats();
+		// Lister les types de cartes
+		$types = $tcgdex.fetchTypes();
+		```
+		_[Voir comment configurer le SDK PHP](/sdks/php)_
+	</TabItem>
+	<TabItem label="Javascript">
+		```javascript
+		// Lister les types de cartes
+		const res = await tcgdex.fetch('types')
+		// Lister les coûts de retraite des cartes
+		const res = await tcgdex.fetch('retreats')
+		// Lister les raretés des cartes
+		const res = await tcgdex.fetch('rarities')
+		// Lister les illustrateurs de cartes
+		const res = await tcgdex.fetch('illustrators')
+		// Lister les HPs des cartes
+		const res = await tcgdex.fetch('hp')
+		// Lister les catégories de cartes
+		const res = await tcgdex.fetch('categories')
+		// lister les différents identifiants de pokédex dans la base de données
+		const res = await tcgdex.fetch('dexids')
+		// lister les différents types d'énergie
+		const res = await tcgdex.fetch('energytypes')
+		// lister les différentes marques de réglementation
+		const res = await tcgdex.fetch('regulationmarks')
+		// lister les différents stades des Pokémon
+		const res = await tcgdex.fetch('stages')
+		// lister les différents suffixes
+		const res = await tcgdex.fetch('suffixes')
+		// lister les différents types de dresseurs
+		const res = await tcgdex.fetch('trainertypes')
+		// lister les différentes variantes
+		const res = await tcgdex.fetch('variants')
+		```
+		_[Voir comment configurer le SDK Javascript](/sdks/javascript)_
+
+	</TabItem>
+	<TabItem label="Typescript">
+		```typescript
+		// Lister les types de cartes
+		const res = await tcgdex.fetch('types')
+		// Lister les coûts de retraite des cartes
+		const res = await tcgdex.fetch('retreats')
+		// Lister les raretés des cartes
+		const res = await tcgdex.fetch('rarities')
+		// Lister les illustrateurs de cartes
+		const res = await tcgdex.fetch('illustrators')
+		// Lister les HPs des cartes
+		const res = await tcgdex.fetch('hp')
+		// Lister les catégories de cartes
+		const res = await tcgdex.fetch('categories')
+		// lister les différents identifiants de pokédex dans la base de données
+		const res = await tcgdex.fetch('dexids')
+		// lister les différents types d'énergie
+		const res = await tcgdex.fetch('energytypes')
+		// lister les différentes marques de réglementation
+		const res = await tcgdex.fetch('regulationmarks')
+		// lister les différents stades des Pokémon
+		const res = await tcgdex.fetch('stages')
+		// lister les différents suffixes
+		const res = await tcgdex.fetch('suffixes')
+		// lister les différents types de dresseurs
+		const res = await tcgdex.fetch('trainertypes')
+		// lister les différentes variantes
+		const res = await tcgdex.fetch('variants')
+		```
+		_[Voir comment configurer le SDK Typescript](/sdks/typescript)_
+
+	</TabItem>
+	<TabItem label="Java">
+		```java
+		// Lister les types de cartes
+		StringEndpoint res = tcgdex.fetchTypes();
+		// Lister les coûts de retraite des cartes
+		StringEndpoint res = tcgdex.fetchRetreats();
+		// Lister les raretés des cartes
+		StringEndpoint res = tcgdex.fetchRarities();
+		// Lister les illustrateurs de cartes
+		StringEndpoint res = tcgdex.fetchIllustrators();
+		// Lister les HPs des cartes
+		StringEndpoint res = tcgdex.fetchHPs();
+		// Lister les catégories de cartes
+		StringEndpoint res = tcgdex.fetchCategories();
+		// lister les différents identifiants de pokédex dans la base de données
+		StringEndpoint res = tcgdex.fetchDexIds();
+		// lister les différents types d'énergie
+		StringEndpoint res = tcgdex.fetchEnergyTypes();
+		// lister les différentes marques de réglementation
+		StringEndpoint res = tcgdex.fetchRegulationMarks();
+		// lister les différents stades des Pokémon
+		StringEndpoint res = tcgdex.fetchStages();
+		// lister les différents suffixes
+		StringEndpoint res = tcgdex.fetchSuffixes();
+		// lister les différents types de dresseurs
+		StringEndpoint res = tcgdex.fetchTrainerTypes();
+		// lister les différentes variantes
+		StringEndpoint res = tcgdex.fetchVariants();
+		```
+		_[Voir comment configurer le SDK Java](/sdks/java)_
+
+	</TabItem>
+	<TabItem label="Kotlin">
+		```kotlin
+		// Lister les types de cartes
+		val res = tcgdex.fetchTypes();
+		// Lister les coûts de retraite des cartes
+		val res = tcgdex.fetchRetreats();
+		// Lister les raretés des cartes
+		val res = tcgdex.fetchRarities();
+		// Lister les illustrateurs de cartes
+		val res = tcgdex.fetchIllustrators();
+		// Lister les HPs des cartes
+		val res = tcgdex.fetchHPs();
+		// Lister les catégories de cartes
+		val res = tcgdex.fetchCategories();
+		// lister les différents identifiants de pokédex dans la base de données
+		val res = tcgdex.fetchDexIds();
+		// lister les différents types d'énergie
+		val res = tcgdex.fetchEnergyTypes();
+		// lister les différentes marques de réglementation
+		val res = tcgdex.fetchRegulationMarks();
+		// lister les différents stades des Pokémon
+		val res = tcgdex.fetchStages();
+		// lister les différents suffixes
+		val res = tcgdex.fetchSuffixes();
+		// lister les différents types de dresseurs
+		val res = tcgdex.fetchTrainerTypes();
+		// lister les différentes variantes
+		val res = tcgdex.fetchVariants();
+		```
+		_[Voir comment configurer le SDK Kotlin](/sdks/kotlin)_
+	</TabItem>
+	<TabItem label="cURL">
+		```
+		// Lister les types de cartes
+		https://api.tcgdex.net/v2/fr/types
+		// Lister les coûts de retraite des cartes
+		https://api.tcgdex.net/v2/fr/retreats
+		// Lister les raretés des cartes
+		https://api.tcgdex.net/v2/fr/rarities
+		// Lister les illustrateurs de cartes
+		https://api.tcgdex.net/v2/fr/illustrators
+		// Lister les HPs des cartes
+		https://api.tcgdex.net/v2/fr/hps
+		// Lister les catégories de cartes
+		https://api.tcgdex.net/v2/fr/categories
+		// lister les différents identifiants de pokédex dans la base de données
+		https://api.tcgdex.net/v2/fr/dexids
+		// lister les différents types d'énergie
+		https://api.tcgdex.net/v2/fr/energytypes
+		// lister les différentes marques de réglementation
+		https://api.tcgdex.net/v2/fr/regulationmarks
+		// lister les différents stades des Pokémon
+		https://api.tcgdex.net/v2/fr/stages
+		// lister les différents suffixes
+		https://api.tcgdex.net/v2/fr/suffixes
+		// lister les différents types de dresseurs
+		https://api.tcgdex.net/v2/fr/trainertypes
+		// lister les différentes variantes
+		https://api.tcgdex.net/v2/fr/variants
+		```
+		_[Voir comment préparer vos URLs](/rest)_
+
+	</TabItem>
+</Tabs>
+
+## Exemple de réponse
+
+_note: réponse pour les HPs_
+
+```json
+[
+	10,
+	30,
+	40,
+	...,
+	320,
+	330,
+	340
+]
+```
