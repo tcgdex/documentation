@@ -21,7 +21,7 @@ const sponsors: Array<{
 	<p>Sponsors</p>
 	<div class="flex flex-wrap rounded-xl overflow-hidden gap-1 w-full mt-2">
 		{sponsors.map(sponsor => (
-			<a href={sponsor.url} class={sponsor.size ?? ''} target="_blank">
+			<a href={sponsor.url} class={sponsor.size ?? ''} target="_blank" rel="noopener">
 				<article>
 					{sponsor.img ? (
 						<Image height={sponsor.size === 'large' ? 24 : 14} src={sponsor.img} alt={`Logo ${sponsor.name}`}/>
