@@ -2,7 +2,7 @@
 title: Le SDK PHP
 description: Apprenez à installer et utiliser le SDK PHP de TCGdex
 ---
-import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
 
 <p class="flex gap-2 justify-center">
 	<a href="https://packagist.org/packages/tcgdex/sdk">
@@ -30,31 +30,75 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 	composer require tcgdex/sdk
 	```
 
-2. Si vous n'avez pas les implémentations des PSRs 16, 17 & 18, vous pouvez les ajouter rapidement avec cette commande
-	```bash
-	composer require symfony/cache nyholm/psr7 kriswallsmith/buzz
-	```
+2. Si vous n'avez pas les implémentations des PSR 16, 17 & 18, vous pouvez les ajouter rapidement en utilisant cette commande
+
+	<Tabs syncKey='framework'>
+		<TabItem label='PHP Basique'>
+			```bash
+			composer require symfony/cache nyholm/psr7 kriswallsmith/buzz
+			```
+		</TabItem>
+		<TabItem label='Symfony'>
+			```bash
+			composer require nyholm/psr7
+			```
+
+			<Aside>
+				Symfony devrait déjà avoir des implémentations PSR16 & PSR18
+
+				- PSR16: `symfony/cache`
+				- PSR18: `symfony/http-client`
+
+				*si ce n'est pas le cas installé les*
+			</Aside>
+		</TabItem>
+	</Tabs>
+
 </Steps>
 
 ## Utilisation
 
-```php
-// importer le package
-use TCGdex\TCGdex;
+<Tabs syncKey='framework'>
+	<TabItem label='PHP Basique'>
+		```php
+		// importer le package
+		use TCGdex\TCGdex;
 
-// Si vous utilisez vos propres implémentations des PSRs, ajoutez-les ici avant de charger la classe
-// sinon, TCGdex essaiera de charger celles installées à l'étape 2
-TCGdex::$cache = /* PSR16 CacheInterface */;
-TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
-TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
-TCGdex::$client = /* PSR18 ClientInterface */;
+		// si vous utilisez autre chose que les recommandations, vous devez les ajouter ici
+		TCGdex::$cache = /* PSR16 CacheInterface */;
+		TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
+		TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
+		TCGdex::$client = /* PSR18 ClientInterface */;
 
-// initialiser le SDK avec la langue
-$tcgdex = new TCGdex("en");
+		// initialiser le SDK avec la langue
+		$tcgdex = new TCGdex("en");
 
-// Récupérez les cartes !
-$card = $tcgdex->fetchCard('136', 'swsh3');
-```
+		// Récupérer les cartes !
+		$card = $tcgdex->fetchCard('136', 'swsh3');
+		```
+
+	</TabItem>
+	<TabItem label='Symfony'>
+		Pour configurer TCGdex pour Symfony, vous devez ajouter l'implémentation PSR 18 (car ce n'est pas celle par défaut) et l'implémentation PSR17 si ce n'est pas celle par défaut
+		```php
+		use TCGdex\TCGdex;
+		use Symfony\Component\HttpClient\Psr18Client;
+
+		// si vous utilisez autre chose que nyholm/psr7, vous devez les ajouter ici
+		TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
+		TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
+
+		// utiliser le client PSR18 de Symfony
+		TCGdex::$client = new Psr18Client(); /* PSR18 ClientInterface */;
+
+		// initialiser le SDK avec la langue
+		$tcgdex = new TCGdex("en");
+
+		// Récupérer les cartes !
+		$card = $tcgdex->fetchCard('136', 'swsh3');
+		```
+	</TabItem>
+</Tabs>
 
 Vous pouvez consulter les [docs de l'API REST JSON](/rest) et sélectionner l'onglet correct pour voir la commande spécifique à votre SDK
 
