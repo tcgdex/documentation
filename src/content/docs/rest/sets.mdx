@@ -73,66 +73,37 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
 ## Sample Response
 
 ```json
-{
-	"category": "Pokemon",
-	"id": "swsh3-136",
-	"illustrator": "tetsuya koizumi",
-	"image": "https://assets.tcgdex.net/en/swsh/swsh3/136",
-	"localId": "136",
-	"name": "Furret",
-	"rarity": "Uncommon",
-	"set": {
+[
+	{
+		"id": "base1",
+		"name": "Base Set",
+		"logo": "https://assets.tcgdex.net/en/base/base1/logo",
 		"cardCount": {
-			"official": 189,
-			"total": 201
-		},
+			"total": 102,
+			"official": 102
+		}
+	},
+	// ...
+	{
 		"id": "swsh3",
-		"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
 		"name": "Darkness Ablaze",
-		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
-	},
-	"variants": {
-		"firstEdition": false,
-		"holo": false,
-		"normal": true,
-		"reverse": true,
-		"wPromo": false
-	},
-	"hp": 110,
-	"types": [
-		"Colorless"
-	],
-	"evolveFrom": "Sentret",
-	"description": "It makes a nest to suit its long and skinny body. The nest is impossible for other Pokémon to enter.",
-	"stage": "Stage1",
-	"attacks": [
-		{
-		"cost": [
-			"Colorless"
-		],
-		"name": "Feelin' Fine",
-		"effect": "Draw 3 cards."
-		},
-		{
-		"cost": [
-			"Colorless"
-		],
-		"name": "Tail Smash",
-		"effect": "Flip a coin. If tails, this attack does nothing.",
-		"damage": 90
+		"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol",
+		"cardCount": {
+			"total": 201,
+			"official": 189
 		}
-	],
-	"weaknesses": [
-		{
-			"type": "Fighting",
-			"value": "×2"
+	},
+	// ...
+	{
+		"id": "sv06",
+		"name": "Twilight Masquerade",
+		"logo": "https://assets.tcgdex.net/en/sv/sv06/logo",
+		"symbol": "https://assets.tcgdex.net/univ/sv/sv06/symbol",
+		"cardCount": {
+			"total": 226,
+			"official": 167
 		}
-	],
-	"retreat": 1,
-	"regulationMark": "D",
-	"legal": {
-		"standard": true,
-		"expanded": true
 	}
-}
+]
 ```
