@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets'
+import LogoDzeio from '../assets/sponsors/dzeio.svg'
+
+const sponsors: Array<{
+	name: string
+	img?: ImageMetadata
+	url?: string
+	size?: 'large' | 'small'
+}> = [
+	{
+		name: 'Dzeio', // Custom Sponsor
+		img: LogoDzeio,
+		url: 'https://dzeio.com',
+		size: 'large'
+	}
+]
+---
+
+<section class="mt-6">
+	<p>Sponsors</p>
+	<div class="flex flex-wrap rounded-xl overflow-hidden gap-1 w-full mt-2">
+		{sponsors.map(sponsor => (
+			<a href={sponsor.url} class={sponsor.size ?? ''} target="_blank" rel="noopener">
+				<article>
+					{sponsor.img ? (
+						<Image height={sponsor.size === 'large' ? 24 : 14} src={sponsor.img} alt={`Logo ${sponsor.name}`}/>
+					) : (
+						<p class:list={["font-bold text-black text-center", {'text-xl w-full': sponsor.size === 'large', 'text-sm': sponsor.size !== 'large'}]}>{sponsor.name}</p>
+					)}
+				</article>
+			</a>
+		))}
+	</div>
+	<a href="https://github.com/sponsors/tcgdex" target="_blank" class="font-light text-sm italic">Sponsor the project</a>
+</section>
+
+<style>
+	div a {
+		width: 34%;
+		height: 100%;
+		flex-grow: 1;
+		height: 68px;
+	}
+	a.large {
+		width: 100%;
+	}
+	article {
+		display: flex;
+		background-color: var(--sl-color-gray-6);
+		justify-content: center;
+		align-items: center;
+		padding: 1.5rem;
+		height: 68px;
+		width: 100%;
+		transition: all 0.1s linear;
+	}
+	article:hover {
+		background-color: var(--sl-color-gray-1);
+	}
+	:root[data-theme='light'] article {
+		background-color: var(--sl-color-gray-7);
+	}
+	:root[data-theme='light'] article:hover {
+		background-color: var(--sl-color-gray-6);
+	}
+	article:hover :global(img) {
+		filter: none !important;
+	}
+	:root article :global(img) {
+		filter: grayscale(1) ;
+		transition: all 0.1s linear;
+	}
+</style>
