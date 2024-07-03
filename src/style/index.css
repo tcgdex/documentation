@@ -22,6 +22,9 @@
 	.main-pane {
 		width: 100% !important;
 	}
+	.main-pane .sl-container {
+		margin: auto;
+	}
 }
 
 /* Light mode colors. */
