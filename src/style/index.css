@@ -19,6 +19,9 @@
 	:root {
 		--sl-content-width: 70%;
 	}
+	.main-pane {
+		width: 100% !important;
+	}
 }
 
 /* Light mode colors. */
