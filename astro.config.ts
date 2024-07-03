@@ -56,7 +56,7 @@ export default defineConfig({
 		}],
 		social: {
 			discord: 'https://discord.gg/NehYTAhsZE',
-			github: 'https://github.com/tcgdex',
+			github: 'https://github.com/tcgdex/cards-database',
 		},
 		editLink: {
 			baseUrl: 'https://github.com/tcgdex/documentation/edit/master/'
