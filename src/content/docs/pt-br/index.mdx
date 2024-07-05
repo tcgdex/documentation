@@ -25,16 +25,24 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
 ## O que está disponível
 
 <CardGrid stagger>
-	<Card title="6 idiomas e contando" icon="heart">
-	Toda a API está disponível em 6 idiomas!
-	- Inglês
-	- Francês
-	- Alemão
-	- Português (Brasileiro)
-	- Italiano
-	- Espanhol
-	- e [mais estão por vir!](https://github.com/tcgdex/cards-database/pull/481)
+	<Card title="10 idiomas e contando" icon="heart">
+	A API inteira está disponível em mais de **10** idiomas!
+
+	{/* Nota: idiomas que estão comentados atualmente não têm cartões */}
+	**Idiomas Internacionais** :
+	- Inglês, Francês, Espanhol
+	- Italiano{/* , Português (Portugal) */}, Português (Brasil), Alemão{/* , Holandês, Polonês, Russo */}
+
+	**Idiomas Asiáticos** :
+	- Japonês{/* , Coreano */}, Chinês (Tradicional), Indonésio, Tailandês{/* , Chinês (Simplificado) */}
+
+	**Em Breve** :
+	- Português (Portugal), Holandês, Polonês, Russo
+	- Coreano, Chinês (Simplificado)
+
+	*nota: Cada idioma tem níveis de conclusão diferentes, <a href="https://api.tcgdex.net/status" target="_blank">verifique o status do projeto aqui</a>*
 	</Card>
+
 	<Card title="uma API REST JSON" icon="add-document">
 		Uma [API REST JSON completa](/pt-br/rest) para obter informações sobre qualquer carta
 

@@ -25,16 +25,24 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
 ## Was ist verfügbar
 
 <CardGrid stagger>
-	<Card title="6 Sprachen und es werden mehr" icon="heart">
-	Die gesamte API ist in 6 Sprachen verfügbar!
-	- Englisch
-	- Französisch
-	- Deutsch
-	- Portugiesisch (Brasilianisch)
-	- Italienisch
-	- Spanisch
-	- und [weitere folgen!](https://github.com/tcgdex/cards-database/pull/481)
+	<Card title="10 Sprachen und mehr" icon="heart">
+		Die gesamte API ist in mehr als **10** Sprachen verfügbar!
+
+		{/* Hinweis: Sprachen, die kommentiert sind, haben derzeit keine Karten */}
+		**Internationale Sprachen** :
+			- Englisch, Französisch, Spanisch
+			- Italienisch{/* , Portugiesisch (Portugal) */}, Portugiesisch (Brasilianisch), Deutsch{/* , Niederländisch, Polnisch, Russisch */}
+
+		**Asiatische Sprachen** :
+			- Japanisch{/* , Koreanisch */}, Chinesisch (Traditionell), Indonesisch, Thailändisch{/* , Chinesisch (Vereinfacht) */}
+
+		**Demnächst verfügbar** :
+			- Portugiesisch (Portugal), Niederländisch, Polnisch, Russisch
+			- Koreanisch, Chinesisch (Vereinfacht)
+
+		*Hinweis: Jede Sprache hat unterschiedliche Fertigstellungsgrade, <a href="https://api.tcgdex.net/status" target="_blank">überprüfen Sie hier den Projektstatus</a>*
 	</Card>
+
 	<Card title="eine JSON REST API" icon="add-document">
 		Eine [voll ausgestattete JSON REST API](/de/rest), um alle Karteninformationen abzurufen
 
@@ -48,7 +56,7 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
 		Mehrere SDKs sind verfügbar, um Ihnen den Einstieg zu erleichtern
 	</Card>
 	<Card title="eine GraphQL API" icon="setting">
-	Die [GraphQL API](/de/graphql) ermöglicht es Ihnen, eigene Anfragen zu erstellen
+		Die [GraphQL API](/de/graphql) ermöglicht es Ihnen, eigene Anfragen zu erstellen
 		- `Card` und `Cards`, um Karte(n) abzurufen
 		- `Set` und `Sets`, um Set(s) abzurufen
 		- `Serie` und `Series`, um Serie(n) abzurufen
