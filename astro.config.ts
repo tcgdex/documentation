@@ -165,6 +165,14 @@ export default defineConfig({
 			translations: {
 				fr: 'Références'
 			}
+		}, {
+			label: 'Server Errors',
+			autogenerate: {
+				directory: 'errors',
+			},
+			translations: {
+				fr: 'Erreurs du serveur'
+			}
 		}],
 		lastUpdated: true
 	}), tailwind()],

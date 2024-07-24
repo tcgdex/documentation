@@ -1,0 +1,33 @@
+---
+title: Error Reporting
+description: TCGdex API follows the RFC9457 to format it's errors
+---
+
+The TCGdex API can have differents types of errors depending one what you are doing on it, any error is reported back to the user in the standard format RFC9457.
+
+RFC 9457 is a standardized format for expressing error details in HTTP API responses, making it easier for clients to understand and handle errors.
+
+## Features
+- **Content-Type:** Error details are conveyed in a JSON body with `Content-Type` equal to `application/problem+json`.
+- **Standard Attributes:** The document includes several standardized attributes to describe the problem:
+  - **`type`**: A URL that identifies the problem type. It is also a link to provide documentation about the error.
+  - **`title`**: A short, human-readable summary of the problem type.
+  - **`status`**: The HTTP status code.
+  - **`detail`**: A human-readable explanation specific to this occurrence of the problem.
+  {/* - **`instance`**: An indication on which instance of the server the error occured NOT USED currently */}
+
+## Example
+An example JSON response using RFC 9457 look like this:
+```json
+{
+	"type": "https://tcgdex.dev/errors/not-found",
+	"title": "The resource you are trying to reach does not exists",
+	"status": 404,
+	"endpoint": "/v2/i-do-not-exists",
+	"method": "GET"
+}
+```
+
+For more detailed information about the RFC, you can read the full [RFC 9457 document](https://www.rfc-editor.org/rfc/9457).
+
+You can also below check the TCGdex API specific errors.
