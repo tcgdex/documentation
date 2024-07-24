@@ -1,0 +1,25 @@
+---
+title: Not Found Error
+description: A resource in the API was not found or does not exists
+---
+
+this error is used when a resource was not found.
+
+## Status Code
+
+### 404
+
+The URL is not linked to any endpoints or the resource associated to it does not exists
+
+
+## Example
+
+```json
+{
+	"type": "https://tcgdex.dev/errors/not-found",
+	"title": "The resource you are trying to reach does not exists",
+	"status": 404,
+	"endpoint": "/v2/sfgdfh",
+	"method": "GET"
+}
+```

@@ -1,0 +1,49 @@
+---
+title: Language Invalid Error
+description: The language you are trying to search on is not available in the API
+---
+
+the TCGdex API follows the official languages out by Pokémon
+
+this means that fanmade translations and/or cards should not be in the API
+
+you encounter this status code because you are tring to fetch informatiosn on an incorrect language
+
+the list of available languages is the following :
+- `en`: English
+- `fr`: French
+- `es`: Spanish
+- `it`: Italian
+- `pt`: Portuguese
+- `pt-br`: Brazilian Portuguese
+- `pt-pt`: Portugal Portuguese
+- `de`: German
+- `nl`: Dutch
+- `pl`: Polish
+- `ru`: Russian
+- `ja`: Japanese
+- `ko`: Korean
+- `zh-tw`: Chinese Traditionnal
+- `id`: Indonesian
+- `th`: Thai
+- `zh-cn`: Chinese Simplified
+
+## Status Code
+
+### 404
+
+The language you are using is not valid
+
+## Example
+
+```json
+{
+	"type": "https://tcgdex.dev/errors/language-invalid",
+	"title": "The chosen language is not available in the database",
+	"status": 404,
+	"endpoint": "/jp/cards",
+	"method": "GET",
+	"lang": "jp",
+	"details": "You must use one of the following languages (en, fr, es, it, pt, pt-br, pt-pt, de, nl, pl, ru, ja, ko, zh-tw, id, th, zh-cn) while you used \"jp\""
+}
+```
