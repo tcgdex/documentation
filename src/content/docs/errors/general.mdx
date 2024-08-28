@@ -1,0 +1,26 @@
+---
+title: General Error
+description: The TCGdex API server had an invalid error
+---
+
+This error mean that the server had an invalid comportment that made in crash the request
+
+this can come from multiple things but the error should be sent to [the Support Discord channel](https://discord.gg/KUEH6hexMs) or [the Github issues](https://github.com/tcgdex/cards-database/issues/new?assignees=&labels=issue%2Cserver&projects=&template=api-issue.yml&title=issue%3A)
+
+## Status Code
+
+### 500
+
+General Server Error
+
+## Example
+
+```json
+{
+	"type": "https://tcgdex.dev/errors/general",
+	"title": "An unknown error occured, please contact a developper with this message",
+	"status": 500,
+	"endpoint": "/en/cards",
+	"method": "GET"
+}
+```
