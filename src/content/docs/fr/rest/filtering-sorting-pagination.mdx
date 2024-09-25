@@ -40,6 +40,106 @@ Réponse :
 ```
 
 
+### Préfixes
+
+Pour permettre une utilisation plus flexible de l'API, vous pouvez ajouter différents préfixes aux filtres pour modifier leur fonctionnement.
+
+*TL:DR : le tableau ci-dessous résume comment cela fonctionne.*
+
+| Nom                        | Préfixe            | Exemple                               | Résultat attendu                           |
+| -------------------------- | ----------------- | ------------------------------------- | ----------------------------------------- |
+| Filtre d'Égalité Laxiste    | ` `, `like:`       | `name=fu`, `name=like:fu`, `name=fu*` | Éléments contenant la valeur              |
+| Filtre d'Inegalité Laxiste  | `not:`, `notlike:` | `name=not:fu`                         | Éléments ne contenant pas la valeur       |
+| Filtre d'Égalité Strict     | `eq:`              | `name=eq:Furret`                      | Éléments avec la valeur exacte            |
+| Filtre de Différence Strict | `neq:`             | `name=neq:Furret`                     | Éléments sans la valeur exacte            |
+| Supérieur ou Égal           | `gte:`             | `hp=gte:50`                           | Éléments avec une valeur supérieure ou égale |
+| Inférieur ou Égal           | `lte:`             | `hp=lte:50`                           | Éléments avec une valeur inférieure ou égale |
+| Supérieur à                 | `gt:`              | `hp=gt:50`                            | Éléments avec une valeur supérieure       |
+| Inférieur à                 | `lt:`              | `hp=lt:50`                            | Éléments avec une valeur inférieure       |
+| Est nul                     | `null:`            | `effect=null:`                        | Éléments sans valeur                      |
+| N'est pas nul               | `notnull:`         | `effect=notnull:`                     | Éléments avec une valeur                  |
+
+<detail>
+
+### Filtre d'Égalité Laxiste ` `, `like:`
+
+C'est le filtre par défaut lors de l'exécution d'une requête. Il effectue une recherche laxiste dans le champ spécifié, ce qui signifie qu'il cherche si l'entrée est une partie de l'élément recherché. De plus, la recherche est insensible à la casse.
+
+ex : `name=abo` ou `name=like:abo`, le `name` contient `abo` quelque part (peut correspondre à `Abomasnow` ou `Brocélôme`).
+
+Si vous ajoutez un astérisque au début et/ou à la fin, par exemple `name=*chu`, il vérifiera le début/la fin du texte comme `*chu` correspond à `Pikachu` mais pas à `Pikachu sur la Balle`. De même, `fu*` correspond à `Fouinar` mais pas à `Nounourson`.
+
+### Filtre d'Inegalité Laxiste `not:`, `notlike:`
+
+Vous pouvez inverser le filtre précédent en changeant le préfixe en `not:` ou `notlike:`, il trouvera les éléments qui ne correspondent pas de la même manière que ci-dessus.
+
+### Filtre d'Égalité Strict `eq:`
+
+Ajouter un deuxième égal `=` à la requête permettra de rechercher la valeur exacte au lieu de la correspondance laxiste par défaut.
+
+`?name=eq:abo`
+
+*Attention : avec cette méthode, vous ne trouverez pas les cartes `Dracaufeu` en utilisant `dracaufeu` !*
+
+### Filtre de Différence Strict `neq:`
+
+Effectue une vérification d'égalité stricte et exclut ceux qui correspondent.
+
+ex : `name=neq:abo` le `name` **NE DOIT PAS** être égal à `abo`.
+
+### Supérieur ou Égal `gte:`
+
+*Pour les nombres uniquement*
+
+Permet d'obtenir des valeurs supérieures ou égales à l'entrée.
+
+ex : `hp=gte:10`
+
+### Inférieur ou Égal `lte:`
+
+*Pour les nombres uniquement*
+
+Permet d'obtenir des valeurs inférieures ou égales à l'entrée.
+
+`hp=lte:10`
+
+### Supérieur à `gt:`
+
+*Pour les nombres uniquement*
+
+Permet d'obtenir des valeurs supérieures à l'entrée.
+
+ex : `hp=gt:10`
+
+### Inférieur à `lt:`
+
+*Pour les nombres uniquement*
+
+Permet d'obtenir des valeurs inférieures à l'entrée.
+
+`hp=lt:10`
+
+### est nul `null:`
+
+ex : `effect=null:` la carte n'a pas d'effet.
+
+*Assurez-vous que le `:` est bien présent !*
+
+### n'est pas nul `notnull:`
+
+ex : `effect=notnull:` la carte a un effet.
+
+*Assurez-vous que le `:` est bien présent !*
+
+</detail>
+
+### Valeurs multiples `|`, `,`
+
+Pour certains champs, vous pouvez ajouter plusieurs valeurs à comparer.
+
+ex : `name=eq:Fouinar,Pikachu`, cela correspondra à la fois à `Pikachu` et `Fouinar`.
+
+
 ## Tri
 
 Le tri est effectué par défaut dans l'API en fonction des champs `releaseDate > localId > id`.
@@ -54,11 +154,13 @@ Vous pouvez remplacer l'algorithme de tri par défaut en ajoutant des paramètre
 ### Exemple
 
 Requête :
+
 ```
 https://api.tcgdex.net/v2/fr/sets?sort:field=name&sort:order=DESC
 ```
 
 Réponse :
+
 ```json
 [
 	{
@@ -98,11 +200,13 @@ Vous pouvez tout de même l'activer en ajoutant les paramètres de pagination su
 ### Exemple
 
 Requête :
+
 ```
 https://api.tcgdex.net/v2/fr/sets?pagination:page=3&pagination:itemsPerPage=2
 ```
 
 Réponse :
+
 ```json
 [
 	{

@@ -16,11 +16,13 @@ It is constructed like so : `object.key=value` ex: `name=pikachu`
 ### Example
 
 Request:
+
 ```
 https://api.tcgdex.net/v2/en/cards?name=pikachu
 ```
 
 Response:
+
 ```json
 [
 	{
@@ -39,6 +41,106 @@ Response:
 ]
 ```
 
+### Prefixes
+
+To allow a more flexible way to use the API you can add differents prefixes to the filters to change how they work.
+
+*TL:DR: the table below resume how it works*
+
+| Name                       | Prefix             | Example                               | Expected output                            |
+| -------------------------- | ------------------ | ------------------------------------- | ------------------------------------------ |
+| Laxist Equality Filter     | ` `, `like:`       | `name=fu`, `name=like:fu`, `name=fu*` | Elements containing the value              |
+| Laxist Not Equality Filter | `not:`, `notlike:` | `name=not:fu`                         | elements not containing the value          |
+| Strict Equality Filter     | `eq:`              | `name=eq:Furret`                      | elements with the exact value              |
+| Strict Different Filter    | `neq:`             | `name=neq:Furret`                     | Elements without the exact value           |
+| Greater or Equal           | `gte:`             | `hp=gte:50`                           | Elements with more or equal than the value |
+| Lesser or Equal            | `lte:`             | `hp=lte:50`                           | Elements with less or equal than the value |
+| Greater than               | `gt:`              | `hp=gt:50`                            | Elements with more  than the value         |
+| Lesser than                | `lt:`              | `hp=lt:50`                            | Elements with less than the value          |
+| Is null                    | `null:`            | `effect=null:`                        | Elements with no value                     |
+| Is not null                | `notnull:`         | `effect=notnull:`                     | Elements with a value                      |
+
+<detail>
+
+### Laxist Equality Filter ` `, `like:`
+
+This is the default filter when doing a request, it does a laxist find in the specified field, meaning it search if the input is a part of the searched element, also it does this in a case insensitive maner.
+
+ex: `name=abo` or `name=like:abo` the `name` is composed of `abo` somewhere (can match `Abomasnow` or `Pumpkaboo`)
+
+If you add an asterisc at the start and/or end, for example `name=*chu`, it will check with the start/end of the text like `*chu` is equal to `Pikachu` but not `Pikachu on the Ball` likewise `fu*` is equal to `Furret` but not `Stufful`
+
+### Laxist Not Equality Filter `not:`, `notlike:`
+
+You can reverse the previous filter by change the prefix to `not:` or `notlike:` it will find things that are not equal to it in the same way as above.
+
+### Strict Equality Filter `eq:`
+
+Adding a secondary equal `=` to the request will search for the exact value instead of the default laxist matching
+
+`?name=eq:abo`
+
+*Warning: with this method you won't match `Charizard` cards using `charizard` !*
+
+### Strict Not Equality Filter `neq:`
+
+do a strict equality check and remove the ones that match.
+
+ex: `name=neq:abo` the `name` **MUST NOT** be equal to `abo`
+
+### Greater or Equal `gte:`
+
+*for numbers only*
+
+Allow you to get values that are greater or equal to the input
+
+ex: `hp=gte:10`
+
+### Lesser or Equal `lte:`
+
+*for numbers only*
+
+Allow you to get values that are lesser or equal to the input
+
+`hp=lte:10`
+
+### Greater than `gt:`
+
+*for numbers only*
+
+Allow you to get values that are greater or equal to the input
+
+ex: `hp=gt:10`
+
+### Lesser than `lt:`
+
+*for numbers only*
+
+Allow you to get values that are lesser or equal to the input
+
+`hp=lt:10`
+
+### is null `null:`
+
+ex: `effect=null:` the card has no effect
+
+*make sur the `:` is set !*
+
+### is not null `notnull:`
+
+ex: `effect=notnull:` the card has an effect
+
+*make sur the `:` is set !*
+
+</detail>
+
+### Multiple values `|`, `,`
+
+for some fields you can add multiple values to compare against.
+
+ex: `name=eq:Furret,Pikachu`, it will match both `Pikachu` and `Furret`
+
+
 
 ## Sorting
 
@@ -54,11 +156,13 @@ You can override the default sorting algorithm by adding parameters to your requ
 ### Example
 
 Request:
+
 ```
 https://api.tcgdex.net/v2/en/sets?sort:field=name&sort:order=DESC
 ```
 
 Response:
+
 ```json
 [
 	{
@@ -98,11 +202,13 @@ you can still add it back by using the following query parameters:
 ### Example
 
 Request:
+
 ```
 https://api.tcgdex.net/v2/en/sets?pagination:page=3&pagination:itemsPerPage=2
 ```
 
 Response:
+
 ```json
 [
 	{
