@@ -1,0 +1,45 @@
+---
+title: The Python SDK
+description: Learn how to install and use the TCGdex Python SDK
+---
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="http://pypi.org/project/tcgdex-sdk">
+		<img src="https://img.shields.io/pypi/v/tcgdex-sdk?style=flat-square" alt="Pypi Version">
+	</a>
+	<a href="http://pypi.org/project/tcgdex-sdk">
+		<img src="https://img.shields.io/pypi/dm/tcgdex-sdk?style=flat-square" alt="Pypi Downloads">
+	</a>
+		<a href="https://github.com/tcgdex/python-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/python-sdk?style=flat-square" alt="Github stars">
+	</a>
+	<a href="https://github.com/tcgdex/python-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/python-sdk/build.yml?style=flat-square" alt="the TCGdex Python SDK is released under the MIT license." />
+	</a>
+	<a href="https://discord.gg/peACSRMZ7V">
+		<img src="https://img.shields.io/discord/857231041261076491?color=%235865F2&label=Discord&style=flat-square" alt="Discord Link">
+	</a>
+</p>
+
+## Installation
+
+Run the following command to use it with pip
+
+```bash
+pip install tcgdex-sdk
+```
+## Usage
+```python
+from tcgdexsdk import TCGdex
+
+tcgdex = TCGdex("en") # You can also use `Language.EN` TCGdex(Language.EN)
+res = await tcgdex.card.get("swsh1-136")
+```
+
+You can check in [the JSON REST API docs](/rest) and select the correct tab to see the command specific for your SDK
+
+
+### Source Code
+
+[The source code for the SDK is available on Github !](https://github.com/tcgdex/python-sdk)
