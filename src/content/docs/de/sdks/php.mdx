@@ -1,0 +1,107 @@
+---
+title: Das PHP SDK
+description: Lernen Sie, wie Sie das PHP SDK von TCGdex installieren und verwenden.
+---
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="https://packagist.org/packages/tcgdex/sdk">
+		<img src="https://img.shields.io/github/v/release/tcgdex/php-sdk?include_prereleases&style=flat-square" alt="Version Packagist"/>
+	</a>
+	<a href="https://github.com/tcgdex/php-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/php-sdk?style=flat-square" alt="Sterne auf Github" />
+	</a>
+	<a href="https://packagist.org/packages/tcgdex/sdk">
+		<img src="https://img.shields.io/packagist/dt/tcgdex/sdk?style=flat-square" alt="Downloads Packagist" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/php-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/php-sdk?style=flat-square&token=MCENGBDCXN" alt="Codeabdeckung" />
+	</a>
+	<a href="https://github.com/tcgdex/php-sdk/actions/workflows/build-test.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/php-sdk/build-test.yml?style=flat-square" alt="Die automatisierten Builds des TCGdex PHP SDK." />
+	</a>
+</p>
+
+## Installation
+
+<Steps>
+1. Installieren Sie das SDK mit Composer
+	```bash
+	composer require tcgdex/sdk
+	```
+
+2. Falls Sie die Implementierungen von PSR 16, 17 & 18 nicht haben, können Sie diese schnell mit folgendem Befehl hinzufügen
+
+	<Tabs syncKey='framework'>
+		<TabItem label='Basis PHP'>
+			```bash
+			composer require symfony/cache nyholm/psr7 kriswallsmith/buzz
+			```
+		</TabItem>
+		<TabItem label='Symfony'>
+			```bash
+			composer require nyholm/psr7
+			```
+
+			<Aside>
+				Symfony sollte bereits Implementierungen von PSR16 & PSR18 haben:
+
+				- PSR16: `symfony/cache`
+				- PSR18: `symfony/http-client`
+
+				*Falls nicht, installieren Sie diese.*
+			</Aside>
+		</TabItem>
+	</Tabs>
+
+</Steps>
+
+## Verwendung
+
+<Tabs syncKey='framework'>
+	<TabItem label='Basis PHP'>
+		```php
+		// das Paket importieren
+		use TCGdex\TCGdex;
+
+		// wenn Sie etwas anderes als die empfohlenen Einstellungen verwenden, müssen Sie diese hier hinzufügen
+		TCGdex::$cache = /* PSR16 CacheInterface */;
+		TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
+		TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
+		TCGdex::$client = /* PSR18 ClientInterface */;
+
+		// das SDK mit der Sprache initialisieren
+		$tcgdex = new TCGdex("en");
+
+		// Karten abrufen!
+		$card = $tcgdex->fetchCard('136', 'swsh3');
+		```
+
+	</TabItem>
+	<TabItem label='Symfony'>
+		Um TCGdex für Symfony zu konfigurieren, müssen Sie die PSR18-Implementierung hinzufügen (da dies nicht die Standardimplementierung ist) und die PSR17-Implementierung, falls dies nicht die Standardimplementierung ist.
+		```php
+		use TCGdex\TCGdex;
+		use Symfony\Component\HttpClient\Psr18Client;
+
+		// wenn Sie etwas anderes als nyholm/psr7 verwenden, müssen Sie dies hier hinzufügen
+		TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
+		TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
+
+		// den PSR18-Client von Symfony verwenden
+		TCGdex::$client = new Psr18Client(); /* PSR18 ClientInterface */;
+
+		// das SDK mit der Sprache initialisieren
+		$tcgdex = new TCGdex("en");
+
+		// Karten abrufen!
+		$card = $tcgdex->fetchCard('136', 'swsh3');
+		```
+	</TabItem>
+</Tabs>
+
+Sie können die [REST JSON API Dokumentation](/rest) einsehen und den entsprechenden Tab auswählen, um den spezifischen Befehl für Ihr SDK zu sehen.
+
+### Quellcode
+
+[Der Quellcode des SDK ist auf Github verfügbar!](https://github.com/tcgdex/php-sdk)

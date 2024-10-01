@@ -1,0 +1,140 @@
+---
+title: Eine spezifische Karte abrufen
+description: Eine spezifische Karte des Pokémon TCG über die TCGdex API abrufen
+sidebar:
+  order: 2
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+## Anfrage
+<Tabs syncKey="sdk">
+	<TabItem label="PHP">
+		```php
+		$card = $tcgdex->fetchCard('swsh3-136');
+		```
+		_[Siehe, wie man das PHP SDK einrichtet](/sdks/php)_
+	</TabItem>
+
+	<TabItem label="Javascript">
+		```javascript
+		const card = await tcgdex.fetch('cards', 'swsh3-136');
+		```
+		_[Siehe, wie man das JavaScript SDK einrichtet](/sdks/javascript)_
+	</TabItem>
+
+	<TabItem label="Typescript">
+		```typescript
+		const card = await tcgdex.fetch('cards', 'swsh3-136');
+		```
+		_[Siehe, wie man das TypeScript SDK einrichtet](/sdks/typescript)_
+	</TabItem>
+
+	<TabItem label="Java">
+		```java
+		Card card = tcgdex.fetchCard("swsh3-136");
+		```
+		_[Siehe, wie man das Java SDK einrichtet](/sdks/java)_
+	</TabItem>
+
+	<TabItem label="Kotlin">
+		```kotlin
+		val card = tcgdex.fetchCard("swsh3-136")
+		```
+		_[Siehe, wie man das Kotlin SDK einrichtet](/sdks/kotlin)_
+	</TabItem>
+
+	<TabItem label="cURL">
+		```
+		https://api.tcgdex.net/v2/de/cards/swsh3-136
+		```
+		_[Siehe, wie man Ihre URLs vorbereitet](/rest)_
+	</TabItem>
+</Tabs>
+
+## Antwort
+
+### Antwort 200
+
+Die Anfrage gibt [ein Kartenobjekt](/reference/card) zurück
+
+```json
+{
+  "category": "Pokémon",
+  "id": "swsh3-136",
+  "illustrator": "tetsuya koizumi",
+  "image": "https://assets.tcgdex.net/de/swsh/swsh3/136",
+  "localId": "136",
+  "name": "Wiesenior",
+  "rarity": "Ungewöhnlich",
+  "set": {
+    "cardCount": {
+      "official": 189,
+      "total": 201
+    },
+    "id": "swsh3",
+    "logo": "https://assets.tcgdex.net/de/swsh/swsh3/logo",
+    "name": "Flammende Finsternis",
+    "symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": true,
+    "wPromo": false
+  },
+  "dexId": [
+    162
+  ],
+  "hp": 110,
+  "types": [
+    "Farblos"
+  ],
+  "evolveFrom": "Wiesor",
+  "stage": "Rang 1",
+  "attacks": [
+    {
+      "cost": [
+        "Farblos"
+      ],
+      "name": "Wohl fühlen",
+      "effect": "Ziehe 3 Karten."
+    },
+    {
+      "cost": [
+        "Farblos"
+      ],
+      "name": "Schwanzschmetterer",
+      "effect": "Wirf 1 Münze. Bei Zahl hat diese Attacke keine Auswirkungen.",
+      "damage": 90
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Kampf",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "regulationMark": "D",
+  "legal": {
+    "standard": false,
+    "expanded": true
+  },
+  "updated": "2024-06-18T00:34:39+02:00"
+}
+```
+
+### Antwort 404
+
+Die Karte wurde nicht gefunden :( Es wird eine allgemeine Fehlermeldung zurückgegeben (nicht übersetzt)
+
+```json
+{
+  "type": "https://tcgdex.dev/errors/not-found",
+  "title": "The resource you are trying to reach does not exists",
+  "status": 404,
+  "endpoint": "/de/cards/swsh3-136s",
+  "method": "GET"
+}
+```

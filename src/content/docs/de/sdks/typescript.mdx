@@ -1,0 +1,80 @@
+---
+title: Das TypeScript SDK
+description: Lernen Sie, das TypeScript SDK von TCGdex zu installieren und zu verwenden
+---
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="NPM-Version" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Sterne auf Github" />
+	</a>
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="NPM-Downloads" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="Codeabdeckung" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="Das TypeScript SDK von TCGdex ist unter der MIT-Lizenz veröffentlicht." />
+	</a>
+</p>
+
+
+## Installation
+
+<Tabs>
+	<TabItem label="NPM">
+		```bash
+		npm i @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Bun">
+		```bash
+		bun i @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Yarn">
+		```bash
+		yarn add @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="PNPM">
+		```bash
+		pnpm add @tcgdex/sdk
+		```
+	</TabItem>
+</Tabs>
+
+<Aside title="Verwendung im Browser" type="tip">
+TypeScript ist nicht dafür gedacht, direkt im Browser ausgeführt zu werden.
+
+Sie möchten möglicherweise [das JavaScript SDK](/sdks/javascript) für diesen Fall konsultieren.
+</Aside>
+
+## Verwendung
+
+```typescript
+// SDK importieren
+import TCGdex from '@tcgdex/sdk'
+
+// SDK instanziieren
+const tcgdex = new TCGdex('de');
+
+// in einen asynchronen Kontext eintreten
+(async () => {
+	// Die Karte wird Furret aus dem Set Darkness Ablaze sein
+	const card = await tcgdex.fetch('cards', 'swsh3-136');
+})();
+```
+
+Sie können die [Dokumentation der JSON REST API](/rest) einsehen und den entsprechenden Tab auswählen, um den spezifischen Befehl für Ihr SDK zu sehen.
+
+### Quellcode
+
+[Der Quellcode des SDK ist auf Github verfügbar!](https://github.com/tcgdex/javascript-sdk)
