@@ -1,4 +1,7 @@
-User-agent: *
-Disallow:
+User-Agent: *
+Disallow: 
+Disallow: /api
+Disallow: /js
+Disallow: /*?*
 
 Sitemap: https://tcgdex.dev/sitemap-index.xml
