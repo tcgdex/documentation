@@ -4,6 +4,7 @@ description: Comment filtrer, trier et paginer les résultats de l'API REST
 sidebar:
   order: 11
 ---
+import { Aside } from '@astrojs/starlight/components'
 
 La plupart des endpoints qui renvoient des tableaux peuvent inclure des informations de filtrage, de tri et de pagination dans la requête pour vous aider à gérer les résultats de manière efficace.
 
@@ -79,7 +80,10 @@ Ajouter un deuxième égal `=` à la requête permettra de rechercher la valeur 
 
 `?name=eq:abo`
 
-*Attention : avec cette méthode, vous ne trouverez pas les cartes `Dracaufeu` en utilisant `dracaufeu` !*
+<Aside type="caution" title="Attention">
+	Attention : avec cette méthode, vous ne trouverez pas les cartes `Dracaufeu` en utilisant `dracaufeu` !
+</Aside>
+
 
 ### Filtre de Différence Strict `neq:`
 
@@ -133,11 +137,11 @@ ex : `effect=notnull:` la carte a un effet.
 
 </detail>
 
-### Valeurs multiples `|`, `,`
+### Valeurs multiples `|`
 
 Pour certains champs, vous pouvez ajouter plusieurs valeurs à comparer.
 
-ex : `name=eq:Fouinar,Pikachu`, cela correspondra à la fois à `Pikachu` et `Fouinar`.
+ex : `name=eq:Fouinar|Pikachu`, cela correspondra à la fois à `Pikachu` et `Fouinar`.
 
 
 ## Tri
