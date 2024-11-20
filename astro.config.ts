@@ -6,7 +6,7 @@ import tailwind from "@astrojs/tailwind"
 // https://astro.build/config
 export default defineConfig({
 	integrations: [starlight({
-		title: 'TCGdex API Docs',
+		title: 'TCGdex API',
 		components: {
 			TableOfContents: './src/components/TableOfContents.astro',
 		},
@@ -219,4 +219,4 @@ export default defineConfig({
 	},
 
 	site: 'https://tcgdex.dev'
-});
+})
