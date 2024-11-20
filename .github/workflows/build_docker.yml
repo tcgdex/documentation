@@ -46,7 +46,7 @@ jobs:
 
     - name: Login to the Github Packages
       uses: docker/login-action@v3
-      if: ${{ !github.event.repository.fork }}
+      if: ${{ !github.event.repository.fork && github.actor != 'dependabot[bot]' && github.actor != 'dependabot' }}
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
@@ -59,7 +59,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        push: ${{ !github.event.repository.fork }}
+        push: ${{ !github.event.repository.fork && github.actor != 'dependabot[bot]' && github.actor != 'dependabot' }}
         file: ./Dockerfile
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
