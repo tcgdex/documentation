@@ -29,6 +29,9 @@ export default defineConfig({
 				src: '/js/script.js'
 			}
 		}, {
+			tag: 'script',
+			content: 'window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }'
+		}, {
 			tag: 'link',
 			attrs: {
 				rel: 'apple-touch-icon',
