@@ -10,29 +10,38 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
 <Tabs syncKey="sdk">
 	<TabItem label="PHP">
 		```php
-		$card = $tcgdex->fetchCards();
-		```
-		_[See how to setup the PHP SDK](/sdks/php)_
+		$card = $tcgdex->card->list();
 
-		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+		// filter, sort & paginate the result (ex: find card where name is equal to furret)
+		const cards = $tcgdex->card->list(Query->create()->equal('name', 'furret'));
+		```
+		_[See how to setup the Javascript SDK](/sdks/php)_
+
+		_Full [filtering documentation here support](/rest/filtering-sorting-pagination)_
 	</TabItem>
 
 	<TabItem label="Javascript">
 		```javascript
-		const card = await tcgdex.fetch('cards');
+		const card = await tcgdex.card.list();
+
+		// filter, sort & paginate the result (ex: find card where name is equal to furret)
+		const cards = await tcgdex.card.list(new Query().equal('name', 'furret'));
 		```
 		_[See how to setup the Javascript SDK](/sdks/javascript)_
 
-		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+		_Full [filtering documentation here support](/rest/filtering-sorting-pagination)_
 	</TabItem>
 
 	<TabItem label="Typescript">
 		```typescript
-		const card = await tcgdex.fetch('cards');
-		```
-		_[See how to setup the Typescript SDK](/sdks/typescript)_
+		const card = await tcgdex.card.list();
 
-		_SDK currently does not [support filtering](/rest/filtering-sorting-pagination)_
+		// filter, sort & paginate the result (ex: find card where name is equal to furret)
+		const cards = await tcgdex.card.list(new Query().equal('name', 'furret'));
+		```
+		_[See how to setup the Javascript SDK](/sdks/typescript)_
+
+		_Full [filtering documentation here support](/rest/filtering-sorting-pagination)_
 	</TabItem>
 
 	<TabItem label="Java">

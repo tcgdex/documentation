@@ -72,7 +72,7 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 		// go into an async context
 		(async () => {
 			// Card will be Furret from the Darkness Ablaze Set
-			const card = await tcgdex.fetch('cards', 'swsh3-136');
+			const card = await tcgdex.card.get('swsh3-136');
 		})();
 		```
 	</TabItem>
@@ -86,7 +86,7 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 			// go into an async context
 			;(async () => {
 				// Card will be Furret from the Darkness Ablaze Set
-				const card = await tcgdex.fetch('cards', 'swsh3-136');
+				const card = await tcgdex.card.get('swsh3-136');
 			})();
 		</script>
 		```

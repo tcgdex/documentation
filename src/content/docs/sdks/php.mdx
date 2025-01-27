@@ -72,7 +72,7 @@ import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
 		$tcgdex = new TCGdex("en");
 
 		// Fetch the cards !
-		$card = $tcgdex->fetchCard('136', 'swsh3');
+		$card = $tcgdex->card->getCard('136', 'swsh3');
 		```
 
 	</TabItem>
@@ -93,7 +93,7 @@ import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
 		$tcgdex = new TCGdex("en");
 
 		// Fetch the cards !
-		$card = $tcgdex->fetchCard('136', 'swsh3');
+		$card = $tcgdex->card->get('swsh3-136');
 		```
 	</TabItem>
 </Tabs>
