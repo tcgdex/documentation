@@ -10,14 +10,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
 <Tabs syncKey="sdk">
 	<TabItem label="PHP">
 		```php
-		$card = $tcgdex->fetchCard('swsh3-136');
+		$card = $tcgdex->card->get('swsh3-136');
 		```
 		_[See how to setup the PHP SDK](/sdks/php)_
 	</TabItem>
 
 	<TabItem label="Javascript">
 		```javascript
-		const card = await tcgdex.fetch('cards', 'swsh3-136');
+		const card = await tcgdex.card.get('swsh3-136');
 		```
 		_[See how to setup the Javascript SDK](/sdks/javascript)_
 
@@ -25,7 +25,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
 
 	<TabItem label="Typescript">
 		```typescript
-		const card = await tcgdex.fetch('cards', 'swsh3-136');
+		const card = await tcgdex.card.getCard('swsh3-136');
 		```
 		_[See how to setup the Typescript SDK](/sdks/typescript)_
 
