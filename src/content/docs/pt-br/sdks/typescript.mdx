@@ -1,6 +1,6 @@
 ---
-title: Das TypeScript SDK
-description: Erfahren Sie, wie Sie das TCGdex TypeScript SDK für den Zugriff auf Pokémon TCG-Daten installieren und verwenden
+title: O SDK TypeScript
+description: Aprenda como instalar e usar o SDK TypeScript TCGdex para acessar dados do Pokémon TCG
 ---
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 
@@ -22,7 +22,7 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 	</a>
 </p>
 
-## Installation
+## Instalação
 
 <Tabs syncKey='tool'>
 	<TabItem label="NPM">
@@ -50,160 +50,160 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 	</TabItem>
 </Tabs>
 
-## Grundlegende Verwendung
+## Uso Básico
 
 ```javascript
-// SDK in ESM/TypeScript importieren
+// Importar o SDK em ESM/TypeScript
 import TCGdex from '@tcgdex/sdk'
 
-// SDK mit Ihrer bevorzugten Sprache instanziieren
+// Instanciar o SDK com seu idioma preferido
 const tcgdex = new TCGdex('en');
 
-// In einem asynchronen Kontext verwenden
+// Usar em um contexto assíncrono
 (async () => {
-	// Furret aus dem Darkness Ablaze Set abrufen
+	// Recuperar Furret do Set Darkness Ablaze
 	const card = await tcgdex.card.get('swsh3-136');
 	console.log(card.name); // "Furret"
 })();
 ```
 
-## Daten abrufen
+## Obtendo Dados
 
-Das SDK bietet dedizierte Endpunkte für gängige Datentypen:
+O SDK fornece endpoints dedicados para tipos de dados comuns:
 
 ```javascript
-// Eine bestimmte Karte abrufen
+// Obter uma carta específica
 const card = await tcgdex.card.get('swsh3-136');
 
-// Ein bestimmtes Set abrufen
+// Obter um set específico
 const set = await tcgdex.set.get('swsh3');
 
-// Eine bestimmte Serie abrufen
+// Obter uma série específica
 const serie = await tcgdex.serie.get('swsh');
 
-// Eine Liste aller Karten abrufen
+// Obter uma lista de todas as cartas
 const allCards = await tcgdex.card.list();
 ```
 
-### Zufällige Daten abrufen
+### Obtendo Dados Aleatórios
 
-Sie können auch zufällige Karten, Sets oder Serien abrufen:
+Você também pode recuperar cartas, sets ou séries aleatórias:
 
 ```javascript
-// Eine zufällige Karte abrufen
+// Obter uma carta aleatória
 const randomCard = await tcgdex.random.card();
 
-// Ein zufälliges Set abrufen
+// Obter um set aleatório
 const randomSet = await tcgdex.random.set();
 
-// Eine zufällige Serie abrufen
+// Obter uma série aleatória
 const randomSerie = await tcgdex.random.serie();
 ```
 
-## Erweiterte Abfragen
+## Consultas Avançadas
 
-Das SDK bietet ein leistungsstarkes Abfragesystem zur Filterung von Daten:
+O SDK fornece um poderoso sistema de consultas para filtrar dados:
 
 ```javascript
 import TCGdex, { Query } from '@tcgdex/sdk';
 
 const tcgdex = new TCGdex('en');
 
-// Abfrage erstellen, um Pikachu-Karten mit HP zwischen 60 und 70 zu finden
+// Criar uma consulta para encontrar cartas de Pikachu com HP entre 60 e 70
 const pikachuCards = await tcgdex.card.list(
 		Query.create()
-				.equal('name', 'Pikachu')  // Exakter Namensabgleich
+				.equal('name', 'Pikachu')  // Correspondência exata de nome
 				.greaterOrEqualThan('hp', 60)  // HP >= 60
 				.lesserThan('hp', 70)  // HP < 70
-				.sort('localId', 'ASC')  // Nach ID aufsteigend sortieren
+				.sort('localId', 'ASC')  // Ordenar por ID ascendente
 );
 
-// Karten finden, die "5" in ihrer ID enthalten, aber nicht "tg"
+// Encontrar cartas contendo "5" em seu ID, mas não "tg"
 const filteredCards = await tcgdex.card.list(
 		Query.create()
-				.contains('localId', '5')  // ID enthält "5"
-				.not.contains('localId', 'tg')  // ID enthält nicht "tg"
+				.contains('localId', '5')  // ID contém "5"
+				.not.contains('localId', 'tg')  // ID não contém "tg"
 );
 
-// Paginierungsbeispiel - Seite 3 mit 2 Elementen pro Seite abrufen
+// Exemplo de paginação - obter página 3 com 2 itens por página
 const paginatedCards = await tcgdex.card.list(
 		Query.create()
 				.paginate(3, 2)
 );
 ```
 
-## Objektbeziehungen
+## Relacionamentos entre Objetos
 
-Das SDK erleichtert die Navigation zwischen Objektbeziehungen:
+O SDK facilita a navegação entre os relacionamentos dos objetos:
 
 ```javascript
-// Eine Karte abrufen und dann das zugehörige Set abrufen
+// Obter uma carta e depois recuperar seu set
 const card = await tcgdex.card.get('swsh3-136');
 const set = await card.getSet();
 
-// Ein Set abrufen und dann die zugehörige Serie abrufen
+// Obter um set e depois recuperar sua série
 const set = await tcgdex.set.get('swsh3');
 const serie = await set.getSerie();
 
-// Eine Karte aus der Kartenliste eines Sets abrufen
+// Obter uma carta da lista de cartas de um set
 const set = await tcgdex.set.get('swsh3');
 const firstCardResume = set.cards[0];
 const fullCard = await firstCardResume.getCard();
 ```
 
-## Filtern nach Attributen
+## Filtrando por Atributos
 
-Finden Sie Karten nach bestimmten Attributen:
+Encontre cartas por atributos específicos:
 
 ```javascript
-// Alle Feuer-Typ-Karten abrufen
+// Obter todas as cartas do tipo fogo
 const fireType = await tcgdex.type.get('fire');
 
-// Alle Karten mit bestimmten HP abrufen
+// Obter todas as cartas com HP específico
 const hp90Cards = await tcgdex.hp.get('90');
 
-// Alle Karten eines bestimmten Illustrators abrufen
+// Obter todas as cartas de um ilustrador específico
 const illustratorCards = await tcgdex.illustrator.get('TOKIYA');
 
-// Alle Karten mit einer bestimmten Seltenheit abrufen
+// Obter todas as cartas com uma raridade específica
 const rareCards = await tcgdex.rarity.get('rare');
 ```
 
-## Konfigurationsoptionen
+## Opções de Configuração
 
-Das SDK bietet verschiedene Konfigurationsoptionen:
+O SDK fornece várias opções de configuração:
 
 ```javascript
-// SDK mit einer bestimmten Sprache erstellen
-const tcgdex = new TCGdex('fr');  // Französisch
+// Criar SDK com um idioma específico
+const tcgdex = new TCGdex('fr');  // Francês
 
-// Sprache nach der Initialisierung ändern
-tcgdex.setLang('en');  // Zu Englisch wechseln
+// Mudar o idioma após a inicialização
+tcgdex.setLang('en');  // Mudar para Inglês
 
-// Einen benutzerdefinierten API-Endpunkt festlegen
+// Definir um endpoint de API personalizado
 tcgdex.setEndpoint('https://custom-api.example.com/v2');
 
-// Caching konfigurieren
-tcgdex.setCacheTTL(3600);  // Cache-Dauer auf 1 Stunde setzen
+// Configurar cache
+tcgdex.setCacheTTL(3600);  // Definir duração do cache para 1 hora
 ```
 
-## Kartenbilder
+## Imagens de Cartas
 
-Greifen Sie einfach auf Kartenbilder zu:
+Acesse imagens de cartas facilmente:
 
 ```javascript
 const card = await tcgdex.card.get('swsh3-136');
 
-// URL für hochqualitatives PNG-Bild abrufen
+// Obter URL da imagem PNG de alta qualidade
 const highQualityPng = card.getImageURL('high', 'png');
 
-// URL für niedrigqualitatives WEBP-Bild für bessere Performance abrufen
+// Obter URL da imagem WEBP de baixa qualidade para melhor desempenho
 const lowQualityWebp = card.getImageURL('low', 'webp');
 ```
 
-## Verwandte Ressourcen
+## Recursos Relacionados
 
-- [Vollständige REST-API-Dokumentation prüfen](/rest) für alle verfügbaren Endpunkte
-- [Quellcode auf GitHub](https://github.com/tcgdex/javascript-sdk)
-- [NPM-Paket](https://www.npmjs.com/package/@tcgdex/sdk)
-- [Discord-Community](https://discord.gg/peACSRMZ7V)
+- [Confira a documentação completa da API REST](/rest) para todos os endpoints disponíveis
+- [Código-fonte no GitHub](https://github.com/tcgdex/javascript-sdk)
+- [Pacote NPM](https://www.npmjs.com/package/@tcgdex/sdk)
+- [Comunidade no Discord](https://discord.gg/peACSRMZ7V)

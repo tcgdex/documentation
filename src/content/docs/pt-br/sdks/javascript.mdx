@@ -1,0 +1,239 @@
+---
+title: O SDK JavaScript
+description: Aprenda como instalar e usar o SDK JavaScript TCGdex para acessar dados do Pokémon TCG
+---
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="Versão NPM" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Estrelas no Github" />
+	</a>
+	<a href="http://npmjs.com/@tcgdex/sdk">
+		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="Downloads NPM" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="Cobertura" />
+	</a>
+	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="Status da Build" />
+	</a>
+</p>
+
+## Instalação
+
+<Tabs syncKey='tool'>
+	<TabItem label="NPM">
+		```bash
+		npm i @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Bun">
+		```bash
+		bun i @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Yarn">
+		```bash
+		yarn add @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="PNPM">
+		```bash
+		pnpm add @tcgdex/sdk
+		```
+	</TabItem>
+
+	<TabItem label="Browser">
+		```html
+		<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
+		```
+	</TabItem>
+</Tabs>
+
+## Uso Básico
+
+<Tabs syncKey='tool'>
+	<TabItem label="Node/Bun">
+		```javascript
+		// Importar o SDK em ESM/TypeScript
+		import TCGdex from '@tcgdex/sdk'
+
+		// OU importar o SDK em CommonJS
+		const TCGdex = require('@tcgdex/sdk').default
+
+		// Instanciar o SDK com seu idioma preferido
+		const tcgdex = new TCGdex('en');
+
+		// Usar em um contexto assíncrono
+		(async () => {
+			// Buscar Furret do Set Darkness Ablaze
+			const card = await tcgdex.card.get('swsh3-136');
+			console.log(card.name); // "Furret"
+		})();
+		```
+	</TabItem>
+
+	<TabItem label="Browser">
+		```html
+		<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
+		<script>
+			// Instanciar o SDK
+			const tcgdex = new TCGdex('en');
+
+			// Usar em um contexto assíncrono
+			(async () => {
+				// Buscar Furret do Set Darkness Ablaze
+				const card = await tcgdex.card.get('swsh3-136');
+				console.log(card.name); // "Furret"
+			})();
+		</script>
+		```
+	</TabItem>
+</Tabs>
+
+## Buscando Dados
+
+O SDK fornece endpoints dedicados para tipos comuns de dados:
+
+```javascript
+// Obter uma carta específica
+const card = await tcgdex.card.get('swsh3-136');
+
+// Obter um set específico
+const set = await tcgdex.set.get('swsh3');
+
+// Obter uma série específica
+const serie = await tcgdex.serie.get('swsh');
+
+// Obter uma lista de todas as cartas
+const allCards = await tcgdex.card.list();
+```
+
+### Obtendo Dados Aleatórios
+
+Você também pode recuperar cartas, sets ou séries aleatórias:
+
+```javascript
+// Obter uma carta aleatória
+const randomCard = await tcgdex.random.card();
+
+// Obter um set aleatório
+const randomSet = await tcgdex.random.set();
+
+// Obter uma série aleatória
+const randomSerie = await tcgdex.random.serie();
+```
+
+## Consultas Avançadas
+
+O SDK fornece um poderoso sistema de consultas para filtrar dados:
+
+```javascript
+import TCGdex, { Query } from '@tcgdex/sdk';
+
+const tcgdex = new TCGdex('en');
+
+// Criar uma consulta para encontrar cartas de Pikachu com HP entre 60 e 70
+const pikachuCards = await tcgdex.card.list(
+		Query.create()
+				.equal('name', 'Pikachu')  // Combinar nome exato
+				.greaterOrEqualThan('hp', 60)  // HP >= 60
+				.lesserThan('hp', 70)  // HP < 70
+				.sort('localId', 'ASC')  // Ordenar por ID em ordem crescente
+);
+
+// Encontrar cartas contendo "5" em seu ID mas não "tg"
+const filteredCards = await tcgdex.card.list(
+		Query.create()
+				.contains('localId', '5')  // ID contém "5"
+				.not.contains('localId', 'tg')  // ID não contém "tg"
+);
+
+// Exemplo de paginação - obter página 3 com 2 itens por página
+const paginatedCards = await tcgdex.card.list(
+		Query.create()
+				.paginate(3, 2)
+);
+```
+
+## Relacionamentos de Objetos
+
+O SDK facilita a navegação entre os relacionamentos de objetos:
+
+```javascript
+// Obter uma carta e depois recuperar seu set
+const card = await tcgdex.card.get('swsh3-136');
+const set = await card.getSet();
+
+// Obter um set e depois recuperar sua série
+const set = await tcgdex.set.get('swsh3');
+const serie = await set.getSerie();
+
+// Obter uma carta da lista de cartas de um set
+const set = await tcgdex.set.get('swsh3');
+const firstCardResume = set.cards[0];
+const fullCard = await firstCardResume.getCard();
+```
+
+## Filtrando por Atributos
+
+Encontre cartas por atributos específicos:
+
+```javascript
+// Obter todas as cartas do tipo fogo
+const fireType = await tcgdex.type.get('fire');
+
+// Obter todas as cartas com HP específico
+const hp90Cards = await tcgdex.hp.get('90');
+
+// Obter todas as cartas de um ilustrador específico
+const illustratorCards = await tcgdex.illustrator.get('TOKIYA');
+
+// Obter todas as cartas com uma raridade específica
+const rareCards = await tcgdex.rarity.get('rare');
+```
+
+## Opções de Configuração
+
+O SDK fornece várias opções de configuração:
+
+```javascript
+// Criar SDK com um idioma específico
+const tcgdex = new TCGdex('fr');  // Francês
+
+// Mudar o idioma após a inicialização
+tcgdex.setLang('en');  // Mudar para Inglês
+
+// Definir um endpoint de API personalizado
+tcgdex.setEndpoint('https://custom-api.example.com/v2');
+
+// Configurar cache
+tcgdex.setCacheTTL(3600);  // Definir duração do cache para 1 hora
+```
+
+## Imagens de Cartas
+
+Acesse facilmente as imagens das cartas:
+
+```javascript
+const card = await tcgdex.card.get('swsh3-136');
+
+// Obter URL de imagem PNG de alta qualidade
+const highQualityPng = card.getImageURL('high', 'png');
+
+// Obter URL de imagem WEBP de baixa qualidade para melhor desempenho
+const lowQualityWebp = card.getImageURL('low', 'webp');
+```
+
+## Recursos Relacionados
+
+- [Consulte a documentação completa da API REST](/rest) para todos os endpoints disponíveis
+- [Código fonte no GitHub](https://github.com/tcgdex/javascript-sdk)
+- [Pacote NPM](https://www.npmjs.com/package/@tcgdex/sdk)
+- [Comunidade no Discord](https://discord.gg/peACSRMZ7V)
