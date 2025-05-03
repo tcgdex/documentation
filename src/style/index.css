@@ -20,6 +20,19 @@
 	--sl-font: 'Lexend Variable', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
 }
 
+/* Make the page bigger on bigger screens */
+@media (min-width: 1152px) {
+	:root {
+		--sl-content-width: 90%;
+	}
+}
+
+@media (min-width: 1700px) {
+	:root {
+		--sl-content-width: 70%;
+	}
+}
+
 /* Light mode colors. */
 :root[data-theme='light'] {
 	--sl-color-accent-low: #f9c9cb;
