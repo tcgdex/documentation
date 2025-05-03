@@ -1,7 +1,6 @@
 import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
-
-import tailwind from "@astrojs/tailwind"
+import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
@@ -60,10 +59,10 @@ export default defineConfig({
 				href: '/site.webmanifest'
 			}
 		}],
-		social: {
-			discord: 'https://discord.gg/NehYTAhsZE',
-			github: 'https://github.com/tcgdex/cards-database',
-		},
+		social: [
+			{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/NehYTAhsZE' },
+			{ icon: 'github', label: 'Github', href: 'https://github.com/tcgdex/cards-database' },
+		],
 		editLink: {
 			baseUrl: 'https://github.com/tcgdex/documentation/edit/master/'
 		},
@@ -181,7 +180,7 @@ export default defineConfig({
 			}
 		}],
 		lastUpdated: true
-	}), tailwind()],
+	})],
 
 	// some settings to the build output
 	build: {
@@ -211,6 +210,7 @@ export default defineConfig({
 
 	// Dev Server
 	vite: {
+		plugins: [tailwindcss()],
 		server: {
 			watch: {
 				// Ignore some paths

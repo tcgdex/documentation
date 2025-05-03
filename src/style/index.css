@@ -1,3 +1,9 @@
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
 /* Dark mode colors. */
 :root {
 	--sl-color-accent-low: #401118;
@@ -12,19 +18,6 @@
 	--sl-color-gray-6: #282626;
 	--sl-color-black: #191818;
 	--sl-font: 'Lexend Variable', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-}
-
-/* Make sure the content is at least 70% of the page when on PC */
-@media (min-width: 1152px) {
-	:root {
-		--sl-content-width: 70%;
-	}
-	.main-pane {
-		width: 100% !important;
-	}
-	.main-pane .sl-container {
-		margin: auto;
-	}
 }
 
 /* Light mode colors. */
