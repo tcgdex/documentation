@@ -1,8 +1,8 @@
 ---
 title: The TypeScript SDK
-description: Learn how to install and use the TCGdex TypeScript SDK
+description: Learn how to install and use the TCGdex TypeScript SDK for accessing Pokémon TCG data
 ---
-import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 
 <p class="flex gap-2 justify-center">
 	<a href="http://npmjs.com/@tcgdex/sdk">
@@ -15,17 +15,16 @@ import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
 		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="NPM Downloads" />
 	</a>
 	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
-		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="npm version" />
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="Coverage" />
 	</a>
 	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
-		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="Build Status" />
 	</a>
 </p>
 
-
 ## Installation
 
-<Tabs>
+<Tabs syncKey='tool'>
 	<TabItem label="NPM">
 		```bash
 		npm i @tcgdex/sdk
@@ -51,31 +50,160 @@ import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
 	</TabItem>
 </Tabs>
 
-<Aside title="Browser Usage" type="tip">
-TypeScript is not meant to run directly in the browser.
+## Basic Usage
 
-You might want to checkout [the JavaScript SDK](/sdks/javascript) for this case.
-</Aside>
-
-## Usage
-
-```typescript
-// Import the SDK
+```javascript
+// Import the SDK in ESM/TypeScript
 import TCGdex from '@tcgdex/sdk'
 
-// Instantiate the SDK
+// Instantiate the SDK with your preferred language
 const tcgdex = new TCGdex('en');
 
-// go into an async context
+// Use in an async context
 (async () => {
-	// Card will be Furret from the Darkness Ablaze Set
-	const card = await tcgdex.fetch('cards', 'swsh3-136');
+	// Retrieve Furret from the Darkness Ablaze Set
+	const card = await tcgdex.card.get('swsh3-136');
+	console.log(card.name); // "Furret"
 })();
 ```
 
-You can check in [the JSON REST API docs](/rest) and select the correct tab to see the command specific for your SDK
+## Fetching Data
 
+The SDK provides dedicated endpoints for common data types:
 
-### Source Code
+```javascript
+// Get a specific card
+const card = await tcgdex.card.get('swsh3-136');
 
-[The source code for the SDK is available on Github !](https://github.com/tcgdex/javascript-sdk)
+// Get a specific set
+const set = await tcgdex.set.get('swsh3');
+
+// Get a specific serie
+const serie = await tcgdex.serie.get('swsh');
+
+// Get a list of all cards
+const allCards = await tcgdex.card.list();
+```
+
+### Getting Random Data
+
+You can also retrieve random cards, sets, or series:
+
+```javascript
+// Get a random card
+const randomCard = await tcgdex.random.card();
+
+// Get a random set
+const randomSet = await tcgdex.random.set();
+
+// Get a random serie
+const randomSerie = await tcgdex.random.serie();
+```
+
+## Advanced Queries
+
+The SDK provides a powerful query system to filter data:
+
+```javascript
+import TCGdex, { Query } from '@tcgdex/sdk';
+
+const tcgdex = new TCGdex('en');
+
+// Create a query to find Pikachu cards with HP between 60 and 70
+const pikachuCards = await tcgdex.card.list(
+  Query.create()
+    .equal('name', 'Pikachu')  // Match exact name
+    .greaterOrEqualThan('hp', 60)  // HP >= 60
+    .lesserThan('hp', 70)  // HP < 70
+    .sort('localId', 'ASC')  // Sort by ID ascending
+);
+
+// Find cards containing "5" in their ID but not "tg"
+const filteredCards = await tcgdex.card.list(
+  Query.create()
+    .contains('localId', '5')  // ID contains "5"
+    .not.contains('localId', 'tg')  // ID doesn't contain "tg"
+);
+
+// Pagination example - get page 3 with 2 items per page
+const paginatedCards = await tcgdex.card.list(
+  Query.create()
+    .paginate(3, 2)
+);
+```
+
+## Object Relationships
+
+The SDK makes it easy to navigate relationships between objects:
+
+```javascript
+// Get a card then retrieve its set
+const card = await tcgdex.card.get('swsh3-136');
+const set = await card.getSet();
+
+// Get a set then retrieve its serie
+const set = await tcgdex.set.get('swsh3');
+const serie = await set.getSerie();
+
+// Get a card from a set's card list
+const set = await tcgdex.set.get('swsh3');
+const firstCardResume = set.cards[0];
+const fullCard = await firstCardResume.getCard();
+```
+
+## Filtering by Attributes
+
+Find cards by specific attributes:
+
+```javascript
+// Get all fire type cards
+const fireType = await tcgdex.type.get('fire');
+
+// Get all cards with specific HP
+const hp90Cards = await tcgdex.hp.get('90');
+
+// Get all cards by a specific illustrator
+const illustratorCards = await tcgdex.illustrator.get('TOKIYA');
+
+// Get all cards with a specific rarity
+const rareCards = await tcgdex.rarity.get('rare');
+```
+
+## Configuration Options
+
+The SDK provides several configuration options:
+
+```javascript
+// Create SDK with a specific language
+const tcgdex = new TCGdex('fr');  // French
+
+// Change the language after initialization
+tcgdex.setLang('en');  // Switch to English
+
+// Set a custom API endpoint
+tcgdex.setEndpoint('https://custom-api.example.com/v2');
+
+// Configure caching
+tcgdex.setCacheTTL(3600);  // Set cache duration to 1 hour
+```
+
+## Card Images
+
+Access card images easily:
+
+```javascript
+const card = await tcgdex.card.get('swsh3-136');
+
+// Get high-quality PNG image URL
+const highQualityPng = card.getImageURL('high', 'png');
+
+// Get low-quality WEBP image URL for performance
+const lowQualityWebp = card.getImageURL('low', 'webp');
+```
+
+## Related Resources
+
+- [Check the full REST API documentation](/rest) for all available endpoints
+- [Source code on GitHub](https://github.com/tcgdex/javascript-sdk)
+- [NPM package](https://www.npmjs.com/package/@tcgdex/sdk)
+- [Discord Community](https://discord.gg/peACSRMZ7V)

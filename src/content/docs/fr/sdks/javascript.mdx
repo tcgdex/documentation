@@ -1,30 +1,30 @@
 ---
 title: Le SDK JavaScript
-description: Apprenez à installer et utiliser le SDK JavaScript de TCGdex
+description: Apprenez à installer et utiliser le SDK JavaScript TCGdex pour accéder aux données du JCC Pokémon
 ---
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 
 <p class="flex gap-2 justify-center">
 	<a href="http://npmjs.com/@tcgdex/sdk">
-		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="Version NPM" />
+		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="NPM Version" />
 	</a>
 	<a href="https://github.com/tcgdex/javascript-sdk/stargazers">
-		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Étoiles sur Github" />
+		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Github stars" />
 	</a>
 	<a href="http://npmjs.com/@tcgdex/sdk">
-		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="Téléchargements NPM" />
+		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="NPM Downloads" />
 	</a>
 	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
-		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="Version NPM" />
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="Coverage" />
 	</a>
 	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
-		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="Le SDK JavaScript de TCGdex est publié sous la licence MIT." />
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="Build Status" />
 	</a>
 </p>
 
 ## Installation
 
-<Tabs syncKey='pouet'>
+<Tabs syncKey='tool'>
 	<TabItem label="NPM">
 		```bash
 		npm i @tcgdex/sdk
@@ -49,52 +49,191 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 		```
 	</TabItem>
 
-	<TabItem label="Navigateur">
+	<TabItem label="Browser">
 		```html
 		<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
 		```
 	</TabItem>
 </Tabs>
 
-## Utilisation
+## Utilisation de base
 
-<Tabs syncKey='pouet'>
+<Tabs syncKey='tool'>
 	<TabItem label="Node/Bun">
 		```javascript
-		// Importer le SDK avec moduleJS
+		// Importer le SDK en ESM/TypeScript
 		import TCGdex from '@tcgdex/sdk'
-		// OU avec commonJS
+
+		// OU importer le SDK en CommonJS
 		const TCGdex = require('@tcgdex/sdk').default
 
-		// Instancier le SDK
+		// Instancier le SDK avec votre langue préférée
 		const tcgdex = new TCGdex('en');
 
-		// entrer dans un contexte async
+		// Utilisation dans un contexte asynchrone
 		(async () => {
-			// La carte sera Furret du set Ténèbres Embrasées
-			const card = await tcgdex.fetch('cards', 'swsh3-136');
+			// Récupérer Fouinar du set Ténèbres Embrasées
+			const card = await tcgdex.card.get('swsh3-136');
+			console.log(card.name); // "Furret"
 		})();
 		```
 	</TabItem>
 
-	<TabItem label="Navigateur">
+	<TabItem label="Browser">
 		```html
+		<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
 		<script>
 			// Instancier le SDK
 			const tcgdex = new TCGdex('en');
 
-			// entrer dans un contexte async
-			;(async () => {
-				// La carte sera Furret du set Darkness Ablaze
-				const card = await tcgdex.fetch('cards', 'swsh3-136');
+			// Utilisation dans un contexte asynchrone
+			(async () => {
+				// Récupérer Fouinar du set Ténèbres Embrasées
+				const card = await tcgdex.card.get('swsh3-136');
+				console.log(card.name); // "Furret"
 			})();
 		</script>
 		```
 	</TabItem>
 </Tabs>
 
-Vous pouvez consulter les [docs de l'API REST JSON](/rest) et sélectionner l'onglet correct pour voir la commande spécifique à votre SDK
+## Récupération des données
 
-### Code Source
+Le SDK fournit des endpoints dédiés pour les types de données courants :
 
-[Le code source du SDK est disponible sur Github !](https://github.com/tcgdex/javascript-sdk)
+```javascript
+// Obtenir une carte spécifique
+const card = await tcgdex.card.get('swsh3-136');
+
+// Obtenir un set spécifique
+const set = await tcgdex.set.get('swsh3');
+
+// Obtenir une série spécifique
+const serie = await tcgdex.serie.get('swsh');
+
+// Obtenir une liste de toutes les cartes
+const allCards = await tcgdex.card.list();
+```
+
+### Obtenir des données aléatoires
+
+Vous pouvez également récupérer des cartes, sets ou séries aléatoires :
+
+```javascript
+// Obtenir une carte aléatoire
+const randomCard = await tcgdex.random.card();
+
+// Obtenir un set aléatoire
+const randomSet = await tcgdex.random.set();
+
+// Obtenir une série aléatoire
+const randomSerie = await tcgdex.random.serie();
+```
+
+## Requêtes avancées
+
+Le SDK fournit un système de requêtes puissant pour filtrer les données :
+
+```javascript
+import TCGdex, { Query } from '@tcgdex/sdk';
+
+const tcgdex = new TCGdex('en');
+
+// Créer une requête pour trouver les cartes Pikachu avec un HP entre 60 et 70
+const pikachuCards = await tcgdex.card.list(
+		Query.create()
+				.equal('name', 'Pikachu')  // Correspond au nom exact
+				.greaterOrEqualThan('hp', 60)  // HP >= 60
+				.lesserThan('hp', 70)  // HP < 70
+				.sort('localId', 'ASC')  // Trier par ID en ordre croissant
+);
+
+// Trouver des cartes contenant "5" dans leur ID mais pas "tg"
+const filteredCards = await tcgdex.card.list(
+		Query.create()
+				.contains('localId', '5')  // L'ID contient "5"
+				.not.contains('localId', 'tg')  // L'ID ne contient pas "tg"
+);
+
+// Exemple de pagination - obtenir la page 3 avec 2 éléments par page
+const paginatedCards = await tcgdex.card.list(
+		Query.create()
+				.paginate(3, 2)
+);
+```
+
+## Relations entre objets
+
+Le SDK facilite la navigation entre les relations d'objets :
+
+```javascript
+// Obtenir une carte puis récupérer son set
+const card = await tcgdex.card.get('swsh3-136');
+const set = await card.getSet();
+
+// Obtenir un set puis récupérer sa série
+const set = await tcgdex.set.get('swsh3');
+const serie = await set.getSerie();
+
+// Obtenir une carte à partir de la liste de cartes d'un set
+const set = await tcgdex.set.get('swsh3');
+const firstCardResume = set.cards[0];
+const fullCard = await firstCardResume.getCard();
+```
+
+## Filtrage par attributs
+
+Trouvez des cartes par attributs spécifiques :
+
+```javascript
+// Obtenir toutes les cartes de type feu
+const fireType = await tcgdex.type.get('fire');
+
+// Obtenir toutes les cartes avec un HP spécifique
+const hp90Cards = await tcgdex.hp.get('90');
+
+// Obtenir toutes les cartes d'un illustrateur spécifique
+const illustratorCards = await tcgdex.illustrator.get('TOKIYA');
+
+// Obtenir toutes les cartes avec une rareté spécifique
+const rareCards = await tcgdex.rarity.get('rare');
+```
+
+## Options de configuration
+
+Le SDK fournit plusieurs options de configuration :
+
+```javascript
+// Créer le SDK avec une langue spécifique
+const tcgdex = new TCGdex('fr');  // Français
+
+// Changer la langue après l'initialisation
+tcgdex.setLang('en');  // Passer à l'anglais
+
+// Définir un endpoint API personnalisé
+tcgdex.setEndpoint('https://custom-api.example.com/v2');
+
+// Configurer la mise en cache
+tcgdex.setCacheTTL(3600);  // Définir la durée du cache à 1 heure
+```
+
+## Images des cartes
+
+Accédez facilement aux images des cartes :
+
+```javascript
+const card = await tcgdex.card.get('swsh3-136');
+
+// Obtenir l'URL d'une image PNG haute qualité
+const highQualityPng = card.getImageURL('high', 'png');
+
+// Obtenir l'URL d'une image WEBP basse qualité pour les performances
+const lowQualityWebp = card.getImageURL('low', 'webp');
+```
+
+## Ressources connexes
+
+- [Consultez la documentation complète de l'API REST](/rest) pour tous les endpoints disponibles
+- [Code source sur GitHub](https://github.com/tcgdex/javascript-sdk)
+- [Package NPM](https://www.npmjs.com/package/@tcgdex/sdk)
+- [Communauté Discord](https://discord.gg/peACSRMZ7V)
