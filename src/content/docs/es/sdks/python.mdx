@@ -1,0 +1,209 @@
+---
+title: El SDK de Python
+description: Aprende a instalar y usar el SDK de Python de TCGdex
+---
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="https://www.tcgdex.net">
+		<img src="https://www.tcgdex.net/assets/og.png" alt="TCGdex Main Image" />
+	</a>
+</p>
+<p class="flex gap-2 justify-center">
+	<a href="http://pypi.org/project/tcgdex-sdk">
+		<img src="https://img.shields.io/pypi/v/tcgdex-sdk?style=flat-square" alt="Pypi Version" />
+	</a>
+	<a href="http://pypi.org/project/tcgdex-sdk">
+		<img src="https://img.shields.io/pypi/dm/tcgdex-sdk?style=flat-square" alt="Pypi Downloads" />
+	</a>
+		<a href="https://github.com/tcgdex/python-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/python-sdk?style=flat-square" alt="Github stars" />
+	</a>
+	<a href="https://github.com/tcgdex/python-sdk/actions/workflows/build.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/python-sdk/build.yml?style=flat-square" alt="Build Status" />
+	</a>
+	<a href="https://discord.gg/peACSRMZ7V">
+		<img src="https://img.shields.io/discord/857231041261076491?color=%235865F2&label=Discord&style=flat-square" alt="Discord Link" />
+	</a>
+</p>
+
+Un SDK de Python completamente tipado para la API de TCGdex que te permite acceder a los datos del Juego de Cartas Coleccionables de Pokémon con opciones tanto asíncronas como síncronas.
+
+```python
+from tcgdexsdk import TCGdex, Extension
+
+# Inicializar el SDK
+tcgdex = TCGdex()
+
+# Obtener una carta en una línea
+card = await tcgdex.card.get("swsh3-136")
+# O usar la versión síncrona
+card = tcgdex.card.getSync("swsh3-136")
+
+print(f"Encontrado: {card.name} ({card.localId}/{card.set.cardCount.total})")
+```
+
+## Instalación y Configuración Básica
+
+<Steps>
+
+1. Instala el SDK usando pip:
+	```bash
+	pip install tcgdex-sdk
+	```
+
+2. Importa e inicializa:
+	```python
+	from tcgdexsdk import TCGdex, Language
+
+	tcgdex = TCGdex() # Inicializar con el idioma predeterminado (Inglés)
+
+	# Inicializar con idioma como cadena de texto
+	tcgdex = TCGdex("es")
+
+	# O usando la enumeración Language
+	tcgdex = TCGdex(Language.ES)
+	```
+
+3. Comienza a hacer solicitudes:
+	```python
+	# Uso asíncrono
+	card = await tcgdex.card.get("swsh3-136")
+
+	# Uso síncrono
+	card = tcgdex.card.getSync("swsh3-136")
+	```
+</Steps>
+
+## Características Principales
+
+- **Seguridad de Tipos**: Todos los modelos están completamente tipados para una mejor integración con IDE
+- **API Dual**: Interfaces tanto asíncronas como síncronas
+- **Consultas Flexibles**: Potente constructor de consultas para filtrar y ordenar resultados
+- **Soporte Multilingüe**: Accede a datos de cartas en múltiples idiomas
+- **Modelos Completos**: Modelos de datos detallados para cartas, sets, series y más
+- **Acceso a Imágenes**: Acceso directo a imágenes de cartas y símbolos de sets
+
+## Puntos de Acceso
+
+El SDK proporciona puntos de acceso especializados para diferentes tipos de datos:
+
+```python
+sdk = TCGdex()
+
+# Punto de acceso base para cartas
+sdk.card          # Información completa de la carta
+
+# Puntos de acceso para colecciones
+sdk.set            # Sets de cartas (ej., "Darkness Ablaze")
+sdk.serie          # Series de cartas (ej., "Sword & Shield")
+
+# Puntos de acceso para datos de cartas
+sdk.rarity        # Rarezas de cartas
+sdk.hp            # Valores de HP
+sdk.illustrator   # Ilustradores de cartas
+
+# Puntos de acceso para mecánicas de juego
+sdk.type          # Tipos de Pokémon
+sdk.energyType    # Tipos de energía
+sdk.retreat       # Costos de retirada
+sdk.stage         # Etapas de evolución
+
+# Puntos de acceso para detalles de cartas
+sdk.variant        # Variantes de cartas (holo, reverse, etc.)
+sdk.suffix         # Sufijos de cartas
+sdk.regulationMark # Marcas de regulación
+sdk.dexId          # IDs de Pokédex
+```
+
+## Ejemplos de Consultas
+
+El SDK incluye un potente constructor de consultas para filtrar y ordenar resultados:
+
+```python
+from tcgdexsdk import TCGdex, Query
+
+sdk = TCGdex()
+
+# Encontrar todas las cartas con un nombre específico
+furrets = await sdk.card.list(Query().equal("name", "Furret"))
+
+# Encontrar cartas con 'ban' en el nombre del ilustrador (insensible a mayúsculas/minúsculas)
+ban_cards = await sdk.card.list(Query().contains("illustrator", "ban"))
+
+# Encontrar Pokémon con HP alto, ordenados por HP
+tanks = await sdk.card.list(
+	Query()
+		.greaterThan("hp", 200)
+		.sort("hp", "desc")
+)
+
+# Encontrar cartas sin ataques pero con habilidades
+basics = await sdk.card.list(
+	Query()
+		.isNull("attacks")
+		.notNull("abilities")
+)
+
+# Soporte de paginación
+page2 = await sdk.card.list(
+	Query().paginate(page=2, itemsPerPage=20)
+)
+```
+
+## Soporte de Idiomas
+
+El SDK admite múltiples idiomas para los datos de las cartas:
+
+```python
+from tcgdexsdk import TCGdex, Language
+
+# Usando códigos de cadena
+en_sdk = TCGdex("en")  # Inglés
+fr_sdk = TCGdex("fr")  # Francés
+de_sdk = TCGdex("de")  # Alemán
+
+# Usando enum para seguridad de tipos
+jp_sdk = TCGdex(Language.EN) # por defecto en inglés si no se establece
+
+# Cambiar el idioma en una instancia existente
+sdk = TCGdex()
+sdk.setLanguage(Language.ES)
+```
+
+[_Lista completa de códigos de idiomas_](https://github.com/tcgdex/cards-database/blob/master/interfaces.d.ts#L1-L5)
+
+## Trabajando con Imágenes
+
+Las cartas, sets y series a menudo incluyen imágenes que pueden ser accedidas:
+
+```python
+from tcgdexsdk.enums import Quality, Extension
+
+# Obtener una carta
+card = await sdk.card.get("swsh3-136")
+
+# Obtener URL de imagen con calidad y formato
+image_url = card.get_image_url(quality="high", extension="png")
+# O usando enumeraciones
+image_url = card.get_image_url(Quality.HIGH, Extension.PNG)
+
+# Descargar imagen directamente
+image_data = card.get_image(Quality.HIGH, Extension.PNG)
+
+# Los sets y series también tienen métodos para imágenes
+set_data = await sdk.set.get("swsh3")
+
+logo_url = set_data.get_logo_url(Extension.PNG)
+logo = set_data.get_logo(Extension.PNG)
+
+symbol_url = set_data.get_symbol_url(Extension.WEBP)
+symbol = set_data.get_symbol(Extension.WEBP)
+```
+
+## Recursos
+
+- [Repositorio GitHub](https://github.com/tcgdex/python-sdk)
+- [Paquete PyPI](https://pypi.org/project/tcgdex-sdk/)
+- [Documentación de API](/rest)
+- [Comunidad de Discord](https://discord.gg/peACSRMZ7V)
