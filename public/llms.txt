@@ -1,0 +1,217 @@
+# tcgdex.dev llms.txt
+
+> tcgdex.dev is a comprehensive resource for Pokémon Trading Card Game (TCG) enthusiasts. The website offers detailed references on cards, series, and sets, alongside various API endpoints for developers to access card data. It supports multiple languages, providing users with localized content, error handling, and SDKs for different programming languages to facilitate integration and usage of the TCG data.
+
+## URLs and Descriptions
+
+### General
+
+- [Home](https://tcgdex.dev): The main landing page of tcgdex.dev.
+- [Assets](https://tcgdex.dev/assets): A page containing various assets related to the website.
+
+### German (de)
+
+- [German Home](https://tcgdex.dev/de): The German version of the home page.
+- [German Assets](https://tcgdex.dev/de/assets): Assets specifically for the German site.
+- [German Errors](https://tcgdex.dev/de/errors): A page listing error messages in German.
+- [General Error](https://tcgdex.dev/de/errors/general): A general error page in German.
+- [Invalid Language Error](https://tcgdex.dev/de/errors/language-invalid): Error page for invalid language requests in German.
+- [Not Found Error](https://tcgdex.dev/de/errors/not-found): Error page for not found resources in German.
+- [German GraphQL](https://tcgdex.dev/de/graphql): GraphQL API endpoint for accessing data in German.
+- [German Card Reference](https://tcgdex.dev/de/reference/card): Reference information for cards in German.
+- [German Card Brief Reference](https://tcgdex.dev/de/reference/card-brief): Brief reference for cards in German.
+- [German Series Reference](https://tcgdex.dev/de/reference/serie): Reference information for series in German.
+- [German Series Brief Reference](https://tcgdex.dev/de/reference/serie-brief): Brief reference for series in German.
+- [German Set Reference](https://tcgdex.dev/de/reference/set): Reference information for sets in German.
+- [German Set Brief Reference](https://tcgdex.dev/de/reference/set-brief): Brief reference for sets in German.
+- [German REST API](https://tcgdex.dev/de/rest): REST API endpoint for accessing TCG data in German.
+- [German Card REST](https://tcgdex.dev/de/rest/card): REST API endpoint for single card data in German.
+- [German Cards REST](https://tcgdex.dev/de/rest/cards): REST API endpoint for multiple card data in German.
+- [German Filtering, Sorting, Pagination](https://tcgdex.dev/de/rest/filtering-sorting-pagination): Documentation on filtering, sorting, and pagination for German REST data.
+- [German Other Fields REST](https://tcgdex.dev/de/rest/other-fields): Information on other fields available in the German REST API.
+- [German Series REST](https://tcgdex.dev/de/rest/serie): REST API endpoint for series data in German.
+- [German Series List REST](https://tcgdex.dev/de/rest/series): REST API endpoint for a list of series in German.
+- [German Set REST](https://tcgdex.dev/de/rest/set): REST API endpoint for set data in German.
+- [German Set Card REST](https://tcgdex.dev/de/rest/set-card): REST API endpoint for cards within a set in German.
+- [German Sets List REST](https://tcgdex.dev/de/rest/sets): REST API endpoint for a list of sets in German.
+- [German SDKs](https://tcgdex.dev/de/sdks): Page listing SDKs available for developers in German.
+- [Java SDK](https://tcgdex.dev/de/sdks/java): SDK for Java developers in German.
+- [JavaScript SDK](https://tcgdex.dev/de/sdks/javascript): SDK for JavaScript developers in German.
+- [Kotlin SDK](https://tcgdex.dev/de/sdks/kotlin): SDK for Kotlin developers in German.
+- [PHP SDK](https://tcgdex.dev/de/sdks/php): SDK for PHP developers in German.
+- [Python SDK](https://tcgdex.dev/de/sdks/python): SDK for Python developers in German.
+- [TypeScript SDK](https://tcgdex.dev/de/sdks/typescript): SDK for TypeScript developers in German.
+
+### English (en)
+
+- [Errors](https://tcgdex.dev/errors): A page listing error messages in English.
+- [General Error](https://tcgdex.dev/errors/general): A general error page in English.
+- [Invalid Language Error](https://tcgdex.dev/errors/language-invalid): Error page for invalid language requests in English.
+- [Not Found Error](https://tcgdex.dev/errors/not-found): Error page for not found resources in English.
+
+### Spanish (es)
+
+- [Spanish Home](https://tcgdex.dev/es): The Spanish version of the home page.
+- [Spanish Assets](https://tcgdex.dev/es/assets): Assets specifically for the Spanish site.
+- [Spanish Errors](https://tcgdex.dev/es/errors): A page listing error messages in Spanish.
+- [Spanish General Error](https://tcgdex.dev/es/errors/general): A general error page in Spanish.
+- [Spanish Invalid Language Error](https://tcgdex.dev/es/errors/language-invalid): Error page for invalid language requests in Spanish.
+- [Spanish Not Found Error](https://tcgdex.dev/es/errors/not-found): Error page for not found resources in Spanish.
+- [Spanish GraphQL](https://tcgdex.dev/es/graphql): GraphQL API endpoint for accessing data in Spanish.
+- [Spanish Card Reference](https://tcgdex.dev/es/reference/card): Reference information for cards in Spanish.
+- [Spanish Card Brief Reference](https://tcgdex.dev/es/reference/card-brief): Brief reference for cards in Spanish.
+- [Spanish Series Reference](https://tcgdex.dev/es/reference/serie): Reference information for series in Spanish.
+- [Spanish Series Brief Reference](https://tcgdex.dev/es/reference/serie-brief): Brief reference for series in Spanish.
+- [Spanish Set Reference](https://tcgdex.dev/es/reference/set): Reference information for sets in Spanish.
+- [Spanish Set Brief Reference](https://tcgdex.dev/es/reference/set-brief): Brief reference for sets in Spanish.
+- [Spanish REST API](https://tcgdex.dev/es/rest): REST API endpoint for accessing TCG data in Spanish. ```
+- [Card API](https://tcgdex.dev/es/rest/card): API endpoint for retrieving detailed information about a specific card.
+- [Cards API](https://tcgdex.dev/es/rest/cards): API endpoint for retrieving a list of cards with various filters and options.
+- [Filtering, Sorting, and Pagination](https://tcgdex.dev/es/rest/filtering-sorting-pagination): Documentation on how to filter, sort, and paginate results in API requests.
+- [Other Fields](https://tcgdex.dev/es/rest/other-fields): Information on additional fields available in the API responses.
+- [Serie API](https://tcgdex.dev/es/rest/serie): API endpoint for retrieving details about a specific series.
+- [Series API](https://tcgdex.dev/es/rest/series): API endpoint for retrieving a list of series related to the trading card game.
+- [Set API](https://tcgdex.dev/es/rest/set): API endpoint for retrieving information on a specific set of cards.
+- [Set Card API](https://tcgdex.dev/es/rest/set-card): API endpoint for retrieving details about cards within a specific set.
+- [Sets API](https://tcgdex.dev/es/rest/sets): API endpoint for listing all available card sets.
+- [SDKs](https://tcgdex.dev/es/sdks): Documentation and resources for various SDKs available for using the API.
+- [Java SDK](https://tcgdex.dev/es/sdks/java): SDK documentation for integrating the API with Java applications.
+- [JavaScript SDK](https://tcgdex.dev/es/sdks/javascript): SDK documentation for integrating the API with JavaScript applications.
+- [Kotlin SDK](https://tcgdex.dev/es/sdks/kotlin): SDK documentation for integrating the API with Kotlin applications.
+- [PHP SDK](https://tcgdex.dev/es/sdks/php): SDK documentation for integrating the API with PHP applications.
+- [Python SDK](https://tcgdex.dev/es/sdks/python): SDK documentation for integrating the API with Python applications.
+- [TypeScript SDK](https://tcgdex.dev/es/sdks/typescript): SDK documentation for integrating the API with TypeScript applications.
+
+### French URLs
+
+- [French Home](https://tcgdex.dev/fr): The main page for the French version of the TCGdex site.
+- [Assets](https://tcgdex.dev/fr/assets): A collection of assets related to the trading card game, such as images and icons.
+- [Errors](https://tcgdex.dev/fr/errors): General documentation on error responses from the API.
+- [General Errors](https://tcgdex.dev/fr/errors/general): Details about common general errors that may occur.
+- [Language Invalid Error](https://tcgdex.dev/fr/errors/language-invalid): Description of the error when an invalid language is specified.
+- [Not Found Error](https://tcgdex.dev/fr/errors/not-found): Information about the error returned when a requested resource is not found.
+- [GraphQL API](https://tcgdex.dev/fr/graphql): Access to the GraphQL API for querying card data.
+- [Card Reference](https://tcgdex.dev/fr/reference/card): Comprehensive reference documentation for individual cards.
+- [Card Brief Reference](https://tcgdex.dev/fr/reference/card-brief): Brief overview of individual card attributes and details.
+- [Serie Reference](https://tcgdex.dev/fr/reference/serie): Reference documentation for card series.
+- [Serie Brief Reference](https://tcgdex.dev/fr/reference/serie-brief): Brief overview of series attributes and details.
+- [Set Reference](https://tcgdex.dev/fr/reference/set): Comprehensive reference documentation for card sets.
+- [Set Brief Reference](https://tcgdex.dev/fr/reference/set-brief): Brief overview of set attributes and details.
+- [French REST API](https://tcgdex.dev/fr/rest): Base endpoint for accessing RESTful API services in French.
+- [Card REST API](https://tcgdex.dev/fr/rest/card): API endpoint for retrieving detailed information about a specific card in French.
+- [Cards REST API](https://tcgdex.dev/fr/rest/cards): API endpoint for retrieving a list of cards with various filters and options in French.
+- [Filtering, Sorting, and Pagination](https://tcgdex.dev/fr/rest/filtering-sorting-pagination): Documentation on how to filter, sort, and paginate results in API requests in French.
+- [Other Fields in REST API](https://tcgdex.dev/fr/rest/other-fields): Information on additional fields available in the API responses in French.
+- [Serie REST API](https://tcgdex.dev/fr/rest/serie): API endpoint for retrieving details about a specific series in French.
+- [Series REST API](https://tcgdex.dev/fr/rest/series): API endpoint for retrieving a list of series in French.
+- [Set REST API](https://tcgdex.dev/fr/rest/set): API endpoint for retrieving information on a specific set of cards in French.
+- [Set Card REST API](https://tcgdex.dev/fr/rest/set-card): API endpoint for retrieving details about cards within a specific set in French.
+- [Sets REST API](https://tcgdex.dev/fr/rest/sets): API endpoint for listing all available card sets in French.
+- [French SDKs](https://tcgdex.dev/fr/sdks): Documentation and resources for various SDKs available for using the API in French.
+- [Java SDK in French](https://tcgdex.dev/fr/sdks/java): SDK documentation for integrating the API with Java applications in French.
+- [JavaScript SDK in French](https://tcgdex.dev/fr/sdks/javascript): SDK documentation for integrating the API with JavaScript applications in French.
+- [Kotlin SDK in French](https://tcgdex.dev/fr/sdks/kotlin): SDK documentation for integrating the API with Kotlin applications in French.
+- [PHP SDK in French](https://tcgdex.dev/fr/sdks/php): SDK documentation for integrating the API with PHP applications in French.
+- [Python SDK in French](https://tcgdex.dev/fr/sdks/python): SDK documentation for integrating the API with Python applications in French.
+- [TypeScript SDK in French](https://tcgdex.dev/fr/sdks/typescript): SDK documentation for integrating the API with TypeScript applications in French.
+
+### Italian URLs
+
+- [Italian Home](https://tcgdex.dev/it): The main page for the Italian version of the TCGdex site.
+- [Assets in Italian](https://tcgdex.dev/it/assets): A collection of assets related to the trading card game in Italian.
+- [Errors in Italian](https://tcgdex.dev/it/errors): General documentation on error responses from the API in Italian. This concludes the list of URLs and their corresponding descriptions.
+- [General Errors](https://tcgdex.dev/it/errors/general): Details common error messages and troubleshooting tips.
+- [Invalid Language Error](https://tcgdex.dev/it/errors/language-invalid): Information on the language-related errors encountered in the API.
+- [Not Found Error](https://tcgdex.dev/it/errors/not-found): Explanation of the 'not found' errors with guidance on resolving them.
+- [GraphQL API](https://tcgdex.dev/it/graphql): Access point for the GraphQL API, detailing queries and mutations available.
+- [Card Reference](https://tcgdex.dev/it/reference/card): Comprehensive reference for individual Pokémon cards including their attributes.
+- [Card Brief Reference](https://tcgdex.dev/it/reference/card-brief): Summary reference for Pokémon cards, providing essential information in a concise format.
+- [Series Reference](https://tcgdex.dev/it/reference/serie): Overview of Pokémon series, including details about their characteristics and sets.
+- [Series Brief Reference](https://tcgdex.dev/it/reference/serie-brief): Short summary of Pokémon series for quick reference.
+- [Set Reference](https://tcgdex.dev/it/reference/set): Detailed description of card sets, including their contents and release information.
+- [Set Brief Reference](https://tcgdex.dev/it/reference/set-brief): Concise summary of Pokémon sets for quick reference.
+- [REST API](https://tcgdex.dev/it/rest): Overview of the REST API with endpoints and usage instructions.
+- [Card REST API](https://tcgdex.dev/it/rest/card): Endpoint for retrieving information on specific Pokémon cards via REST.
+- [Cards REST API](https://tcgdex.dev/it/rest/cards): Endpoint for listing multiple Pokémon cards.
+- [Filtering, Sorting, and Pagination](https://tcgdex.dev/it/rest/filtering-sorting-pagination): Guidelines on how to filter, sort, and paginate results in the REST API.
+- [Other Fields](https://tcgdex.dev/it/rest/other-fields): Additional fields and metadata available in the REST API responses.
+- [Serie REST API](https://tcgdex.dev/it/rest/serie): Endpoint for accessing series data via REST.
+- [Series REST API](https://tcgdex.dev/it/rest/series): Endpoint for retrieving multiple series information.
+- [Set REST API](https://tcgdex.dev/it/rest/set): Endpoint for accessing specific set data via REST.
+- [Set-Card REST API](https://tcgdex.dev/it/rest/set-card): Endpoint for retrieving information about cards within a specific set.
+- [Sets REST API](https://tcgdex.dev/it/rest/sets): Endpoint for listing all Pokémon sets.
+- [SDKs](https://tcgdex.dev/it/sdks): Overview of available SDKs for different programming languages to interact with the API.
+- [Java SDK](https://tcgdex.dev/it/sdks/java): SDK documentation for using the TCG Dex API with Java.
+- [JavaScript SDK](https://tcgdex.dev/it/sdks/javascript): SDK documentation for utilizing the TCG Dex API in JavaScript applications.
+- [Kotlin SDK](https://tcgdex.dev/it/sdks/kotlin): SDK documentation for integrating with the TCG Dex API using Kotlin.
+- [PHP SDK](https://tcgdex.dev/it/sdks/php): SDK documentation for PHP developers to access the TCG Dex API.
+- [Python SDK](https://tcgdex.dev/it/sdks/python): SDK documentation for Python applications to interact with the TCG Dex API.
+- [TypeScript SDK](https://tcgdex.dev/it/sdks/typescript): SDK documentation for TypeScript developers using the TCG Dex API.
+
+### Portuguese URLs (Brazil)
+
+- [Home PT-BR](https://tcgdex.dev/pt-br): Main page for the Portuguese (Brazil) version of the TCG Dex site.
+- [Assets PT-BR](https://tcgdex.dev/pt-br/assets): Collection of assets related to the TCG Dex for Portuguese users.
+- [Errors PT-BR](https://tcgdex.dev/pt-br/errors): General errors page for the Portuguese version, outlining common API issues.
+- [General Errors PT-BR](https://tcgdex.dev/pt-br/errors/general): Details common error messages and troubleshooting tips in Portuguese.
+- [Invalid Language Error PT-BR](https://tcgdex.dev/pt-br/errors/language-invalid): Information on language-related errors in the Portuguese version of the API.
+- [Not Found Error PT-BR](https://tcgdex.dev/pt-br/errors/not-found): Explanation of 'not found' errors specific to the Portuguese API documentation.
+- [GraphQL API PT-BR](https://tcgdex.dev/pt-br/graphql): Access point for the GraphQL API in Portuguese, detailing available queries and mutations.
+- [Card Reference PT-BR](https://tcgdex.dev/pt-br/reference/card): Comprehensive reference for individual Pokémon cards in Portuguese.
+- [Card Brief Reference PT-BR](https://tcgdex.dev/pt-br/reference/card-brief): Summary reference for Pokémon cards, providing essential information concisely in Portuguese.
+- [Series Reference PT-BR](https://tcgdex.dev/pt-br/reference/serie): Overview of Pokémon series in Portuguese, including details about their characteristics.
+- [Series Brief Reference PT-BR](https://tcgdex.dev/pt-br/reference/serie-brief): Short summary of Pokémon series for quick reference in Portuguese.
+- [Set Reference PT-BR](https://tcgdex.dev/pt-br/reference/set): Detailed description of card sets in Portuguese, including contents and release information.
+- [Set Brief Reference PT-BR](https://tcgdex.dev/pt-br/reference/set-brief): Concise summary of Pokémon sets for quick reference in Portuguese.
+- [REST API PT-BR](https://tcgdex.dev/pt-br/rest): Overview of the REST API for Portuguese users, outlining endpoints and usage.
+- [Card REST API PT-BR](https://tcgdex.dev/pt-br/rest/card): Endpoint for retrieving information on specific Pokémon cards via REST in Portuguese.
+- [Cards REST API PT-BR](https://tcgdex.dev/pt-br/rest/cards): Endpoint for listing multiple Pokémon cards in the Portuguese API.
+- [Filtering, Sorting, and Pagination PT-BR](https://tcgdex.dev/pt-br/rest/filtering-sorting-pagination): Guidelines on filtering, sorting, and paginating results in the REST API for Portuguese users.
+- [Other Fields PT-BR](https://tcgdex.dev/pt-br/rest/other-fields): Information on additional fields available in the REST API responses for the Portuguese version.
+- [Serie REST API PT-BR](https://tcgdex.dev/pt-br/rest/serie): Endpoint for accessing series data via REST in Portuguese.
+- [Series REST API PT-BR](https://tcgdex.dev/pt-br/rest/series): Endpoint for retrieving multiple series information in Portuguese.
+- [Set REST API PT-BR](https://tcgdex.dev/pt-br/rest/set): Endpoint for accessing specific set data via REST in the Portuguese version.
+- [Set-Card REST API PT-BR](https://tcgdex.dev/pt-br/rest/set-card): Endpoint for retrieving information about cards within a specific set in Portuguese.
+- [Sets REST API PT-BR](https://tcgdex.dev/pt-br/rest/sets): Endpoint for listing all Pokémon sets in the Portuguese version.
+
+### SDKs
+
+- [SDKs](https://tcgdex.dev/pt-br/sdks): A comprehensive list of software development kits (SDKs) available for interacting with the TCGDex API.
+- [Java SDK](https://tcgdex.dev/pt-br/sdks/java): Documentation and resources for using the TCGDex API with Java.
+- [JavaScript SDK](https://tcgdex.dev/pt-br/sdks/javascript): Information and guidance on implementing the TCGDex API in JavaScript applications.
+- [Kotlin SDK](https://tcgdex.dev/pt-br/sdks/kotlin): Resources for integrating the TCGDex API using Kotlin programming language.
+- [PHP SDK](https://tcgdex.dev/pt-br/sdks/php): Documentation for using the TCGDex API with PHP.
+- [Python SDK](https://tcgdex.dev/pt-br/sdks/python): A guide to utilizing the TCGDex API with Python programming.
+- [TypeScript SDK](https://tcgdex.dev/pt-br/sdks/typescript): Information on how to use the TCGDex API in TypeScript applications.
+
+### Reference
+
+- [Card Reference](https://tcgdex.dev/reference/card): Detailed information about individual cards in the TCGDex database.
+- [Card Brief Reference](https://tcgdex.dev/reference/card-brief): A concise overview of card details in the TCGDex database.
+- [Series Reference](https://tcgdex.dev/reference/serie): Information on various series of cards in the TCGDex database.
+- [Series Brief Reference](https://tcgdex.dev/reference/serie-brief): A quick reference for series details in the TCGDex database.
+- [Set Reference](https://tcgdex.dev/reference/set): In-depth information on card sets available in the TCGDex database.
+- [Set Brief Reference](https://tcgdex.dev/reference/set-brief): A brief overview of card set details in the TCGDex database.
+  
+### REST API
+
+- [REST API Overview](https://tcgdex.dev/rest): An introduction to the TCGDex REST API, including its capabilities and usage.
+- [Card REST Endpoint](https://tcgdex.dev/rest/card): Details on the REST endpoint for accessing individual card information.
+- [Cards REST Endpoint](https://tcgdex.dev/rest/cards): Information on the REST endpoint for retrieving multiple cards from the TCGDex API.
+- [Filtering, Sorting, and Pagination](https://tcgdex.dev/rest/filtering-sorting-pagination): Guidance on how to filter, sort, and paginate results when using the TCGDex API.
+- [Other Fields](https://tcgdex.dev/rest/other-fields): Information on additional fields available in the TCGDex API that may not be covered elsewhere.
+- [Serie REST Endpoint](https://tcgdex.dev/rest/serie): Details on the REST endpoint for accessing series data in the TCGDex API.
+- [Series REST Endpoint](https://tcgdex.dev/rest/series): Information on the REST endpoint for retrieving multiple series from the TCGDex API.
+- [Set REST Endpoint](https://tcgdex.dev/rest/set): Details on the REST endpoint for accessing set data in the TCGDex API.
+- [Set Card REST Endpoint](https://tcgdex.dev/rest/set-card): Information on the specific endpoint for accessing cards within a set.
+- [Sets REST Endpoint](https://tcgdex.dev/rest/sets): Guidance on retrieving multiple sets from the TCGDex API.
+
+### SDKs (General)
+
+- [SDKs (General)](https://tcgdex.dev/sdks): A general overview of the available SDKs for the TCGDex API.
+- [Java SDK (General)](https://tcgdex.dev/sdks/java): General documentation for using the TCGDex API with Java.
+- [JavaScript SDK (General)](https://tcgdex.dev/sdks/javascript): General information on implementing the TCGDex API in JavaScript.
+- [Kotlin SDK (General)](https://tcgdex.dev/sdks/kotlin): General resources for integrating the TCGDex API using Kotlin.
+- [PHP SDK (General)](https://tcgdex.dev/sdks/php): General documentation for using the TCGDex API with PHP.
+- [Python SDK (General)](https://tcgdex.dev/sdks/python): General guide to utilizing the TCGDex API with Python.
+- [TypeScript SDK (General)](https://tcgdex.dev/sdks/typescript): General information on using the TCGDex API in TypeScript applications. Feel free to ask if you need further assistance or modifications!
