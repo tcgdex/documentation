@@ -1,0 +1,301 @@
+---
+title: O SDK PHP
+description: Aprenda como instalar e usar o SDK PHP do TCGdex
+---
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components'
+
+<p class="flex gap-2 justify-center">
+	<a href="https://packagist.org/packages/tcgdex/sdk">
+		<img src="https://img.shields.io/github/v/release/tcgdex/php-sdk?include_prereleases&style=flat-square" alt="Versão no Packagist"/>
+	</a>
+	<a href="https://github.com/tcgdex/php-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/php-sdk?style=flat-square" alt="Estrelas no Github" />
+	</a>
+	<a href="https://packagist.org/packages/tcgdex/sdk">
+		<img src="https://img.shields.io/packagist/dt/tcgdex/sdk?style=flat-square" alt="Downloads no Packagist" />
+	</a>
+	<a href="https://app.codecov.io/gh/tcgdex/php-sdk/">
+		<img src="https://img.shields.io/codecov/c/github/tcgdex/php-sdk?style=flat-square&token=MCENGBDCXN" alt="Cobertura" />
+	</a>
+	<a href="https://github.com/tcgdex/php-sdk/actions/workflows/build-test.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/php-sdk/build-test.yml?style=flat-square" alt="As builds automatizadas do SDK PHP do TCGdex." />
+	</a>
+</p>
+
+Um SDK PHP totalmente tipado para acessar dados do Jogo de Cartas Colecionáveis Pokémon através da API TCGdex.
+
+```php
+// Exemplo rápido
+use TCGdex\TCGdex;
+
+// Inicializar o SDK
+$tcgdex = new TCGdex("en");
+
+// Buscar uma carta pelo ID
+$card = $tcgdex->card->get('swsh3-136');
+
+echo "Encontrada: {$card->name} ({$card->localId}/{$card->set->cardCount->total})";
+```
+
+## Instalação
+
+<Steps>
+1. Instale o SDK usando o Composer
+	```bash
+	composer require tcgdex/sdk
+	```
+
+2. O SDK requer implementações PSR-16 (SimpleCache), PSR-17 (HTTP Factories) e PSR-18 (HTTP Client). Se você não tiver estas instaladas, pode adicioná-las com:
+
+	<Tabs syncKey='framework'>
+		<TabItem label='PHP Básico'>
+			```bash
+			composer require symfony/cache nyholm/psr7 kriswallsmith/buzz
+			```
+		</TabItem>
+		<TabItem label='Symfony'>
+			```bash
+			composer require nyholm/psr7
+			```
+
+			<Aside>
+				O Symfony já inclui implementações PSR-16 & PSR-18:
+				- PSR-16: `symfony/cache`
+				- PSR-18: `symfony/http-client`
+			</Aside>
+		</TabItem>
+	</Tabs>
+
+</Steps>
+
+## Uso Básico
+
+<Tabs syncKey='framework'>
+	<TabItem label='PHP Básico'>
+		```php
+		// Importar o pacote
+		use TCGdex\TCGdex;
+
+		// Inicializar o SDK com o idioma (padrão "en" se não especificado)
+		$tcgdex = new TCGdex("en");
+
+		// Buscar uma carta pelo ID
+		$card = $tcgdex->card->get('swsh3-136');
+
+		// Acessar dados da carta
+		echo $card->name;           // "Furret"
+		echo $card->illustrator;    // "Mitsuhiro Arita"
+		echo $card->set->name;      // "Darkness Ablaze"
+
+		// Obter tipos, ataques, etc. da carta
+		$types = $card->types;      // ["Colorless"]
+		$attacks = $card->attacks;  // Array de objetos Attack
+		```
+		<Aside type="caution">
+			Se você encontrar problemas com o SDK não funcionando corretamente, isso geralmente indica que as implementações PSR estão faltando ou não estão configuradas corretamente. Problemas comuns incluem:
+
+			- Implementação de cache PSR-16 faltando
+			- Factories HTTP PSR-17 incompatíveis
+			- Cliente HTTP PSR-18 não inicializado corretamente
+
+			Para resolver esses problemas, verifique suas dependências do composer e garanta que todos os pacotes necessários estão instalados. Para opções de configuração avançadas, veja a seção [Configuração personalizada de HTTP/Cache](#configuração-personalizada-de-httpcache) abaixo.
+		</Aside>
+	</TabItem>
+	<TabItem label='Symfony'>
+		```php
+		use TCGdex\TCGdex;
+		use Symfony\Component\HttpClient\Psr18Client;
+		use Nyholm\Psr7\Factory\Psr17Factory;
+
+		// Criar as factories PSR-17
+		$psr17Factory = new Psr17Factory();
+
+		// Configurar as factories e o cliente
+		TCGdex::$requestFactory = $psr17Factory;
+		TCGdex::$responseFactory = $psr17Factory;
+		TCGdex::$client = new Psr18Client();
+
+		// Inicializar o SDK com o idioma
+		$tcgdex = new TCGdex("en");
+
+		// Buscar uma carta pelo ID
+		$card = $tcgdex->card->get('swsh3-136');
+		```
+	</TabItem>
+</Tabs>
+
+## Recursos
+
+- **Segurança de tipos**: Todos os dados são representados por modelos fortemente tipados
+- **Múltiplos endpoints**: Acesso a cartas, sets, séries e vários atributos de cartas
+- **Filtragem e ordenação**: Consulte a API com filtros, ordenação e paginação
+- **Suporte a múltiplos idiomas**: Obtenha dados em diferentes idiomas
+- **Cobertura completa da API**: Cobertura completa de todos os endpoints da API TCGdex
+
+## Endpoints
+
+O SDK fornece endpoints especializados para diferentes tipos de dados:
+
+```php
+$tcgdex = new TCGdex();
+
+// Endpoints principais para dados centrais
+$tcgdex->card          // Informações de cartas
+$tcgdex->set           // Sets de cartas (ex., "Darkness Ablaze")
+$tcgdex->serie         // Séries de cartas (ex., "Sword & Shield")
+
+// Endpoints de atributos de cartas
+$tcgdex->rarity        // Raridades de cartas
+$tcgdex->hp            // Valores de HP
+$tcgdex->illustrator   // Ilustradores de cartas
+$tcgdex->category      // Categorias de cartas
+
+// Endpoints de mecânicas do jogo
+$tcgdex->type          // Tipos de Pokémon
+$tcgdex->energyType    // Tipos de energia
+$tcgdex->retreat       // Custos de recuo
+$tcgdex->stage         // Estágios de evolução
+
+// Endpoints de detalhes de cartas
+$tcgdex->variant        // Variantes de cartas (holo, reverse, etc.)
+$tcgdex->suffix         // Sufixos de cartas
+$tcgdex->regulationMark // Marcas de regulação
+$tcgdex->dexId          // IDs da Pokédex
+$tcgdex->trainerType    // Tipos de cartas de Treinador
+```
+
+## Obtendo Dados
+
+### Obter um único recurso
+
+```php
+// Obter uma carta pelo seu ID
+$card = $tcgdex->card->get('swsh3-136');
+
+// Obter um set pelo seu ID
+$set = $tcgdex->set->get('swsh3');
+
+// Obter uma carta pelo código do set e ID local
+$card = $tcgdex->set->getCard('swsh3', '136');
+
+// Obter uma série pelo seu ID
+$serie = $tcgdex->serie->get('swsh');
+```
+
+### Listar recursos
+
+```php
+// Obter todas as cartas
+$cards = $tcgdex->card->list();
+
+// Obter todos os sets
+$sets = $tcgdex->set->list();
+
+// Obter todas as séries
+$series = $tcgdex->serie->list();
+
+// Obter todos os tipos de Pokémon
+$types = $tcgdex->type->list();
+```
+
+## Filtragem com Query Builder
+
+Você pode filtrar resultados usando o construtor `Query`:
+
+```php
+use TCGdex\Query;
+
+// Criar uma nova consulta
+$query = Query::create()
+    ->equal('type', 'Colorless')  // Filtrar por correspondência exata
+    ->contains('name', 'Pikachu') // Filtrar por correspondência parcial
+    ->sort('hp', 'desc')          // Ordenar por HP decrescente
+    ->paginate(1, 20);            // Obter página 1 com 20 itens por página
+
+// Usar a consulta para obter resultados filtrados
+$filteredCards = $tcgdex->card->list($query);
+```
+
+Métodos de consulta disponíveis:
+
+```php
+// Filtros básicos
+$query->equal('field', 'value');      // Campo igual ao valor
+$query->contains('field', 'value');   // Campo contém o valor
+
+// Ordenação
+$query->sort('field', 'asc');         // Ordenar crescente
+$query->sort('field', 'desc');        // Ordenar decrescente
+
+// Paginação
+$query->paginate(2, 10);              // Página 2, 10 itens por página
+```
+
+## Navegação entre Modelos
+
+Recursos frequentemente fazem referência a outros recursos. Você pode navegar entre eles:
+
+```php
+// Obter uma carta e navegar para seu set
+$card = $tcgdex->card->get('swsh3-136');
+$setResume = $card->set;              // Obter SetResume da carta
+$fullSet = $setResume->toSet();       // Obter Set completo do SetResume
+
+// Obter uma série e navegar para seus sets
+$serie = $tcgdex->serie->get('swsh');
+foreach ($serie->sets as $setResume) {
+    $fullSet = $setResume->toSet();
+    // Agora você tem acesso a todos os dados do set incluindo cartas
+    $cards = $fullSet->cards;
+}
+```
+
+## Suporte a Idiomas
+
+O SDK suporta múltiplos idiomas para dados de cartas:
+
+```php
+// Inglês (padrão)
+$enTcgdex = new TCGdex();
+$enTcgdex = new TCGdex("en");
+
+// Francês
+$frTcgdex = new TCGdex("fr");
+
+// Alemão
+$deTcgdex = new TCGdex("de");
+```
+
+[_lista completa de todos os códigos de idioma suportados disponível aqui_](https://github.com/tcgdex/cards-database/blob/master/interfaces.d.ts#L1-L5)
+
+## Configuração personalizada de HTTP/Cache
+
+O SDK usa implementações PSR-16, PSR-17 e PSR-18 para cache e requisições HTTP. Você pode fornecer implementações personalizadas:
+
+```php
+// Definir implementações personalizadas
+use Psr\SimpleCache\CacheInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Client\ClientInterface;
+
+// Definir cache personalizado
+TCGdex::$cache = /* PSR16 CacheInterface */;
+
+// Definir factories HTTP personalizadas
+TCGdex::$requestFactory = /* PSR17 RequestFactoryInterface */;
+TCGdex::$responseFactory = /* PSR17 ResponseFactoryInterface */;
+
+// Definir cliente HTTP personalizado
+TCGdex::$client = /* PSR18 ClientInterface */;
+
+// Definir TTL do cache (em milissegundos)
+TCGdex::$ttl = 3600 * 1000; // 1 hora
+```
+
+## Recursos
+
+- [Documentação da API REST JSON](/rest) - Referência da API com exemplos do SDK PHP
+- [Packagist](https://packagist.org/packages/tcgdex/sdk)
+- [Código-fonte no GitHub](https://github.com/tcgdex/php-sdk)
+- [Comunidade Discord](https://discord.gg/peACSRMZ7V)
