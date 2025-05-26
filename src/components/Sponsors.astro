@@ -17,14 +17,14 @@ const sponsors: Array<{
 ]
 ---
 
-<section class="mt-6">
+<section class="mt-6 max-w-64">
 	<p>Sponsors</p>
-	<div class="flex flex-wrap rounded-xl overflow-hidden gap-1 w-full mt-2">
+	<div class="grid 2xl:grid-cols-2 rounded-xl overflow-hidden gap-1 w-full mt-2">
 		{sponsors.map(sponsor => (
-			<a href={sponsor.url} class={sponsor.size ?? ''} target="_blank" rel="noopener">
+			<a href={sponsor.url} class:list={{'col-span-2': sponsor.size === 'large'}} target="_blank" rel="noopener">
 				<article>
 					{sponsor.img ? (
-						<Image height={sponsor.size === 'large' ? 24 : 14} src={sponsor.img} alt={`Logo ${sponsor.name}`}/>
+						<Image height={sponsor.size === 'large' ? 30 : 24} src={sponsor.img} alt={`Logo ${sponsor.name}`}/>
 					) : (
 						<p class:list={["font-bold text-black text-center", {'text-xl w-full': sponsor.size === 'large', 'text-sm': sponsor.size !== 'large'}]}>{sponsor.name}</p>
 					)}
@@ -36,14 +36,13 @@ const sponsors: Array<{
 </section>
 
 <style>
+	section {
+		width: calc(var(--sl-sidebar-width) + (100% - var(--sl-content-width) - var(--sl-sidebar-width)) / 2)
+	}
 	div a {
-		width: 34%;
 		height: 100%;
 		flex-grow: 1;
 		height: 68px;
-	}
-	a.large {
-		width: 100%;
 	}
 	article {
 		display: flex;
@@ -70,5 +69,12 @@ const sponsors: Array<{
 	:root article :global(img) {
 		filter: grayscale(1) ;
 		transition: all 0.1s linear;
+	}
+	div a:nth-child(even):last-child article,
+	div a:nth-child(odd):nth-last-child(2):has(+ a:nth-child(even):last-child) article {
+		border-bottom-right-radius: 16px;
+	}
+	div:has(a:not(.col-span-2):only-of-type) a.col-span-2 article {
+		border-bottom-right-radius: 16px;
 	}
 </style>

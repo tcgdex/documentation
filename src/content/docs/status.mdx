@@ -1,0 +1,69 @@
+---
+title: Status
+description: Real-time information about the TCGdex API's translation progress, completion status, and system health
+hero:
+  tagline: Stay informed about our API translation progress and system performance
+tableOfContents: true
+lastUpdated: false
+editUrl: true
+---
+
+import { Card, CardGrid, LinkCard, Aside, Tabs, TabItem } from '@astrojs/starlight/components'
+
+## API Progress
+
+The TCGdex API aims to make every Pokémon TCG card available in all languages they were officially released in. Our real-time status tracker below shows our current translation progress across the entire database.
+
+<div style="display: flex; justify-content: center; margin: 2rem 0;">
+  <img src="https://api.tcgdex.net/status/github.svg" alt="TCGdex API Translation Status" style="max-width: 100%; width: 90%;" />
+</div>
+
+This chart displays the percentage of cards with complete data in each supported language. Our database includes many languages with varying completion levels:
+
+- **English, French, Spanish, German, Italian**: Widely available languages
+- **Japanese, Portuguese, Chinese (Traditional and Simplified)**: Asian and additional European languages
+- **Thai, Indonesian, Dutch, Polish, Russian, Korean**: Additional supported languages
+
+Completion levels vary depending on official card releases in each language and available translation resources.
+
+<Aside type="tip">
+  **Want to help with translations?**
+
+  You can contribute by adding translations to card objects that currently have data in at least one language. Additional translation files are located in the `meta/translations` directory of our [GitHub repository](https://github.com/tcgdex/cards-database).
+</Aside>
+
+## API Uptime
+
+Our infrastructure is monitored 24/7 to ensure high availability and performance. The status monitors below provide real-time information about our core services.
+
+### Core API Service
+
+_[https://api.tcgdex.net](https://api.tcgdex.net/status)_
+
+<div style="display: flex; justify-content: center; margin-bottom: 1.5rem; width: 100%;">
+  <script async src="https://status.tcgdex.net/embed/monitor-net-tcgdex-api/js?bgc=transparent&locale=en&theme=dark&monitor=https://status.tcgdex.net/embed/monitor-net-tcgdex-api"></script>
+</div>
+
+This monitor tracks the status of our primary API endpoints. These endpoints serve the card data, set information, and other core API features.
+
+
+### Asset Delivery Network
+
+_[https://assets.tcgdex.net](https://assets.tcgdex.net)_
+
+<div style="display: flex; justify-content: center; margin-bottom: 1.5rem; width: 100%;">
+  <script async src="https://status.tcgdex.net/embed/monitor-net-tcgdex-api/js?bgc=transparent&locale=en&theme=dark&monitor=https://status.tcgdex.net/embed/monitor-net-tcgdex-assets"></script>
+</div>
+
+This monitor tracks our asset delivery network, which serves card images, set symbols, and other graphical assets.
+
+
+## Get Involved
+
+<CardGrid>
+  <LinkCard title="Join Our Community" href="https://discord.gg/NehYTAhsZE" description="Discuss the API, report issues, or contribute to our growing multilingual database" />
+
+  <LinkCard title="Review Data Quality" href="https://github.com/tcgdex/cards-database/issues" description="Help us maintain high-quality data by reporting inaccuracies or missing information" />
+
+  <LinkCard title="Support the Project" href="https://github.com/sponsors/tcgdex" description="The API is free to use, but hosting and development costs are real. Consider supporting us!" />
+</CardGrid>

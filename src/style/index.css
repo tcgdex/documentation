@@ -50,6 +50,6 @@
 }
 
 /* on PC, make sure the header search bar is "mostly" centered */
-header.header > .header > .sl-flex:not(:first-child) {
+header.header>.header>.sl-flex:not(:first-child) {
 	justify-content: center;
 }

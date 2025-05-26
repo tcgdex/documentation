@@ -1,0 +1,117 @@
+---
+title: TCG Pocket Integration
+description: Access Pokémon TCG card data for TCG Pocket through the TCGdex API
+sidebar:
+  order: 900
+lastUpdated: true
+editUrl: true
+hero:
+  tagline: Integrate Pokémon TCG Pocket data into your applications with ease
+  image:
+    file: "../../assets/tcg-pocket/logo.png"
+    alt: "Pokémon TCG Pocket Logo"
+  actions:
+    - text: Get Started
+      link: "#getting-started"
+      icon: right-arrow
+      variant: primary
+    - text: View SDK Examples
+      link: "#sdk-examples"
+      variant: minimal
+---
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
+
+The TCGdex API provides detailed Pokémon card data that works seamlessly with TCG Pocket, giving developers easy access to comprehensive information about Pokémon cards for TCG Pocket applications.
+
+## What is Pokémon TCG Pocket?
+
+Pokémon TCG Pocket is a mobile application developed by The Pokémon Company, Creatures Inc. (the original TCG developers), and DeNA Co., Ltd. Launched October 30, 2024, this app brings the Pokémon Trading Card Game to mobile devices with a streamlined interface and simplified gameplay.
+
+Key features include:
+
+- **Daily free packs**: Players can open two free digital booster packs every day
+- **Immersive cards**: Special 3D cards that bring illustrations to life with dynamic elements
+- **Streamlined gameplay**: Simplified rules with 20-card decks for mobile-friendly play
+- **Digital collection**: Organize and showcase your cards with sharing capabilities
+- **Quick battles**: Fast-paced matches optimized for mobile play
+- **Multiple languages**: Full support for 9 different languages
+
+## Available Data
+
+Our API provides the following data you can use with TCG Pocket:
+
+- **Card information**: Complete details about cards including names, types, and abilities
+- **Card images**: High-quality card artwork in multiple resolutions
+- **Set information**: Full details on card sets including release dates and card lists
+- **Multilingual support**: Data in all 9 languages supported by TCG Pocket
+- **Card attributes**: Detailed specifications for attacks, HP, and other gameplay elements
+- **Boosters**: You can see in which booster(s) each card is available
+
+## Getting Started
+
+All TCG Pocket cards are organized under the `tcgp` series in our API.
+
+This makes it easy to specifically access cards available in the TCG Pocket app.
+
+When building TCG Pocket companion apps, you'll want to query this series to ensure you're working with the correct cards.
+
+To start using our API with TCG Pocket:
+
+1. **Choose how to access the data**:
+   - [REST API](/rest) for simple HTTP requests
+   - [GraphQL API](/graphql) for flexible data queries
+   - [SDKs](/sdks) for your preferred programming language
+
+2. **Fetch TCG Pocket card data**:
+   ```javascript
+   // or using an SDK
+   const sdk = new TCGdex('en');
+   const { sets } = await sdk.series.get('tcgp');
+
+   // Example: Getting sets from a TCG Pocket set
+   const response = await fetch('https://api.tcgdex.net/v2/en/series/tcgp');
+   const { sets } = await response.json();
+   ```
+
+   ```javascript
+   // or using an SDK
+   const sdk = new TCGdex('en');
+   const { cards } = await sdk.sets.get('A1');
+
+   // Example: Getting cards from a TCG Pocket set
+   const response = await fetch('https://api.tcgdex.net/v2/en/sets/A1');
+   const { cards } = await response.json();
+   ```
+
+3. **Enhance your app**:
+   Use our data to build features that complement and enhance the TCG Pocket experience.
+
+## TCG Pocket in the Pokémon Ecosystem
+
+Pokémon TCG Pocket brings unique strengths to the Pokémon TCG experience:
+
+- **Mobile-optimized design** makes collecting and battling accessible on smartphones and tablets
+- **Enhanced digital cards** feature special visual effects that aren't possible with physical cards
+- **Cross-platform potential** offers ways to connect digital and physical card collections
+
+Our API provides the data foundation needed to build applications that enhance these TCG Pocket features.
+
+## Community Resources
+
+<CardGrid>
+  <LinkCard
+    href="/sdks"
+    title="SDKs"
+    description="Use our official SDK implementations to streamline your integration"
+  />
+  <LinkCard
+    href="https://discord.gg/NehYTAhsZE"
+    title="Join our Discord"
+    description="Get help with your TCG Pocket integration from our community"
+  />
+  <LinkCard
+    href="/rest/filtering-sorting-pagination"
+    title="Advanced Filtering"
+    description="Learn how to filter API results for specific TCG Pocket needs"
+  />
+</CardGrid>
