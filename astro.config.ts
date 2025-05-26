@@ -1,6 +1,6 @@
 import starlight from '@astrojs/starlight'
-import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
@@ -140,6 +140,9 @@ export default defineConfig({
 			translations: {
 				fr: 'Gestion des Images'
 			}
+		}, {
+			label: 'Pokémon TCG Pocket',
+			link: '/tcg-pocket'
 		}, {
 			label: 'SDKs',
 			translations: {
