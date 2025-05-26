@@ -5,25 +5,31 @@ description: Reference of a Pokemon TCG Set
 
 ## Fields
 
-| Name               | Type                                        | Nullable | Description                                                                      |
-| ------------------ | ------------------------------------------- | -------- | -------------------------------------------------------------------------------- |
-| id                 | String                                      |          | Set Unique ID                                                                    |
-| name               | String                                      |          | Set Name                                                                         |
-| logo               | String [Asset](/assets)                     | Yes      | Set logo (you can add .(webp\|png\|jpg) to customize the format)                 |
-| symbol             | String [Asset](/assets)                     | Yes      | Set Symbol (you can add .(webp\|png\|jpg) to customize the format                |
-| cardCount          | Object                                      |          | Contain information about the number of cards in the set                         |
-| cardCount.total    | Number                                      |          | The total amount of cards in this set (including hidden)                         |
-| cardCount.official | Number                                      |          | The amount of cards in this set (displayed on the bottom left/right of the card) |
-| cardCount.reverse  | Number                                      |          | The amount of cards in this set that can be found in reverse holo                |
-| cardCount.holo     | Number                                      |          | The amount of cards in this set that can be found in holo                        |
-| cardCount.firstEd  | Number                                      |          | The amount of cards in this set that can be found with the firstEdition Tag      |
-| serie              | [SerieBrief](/reference/serie-brief)        |          | Informations about the serie                                                     |
-| tcgOnline          | String                                      | Yes      | Pokémon TCG Online Set code                                                      |
-| releaseDate        | String                                      |          | The set release date in the form yyyy-mm-dd                                      |
-| legal              | Object                                      |          | Set usability in competitions                                                    |
-| legal.standard     | Boolean                                     |          | Ability to use this set in standard competitions                                 |
-| legal.expanded     | Boolean                                     |          | Ability to use this set in Expanded competitions                                 |
-| cards              | Array of [CardBrief](/reference/card-brief) |          | List of cards in this set                                                        |
+| Name                     | Type                                        | Nullable | Description                                                                      |
+| ------------------------ | ------------------------------------------- | -------- | -------------------------------------------------------------------------------- |
+| id                       | String                                      |          | Set Unique ID                                                                    |
+| name                     | String                                      |          | Set Name                                                                         |
+| logo                     | String [Asset](/assets)                     | Yes      | Set logo (you can add .(webp\|png\|jpg) to customize the format)                 |
+| symbol                   | String [Asset](/assets)                     | Yes      | Set Symbol (you can add .(webp\|png\|jpg) to customize the format                |
+| cardCount                | Object                                      |          | Contain information about the number of cards in the set                         |
+| cardCount.total          | Number                                      |          | The total amount of cards in this set (including hidden)                         |
+| cardCount.official       | Number                                      |          | The amount of cards in this set (displayed on the bottom left/right of the card) |
+| cardCount.reverse        | Number                                      |          | The amount of cards in this set that can be found in reverse holo                |
+| cardCount.holo           | Number                                      |          | The amount of cards in this set that can be found in holo                        |
+| cardCount.firstEd        | Number                                      |          | The amount of cards in this set that can be found with the firstEdition Tag      |
+| serie                    | [SerieBrief](/reference/serie-brief)        |          | Informations about the serie                                                     |
+| tcgOnline                | String                                      | Yes      | Pokémon TCG Online Set code                                                      |
+| releaseDate              | String                                      |          | The set release date in the form yyyy-mm-dd                                      |
+| legal                    | Object                                      |          | Set usability in competitions                                                    |
+| legal.standard           | Boolean                                     |          | Ability to use this set in standard competitions                                 |
+| legal.expanded           | Boolean                                     |          | Ability to use this set in Expanded competitions                                 |
+| boosters                 | Array                                       | Yes      | Indicate the list of boosters this set had                                       |
+| boosters[].id            | String                                      |          | the unique ID of the booster                                                     |
+| boosters[].name          | String                                      |          | The localized name of the booster                                                |
+| boosters[].logo          | String                                      | Yes      | the Booster logo                                                                 |
+| boosters[].artwork_front | String                                      | Yes      | The front of the booster                                                         |
+| boosters[].artwork_back  | String                                      | Yes      | The back of the booster                                                          |
+| cards                    | Array of [CardBrief](/reference/card-brief) |          | List of cards in this set                                                        |
 
 ## Example
 

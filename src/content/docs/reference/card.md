@@ -9,21 +9,27 @@ The main object used through the API
 
 Fields that are used by each cards
 
-| Property              | Type                             | Nullable | Details                                                   |
-| --------------------- | -------------------------------- | -------- | --------------------------------------------------------- |
-| id                    | String                           |          | The unique ID of the card                                 |
-| localId               | String or Number                 |          | Card Local ID                                             |
-| name                  | String                           |          | Card Name                                                 |
-| image                 | String ([Asset](/assets))        | Yes      | Card Image (see Assets)                                   |
-| category              | String                           |          | Card category (Pokemon, Energy, Trainer)                  |
-| illustrator           | String                           | Yes      | Card illustrator                                          |
-| rarity                | String                           | Yes      | Card rarity                                               |
-| variants              | Object                           |          | The possible variants of this card (see below)            |
-| variants.normal       | Boolean                          |          | Card available without any shines                         |
-| variants.reverse      | Boolean                          |          | Card available in Reverse (colored background is shining) |
-| variants.holo         | Boolean                          |          | Card available in Holo (picture is shining)               |
-| variants.firstEdition | Boolean                          |          | Card has a small 1st edition in the middle left           |
-| set                   | [SetBrief](/reference/set-brief) |          | Basic informations about the card set                     |
+| Property                 | Type                             | Nullable | Details                                                                                   |
+| ------------------------ | -------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
+| id                       | String                           |          | The unique ID of the card                                                                 |
+| localId                  | String or Number                 |          | Card Local ID                                                                             |
+| name                     | String                           |          | Card Name                                                                                 |
+| image                    | String ([Asset](/assets))        | Yes      | Card Image (see Assets)                                                                   |
+| category                 | String                           |          | Card category (Pokemon, Energy, Trainer)                                                  |
+| illustrator              | String                           | Yes      | Card illustrator                                                                          |
+| rarity                   | String                           | Yes      | Card rarity                                                                               |
+| variants                 | Object                           |          | The possible variants of this card (see below)                                            |
+| variants.normal          | Boolean                          |          | Card available without any shines                                                         |
+| variants.reverse         | Boolean                          |          | Card available in Reverse (colored background is shining)                                 |
+| variants.holo            | Boolean                          |          | Card available in Holo (picture is shining)                                               |
+| variants.firstEdition    | Boolean                          |          | Card has a small 1st edition in the middle left                                           |
+| boosters                 | Array                            | Yes      | Indicate in which booster(s) the card is available in (null if available in all boosters) |
+| boosters[].id            | String                           |          | the unique ID of the booster                                                              |
+| boosters[].name          | String                           |          | The localized name of the booster                                                         |
+| boosters[].logo          | String                           | Yes      | the Booster logo                                                                          |
+| boosters[].artwork_front | String                           | Yes      | The front of the booster                                                                  |
+| boosters[].artwork_back  | String                           | Yes      | The back of the booster                                                                   |
+| set                      | [SetBrief](/reference/set-brief) |          | Basic informations about the card set                                                     |
 
 ## Pokemon Card
 
