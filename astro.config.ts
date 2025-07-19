@@ -144,6 +144,9 @@ export default defineConfig({
 			label: 'Pokémon TCG Pocket',
 			link: '/tcg-pocket'
 		}, {
+			label: 'Pokémon TCG Live',
+			link: '/tcg-live'
+		}, {
 			label: 'SDKs',
 			translations: {
 				fr: 'Les SDKs'
