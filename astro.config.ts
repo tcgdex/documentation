@@ -60,7 +60,7 @@ export default defineConfig({
 			}
 		}],
 		social: [
-			{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/NehYTAhsZE' },
+			{ icon: 'discord', label: 'Discord', href: 'https://tcgdex.dev/discord' },
 			{ icon: 'github', label: 'Github', href: 'https://github.com/tcgdex/cards-database' },
 		],
 		editLink: {
