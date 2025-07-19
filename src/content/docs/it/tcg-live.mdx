@@ -1,0 +1,274 @@
+---
+title: Integrazione di Pokémon TCG Live
+description: Usa l'API TCGdex per accedere ai dati delle carte Pokémon per le applicazioni TCG Live. Interroga carte dalle serie fisiche TCG con funzionalità complete di filtro e ricerca.
+sidebar:
+  order: 850
+lastUpdated: true
+editUrl: true
+hero:
+  tagline: Accedi ai dati delle carte Pokémon per le applicazioni TCG Live
+  actions:
+    - text: Inizia
+      link: "#inizia"
+      icon: right-arrow
+      variant: primary
+    - text: Vedi Esempi
+      link: "#esempi-api"
+      variant: minimal
+---
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
+
+L'API TCGdx fornisce accesso a tutte le carte Pokémon disponibili in Pokémon TCG Live. Poiché Pokémon TCG Live usa le stesse carte del TCG fisico, lavorerai con le serie standard piuttosto che con una serie dedicata.
+
+## Cos'è Pokémon TCG Live?
+
+Pokémon TCG Live è la piattaforma digitale ufficiale per il Gioco di Carte Collezionabili Pokémon. Utilizza il pool completo di carte fisiche con mazzi standard da 60 carte e regole di gioco identiche al gioco fisico.
+
+## Pokémon TCG Online vs Pokémon TCG Live
+
+Pokémon TCG Live ha sostituito Pokémon TCG Online (PTCGO) nel 2023 come piattaforma ufficiale di TCG digitale. Entrambe le piattaforme usano lo stesso database di carte fisiche, rendendo la nostra API ugualmente preziosa per applicazioni che supportano entrambe le piattaforme:
+
+**Pokémon TCG Online (Legacy)**:
+- Piattaforma digitale originale (dismessa)
+- Stesso pool di carte fisiche di Pokémon TCG Live
+- Sistema di scambio tra giocatori
+- Supporto per formati legacy
+
+**Pokémon TCG Live (Attuale)**:
+- Piattaforma sostitutiva moderna
+- UI e prestazioni migliorate
+- Sistema di progressione Battle Pass
+- Nessuno scambio tra giocatori (sistema basato su crediti)
+
+Dal punto di vista dell'API, entrambe le piattaforme usano dati di carte identici poiché sono basate sul TCG fisico. Le applicazioni costruite per una possono facilmente supportare l'altra usando le stesse query di carte e strutture dati.
+
+```javascript
+// Gli stessi dati delle carte funzionano per entrambe le piattaforme
+const sdk = new TCGdx('it');
+const card = await sdk.cards.get('sv01-001');
+
+// I dati delle carte sono identici che vengano usati in PTCGO o TCG Live
+console.log(card.name, card.hp, card.attacks);
+```
+
+## Dati Disponibili
+
+La nostra API fornisce dati completi per costruire applicazioni Pokémon TCG Live:
+
+- **Database completo di carte**: Ogni carta da tutte le serie e set fisici di TCG
+- **Informazioni dettagliate delle carte**: Nomi, tipi, attacchi, abilità, PS, costi di ritirata e tutte le meccaniche di gioco
+- **Immagini ad alta qualità**: Illustrazioni delle carte e simboli dei set in multiple risoluzioni e formati
+- **Informazioni complete sui set**: Date di rilascio, simboli dei set, conteggi delle carte e liste complete delle carte
+- **Supporto multilingua**: Dati delle carte disponibili in tutte le lingue supportate da Pokémon TCG Live
+- **Capacità di ricerca avanzate**: Interroga carte per qualsiasi attributo, combinazione di filtri o criteri complessi
+
+## Inizia
+
+Poiché Pokémon TCG Live usa il database completo di carte fisiche, lavorerai con multiple serie rappresentanti diverse ere del TCG fisico (Base, XY, Sun & Moon, Sword & Shield, Scarlet & Violet, ecc.).
+
+```javascript
+const sdk = new TCGdx('it');
+
+// Ottieni tutte le serie disponibili prima per capire il pool di carte
+const allSeries = await sdk.series.list();
+
+// Ottieni informazioni dettagliate su una serie specifica
+const series = await sdk.series.get('sv');
+const { sets } = series;
+
+// Ottieni dati completi per un set specifico incluse tutte le carte
+const setData = await sdk.sets.get(sets[0].id);
+const { cards } = setData;
+```
+
+Per l'uso diretto dell'API REST (anche se gli SDK sono raccomandati):
+
+```javascript
+// Ottieni tutte le serie disponibili per capire la portata completa
+const response = await fetch('https://api.tcgdx.net/v2/it/series');
+const series = await response.json();
+
+// Ottieni dati dettagliati delle serie inclusi tutti i set
+const svCards = await fetch('https://api.tcgdx.net/v2/it/series/sv');
+const { sets } = await svCards.json();
+```
+
+## Paginazione e Prestazioni
+
+Poiché Pokémon TCG Live ha accesso al database completo di carte fisiche (100.000+ carte), una corretta gestione della paginazione e delle prestazioni è cruciale per applicazioni responsive:
+
+```javascript
+const sdk = new TCGdx('it');
+
+// Usa la paginazione per gestire efficientemente grandi set di risultati
+const getAllCards = async () => {
+  const allCards = [];
+  let page = 1;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await sdk.cards.list({
+      page: page,
+      limit: 250 // Massimo API per pagina
+    });
+
+    allCards.push(...response.data);
+    hasMore = response.data.length === 250;
+    page++;
+  }
+
+  return allCards;
+};
+
+// Elabora multiple richieste di carte efficientemente usando operazioni batch
+const processBatch = async (cardIds) => {
+  const batchSize = 50; // Dimensione batch ottimale per prestazioni API
+  const results = [];
+
+  for (let i = 0; i < cardIds.length; i += batchSize) {
+    const batch = cardIds.slice(i, i + batchSize);
+    const batchPromises = batch.map(id => sdk.cards.get(id));
+    const batchResults = await Promise.all(batchPromises);
+    results.push(...batchResults);
+  }
+
+  return results;
+};
+```
+
+## Supporto Multilingua
+
+Pokémon TCG Live supporta multiple lingue, e la nostra API fornisce dati localizzati delle carte per ognuna. Ogni lingua ha i suoi nomi di carte tradotti, descrizioni e testi degli attacchi mantenendo gli stessi ID carte attraverso le lingue:
+
+```javascript
+// Inizializza SDK per diverse lingue supportate
+const enSDK = new TCGdx('en');  // Inglese
+const jaSDK = new TCGdx('ja');  // Giapponese
+const frSDK = new TCGdx('fr');  // Francese
+const deSDK = new TCGdx('de');  // Tedesco
+const esSDK = new TCGdx('es');  // Spagnolo
+
+// Recupera dati delle carte nella lingua preferita dell'utente
+const getLocalizedCard = async (cardId, language = 'it') => {
+  const sdk = new TCGdx(language);
+  return await sdk.cards.get(cardId);
+};
+
+// Ottieni la stessa carta in multiple lingue per confronto
+const getMultilingualCard = async (cardId) => {
+  const languages = ['en', 'ja', 'fr', 'de'];
+  const cardVersions = {};
+
+  for (const lang of languages) {
+    const sdk = new TCGdx(lang);
+    cardVersions[lang] = await sdk.cards.get(cardId);
+  }
+
+  return cardVersions; // Ritorna dati delle carte con nomi/testo localizzati
+};
+
+// Cerca usando nomi di carte o termini specifici della lingua
+const searchInLanguage = async (searchTerm, language) => {
+  const sdk = new TCGdx(language);
+  return await sdk.cards.list({
+    name: searchTerm // Cerca usando nomi di carte localizzati
+  });
+};
+```
+
+## Esempi API
+
+### Cerca per Tipo di Carta
+
+L'API organizza le carte in tre categorie principali che corrispondono ai tipi di carte di Pokémon TCG Live:
+
+```javascript
+const sdk = new TCGdx('it');
+
+// Ottieni tutte le carte Pokémon (creature che giochi per combattere)
+const pokemon = await sdk.cards.list({ category: 'Pokemon' });
+
+// Ottieni carte Allenatore (supporter, strumenti, stadi e oggetti)
+const trainers = await sdk.cards.list({ category: 'Trainer' });
+
+// Ottieni carte Energia (energia base e speciale per gli attacchi)
+const energy = await sdk.cards.list({ category: 'Energy' });
+```
+
+### Filtra per Attributi
+
+Usa attributi specifici delle carte per trovare esattamente quello che ti serve per la tua applicazione Pokémon TCG Live:
+
+```javascript
+const sdk = new TCGdx('it');
+
+// Trova Pokémon di tipo Fuoco per costruire mazzi fuoco
+const fireTypes = await sdk.cards.list({
+  category: 'Pokemon',
+  types: 'Fire'
+});
+
+// Trova Pokémon con PS alti (200+) adatti per strategie tank
+const tankPokemon = await sdk.cards.list({
+  hp: 'gte200'
+});
+
+// Ottieni carte da serie recenti (utile per formato Standard)
+const recentCards = await sdk.cards.list({
+  serie: ['sv', 'swsh'] // Scarlet & Violet, Sword & Shield
+});
+```
+
+### Ricerche Avanzate
+
+Esegui ricerche complesse usando attributi dettagliati delle carte e metadati:
+
+```javascript
+const sdk = new TCGdx('it');
+
+// Trova Pokémon che usano energia Acqua nei loro attacchi
+const waterAttackers = await sdk.cards.list({
+  category: 'Pokemon',
+  'attacks.cost': 'Water'
+});
+
+// Cerca carte per illustratori specifici (ottimo per collezionisti)
+const artistCards = await sdk.cards.list({
+  illustrator: 'Mitsuhiro Arita'
+});
+
+// Filtra per livelli di rarità (Common, Uncommon, Rare, ecc.)
+const rareCards = await sdk.cards.list({
+  rarity: 'Rare'
+});
+```
+
+## Approccio API
+
+Pokémon TCG Live usa multiple serie (`sv`, `swsh`, `sm`, ecc.) rappresentanti il pool completo di carte fisiche:
+
+```javascript
+// Lavora con multiple serie rappresentanti diverse ere
+const allSeries = ['sv', 'swsh', 'sm', 'xy']; // Gestisci le regole di formato nella tua app
+const liveCards = await sdk.cards.list({ serie: allSeries });
+```
+
+## Risorse della Comunità
+
+<CardGrid>
+  <LinkCard
+    href="/sdks"
+    title="SDK"
+    description="Usa le nostre implementazioni SDK ufficiali per semplificare la tua integrazione"
+  />
+  <LinkCard
+    href="https://discord.gg/NehYTAhsZE"
+    title="Unisciti al nostro Discord"
+    description="Ottieni aiuto con la tua integrazione Pokémon TCG Live dalla nostra comunità"
+  />
+  <LinkCard
+    href="/rest/filtering-sorting-pagination"
+    title="Filtrazione Avanzata"
+    description="Impara pattern complessi di filtrazione e ricerca per query delle carte"
+  />
+</CardGrid>
