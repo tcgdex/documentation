@@ -30,6 +30,7 @@ Properties shared by all cards regardless of category:
 | `variants` | [Object](#variants) | ✓ | Available card variants |
 | `boosters` | [Array](#boosters) | | Booster packs containing this card (null if available in all boosters) |
 | `pricing` | [Object](#pricing) | | Market pricing information |
+| `updated` | String (ISO9601) | ✓ | Indicate when is the last time the card data was updated (excluding pricing infos) |
 
 ### Variants
 
@@ -61,10 +62,17 @@ Market pricing information from multiple sources:
 
 ### TCGPlayer Pricing
 
+| Property | Type | Description |
+|----------|------|-------------|
+| `pricing.tcgplayer.updated` | Number | Indicate when is the last time it was fetched |
+| `pricing.tcgplayer.unit` | Number | Indicate the unit in which the card is sold |
+
 TCGPlayer data is organized by card variant. Each variant may contain:
 
 | Property | Type | Description |
 |----------|------|-------------|
+| `pricing.tcgplayer.updated` | Number | Indicate when is the last time it was fetched |
+| `pricing.tcgplayer.unit` | Number | Indicate the unit in which the card is sold |
 | `lowPrice` | Number | Lowest available price |
 | `midPrice` | Number | Median market price |
 | `highPrice` | Number | Highest available price |
@@ -86,6 +94,8 @@ European market data with separate pricing for foil and non-foil variants:
 
 | Property | Type | Description |
 |----------|------|-------------|
+| `pricing.cardmarket.updated` | Number | Indicate when is the last time it was fetched |
+| `pricing.cardmarket.unit` | Number | Indicate the unit in which the card is sold |
 | `pricing.cardmarket.avg` | Number | Average selling price (non-foil) |
 | `pricing.cardmarket.low` | Number | Lowest market price (non-foil) |
 | `pricing.cardmarket.trend` | Number | Trend price from charts (non-foil) |
@@ -182,6 +192,9 @@ Complete Pokémon card response:
 		"reverse": true,
 		"wPromo": false
 	},
+	"dexId": [
+		162
+	],
 	"hp": 110,
 	"types": [
 		"Colorless"
@@ -217,6 +230,43 @@ Complete Pokémon card response:
 	"legal": {
 		"standard": false,
 		"expanded": true
+	},
+	"updated": "2024-02-04T22:55:32+02:00",
+	"pricing": {
+		"cardmarket": {
+			"updated": "2025-08-05T00:42:15.000Z",
+			"unit": "EUR",
+			"avg": 0.08,
+			"low": 0.02,
+			"trend": 0.08,
+			"avg1": 0.03,
+			"avg7": 0.08,
+			"avg30": 0.08,
+			"avg-holo": 0.27,
+			"low-holo": 0.03,
+			"trend-holo": 0.21,
+			"avg1-holo": 0.19,
+			"avg7-holo": 0.19,
+			"avg30-holo": 0.26
+		},
+		"tcgplayer": {
+			"updated": "2025-08-05T20:07:54.000Z",
+			"unit": "USD",
+			"normal": {
+				"lowPrice": 0.02,
+				"midPrice": 0.17,
+				"highPrice": 25.09,
+				"marketPrice": 0.09,
+				"directLowPrice": 0.04
+			},
+			"reverse": {
+				"lowPrice": 0.09,
+				"midPrice": 0.26,
+				"highPrice": 5.17,
+				"marketPrice": 0.23,
+				"directLowPrice": 0.23
+			}
+		}
 	}
 }
 ```
