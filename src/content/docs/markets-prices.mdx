@@ -1,0 +1,169 @@
+---
+title: Pokémon TCG Markets Integration
+description: Access Pokémon card pricing data from Cardmarket and TCGplayer with TCGdex's comprehensive REST API. No API key required - get market prices instantly.
+sidebar:
+  order: 300
+lastUpdated: true
+editUrl: true
+hero:
+  tagline: Real-time market pricing for every Pokémon card
+  image:
+    dark: "../../assets/markets-prices/providers.dark.png"
+    light: "../../assets/markets-prices/providers.light.png"
+    alt: "TCGdex providers logos (Cardmarket & TCGPlayer)"
+  actions:
+    - text: Get Started
+      link: "#getting-started"
+      icon: right-arrow
+      variant: primary
+    - text: View API Examples
+      link: "#api-examples"
+      variant: minimal
+---
+import { Card, CardGrid, LinkCard, Aside } from '@astrojs/starlight/components'
+
+The TCGdx API provides comprehensive pricing data for Pokémon cards, sourced directly from the world's largest trading card marketplaces. Access current market values, historical trends, and variant-specific pricing.
+
+## What is Market Pricing Data?
+
+Our pricing system aggregates market data from major trading platforms to provide accurate, up-to-date valuations for every Pokémon card in your applications.
+
+Key features include:
+
+- **Real-time pricing**: Updated hourly (TCGPlayer) to daily (Cardmarket) across all major marketplaces
+- **Multiple variants**: Separate pricing for differents variants (depends on provider)
+- **Historical trends**: Track price movements over 1, 7, and 30-day periods (depend on provider)
+- **Global coverage**: Data from Europe's Cardmarket and North America's TCGplayer
+- **Embedded data**: Pricing included directly in card responses - no separate endpoints
+
+## Available Marketplaces
+
+Our API covers the two largest Pokémon card marketplaces globally:
+
+### 🏩 Cardmarket (Europe)
+- **Currency**: EUR
+- **Coverage**: Europe's largest TCG marketplace
+- **Update frequency**: Daily
+- **Data points**: Current averages, trends, lows, and 7/30-day historical data
+- **Variants**: Standard and holo-specific pricing
+
+### 🏦 TCGplayer (North America)
+- **Currency**: USD
+- **Coverage**: Leading North American platform
+- **Update frequency**: Hourly to daily
+- **Data points**: Low, mid, high, market, and direct pricing
+- **Variants**: Normal, reverse holo, and holo variants
+
+## Getting Started
+
+Pricing data is automatically included in every card response under the `pricing` field. No additional setup or endpoints required.
+
+<Aside type="caution">
+	If the card is not listed on a marketplace, the provider will be omitted.
+</Aside>
+
+### Quick Start Examples
+
+<Card title="REST API">
+```http
+GET https://api.tcgdx.dev/v2/en/cards/swsh3-136
+```
+
+The response includes pricing data directly in the card object:
+```json
+{
+  "id": "swsh3-136",
+  "name": "Charizard",
+  "pricing": {
+    "cardmarket": { /* EUR pricing */ },
+    "tcgplayer": { /* USD pricing */ }
+  }
+}
+```
+</Card>
+
+<Card title="SDK Integration">
+```typescript
+import TCGdx from '@tcgdx/sdk'
+
+const sdk = new TCGdx('en')
+const card = await sdk.cards.get('swsh3-136')
+
+// Access Cardmarket pricing (EUR)
+console.log(card.pricing.cardmarket.trend)
+console.log(card.pricing.cardmarket.avg30)
+
+// Access TCGplayer pricing (USD)
+console.log(card.pricing.tcgplayer.holo.marketPrice)
+console.log(card.pricing.tcgplayer.normal.lowPrice)
+```
+</Card>
+
+## API Examples
+
+### Complete Pricing Response
+
+Here's what [pricing data](/reference/card#pricing) looks like in [a typical card response](/rest/card):
+
+```json
+"pricing": {
+	"cardmarket": {
+		"updated": "2025-08-05T00:42:15.000Z",
+		"unit": "EUR",
+		"avg": 0.08,
+		"low": 0.02,
+		"trend": 0.08,
+		"avg1": 0.03,
+		"avg7": 0.08,
+		"avg30": 0.08,
+		"avg-holo": 0.27,
+		"low-holo": 0.03,
+		"trend-holo": 0.21,
+		"avg1-holo": 0.19,
+		"avg7-holo": 0.19,
+		"avg30-holo": 0.26
+	},
+	"tcgplayer": {
+		"updated": "2025-08-05T20:07:54.000Z",
+		"unit": "USD",
+		"normal": {
+			"lowPrice": 0.02,
+			"midPrice": 0.17,
+			"highPrice": 25.09,
+			"marketPrice": 0.09,
+			"directLowPrice": 0.04
+		},
+		"reverse": {
+			"lowPrice": 0.09,
+			"midPrice": 0.26,
+			"highPrice": 5.17,
+			"marketPrice": 0.23,
+			"directLowPrice": 0.23
+		}
+	}
+```
+
+## Community Resources
+
+<CardGrid>
+  <LinkCard
+    href="/reference/card"
+    title="Card Data Structure"
+    description="Reference of the card object with full pricing reference"
+  />
+  <LinkCard
+    href="/rest/card"
+    title="REST Card API Reference"
+    description="API access to the card endpoint"
+  />
+  <LinkCard
+    href="/sdks"
+    title="Official SDKs"
+    description="Use our SDK implementations for faster integration"
+  />
+  <LinkCard
+    href="https://tcgdx.dev/discord"
+    title="Join our Discord"
+    description="Get help with pricing integrations from our community"
+  />
+</CardGrid>

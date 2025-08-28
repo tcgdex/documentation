@@ -136,16 +136,23 @@ export default defineConfig({
 		titleDelimiter: '-',
 		sidebar: [{
 			label: 'Assets Management',
-			link: '/assets',
+			slug: 'assets',
 			translations: {
 				fr: 'Gestion des Images'
 			}
 		}, {
-			label: 'Pokémon TCG Pocket',
-			link: '/tcg-pocket'
-		}, {
-			label: 'Pokémon TCG Live',
-			link: '/tcg-live'
+			label: 'Integrations',
+			items: [{
+				label: 'TCG Markets Integration',
+				slug: 'markets-prices',
+				badge: 'New',
+			}, {
+				label: 'Pokémon TCG Pocket',
+				slug: 'tcg-pocket'
+			}, {
+				label: 'Pokémon TCG Live',
+				slug: 'tcg-live'
+			}]
 		}, {
 			label: 'SDKs',
 			translations: {
@@ -164,12 +171,13 @@ export default defineConfig({
 			}
 		}, {
 			label: 'GraphQL API',
-			link: '/graphql',
+			slug: 'graphql',
 			translations: {
 				fr: 'API GraphQL'
 			}
 		}, {
 			label: 'References',
+			collapsed: true,
 			autogenerate: {
 				directory: 'reference',
 			},
@@ -178,6 +186,7 @@ export default defineConfig({
 			}
 		}, {
 			label: 'Server Errors',
+			collapsed: true,
 			autogenerate: {
 				directory: 'errors',
 			},
