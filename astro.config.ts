@@ -141,6 +141,9 @@ export default defineConfig({
 				fr: 'Gestion des Images'
 			}
 		}, {
+			label: 'Common Questions',
+			slug: 'faq'
+		}, {
 			label: 'Integrations',
 			items: [{
 				label: 'TCG Markets Integration',
