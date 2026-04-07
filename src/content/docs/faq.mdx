@@ -1,0 +1,134 @@
+---
+title: Frequently Asked Questions
+description: Answers to common questions about the TCGdex API — pricing, variants, images, and contributing data.
+sidebar:
+  order: 500
+lastUpdated: true
+editUrl: true
+---
+
+import { Aside, LinkCard, CardGrid } from '@astrojs/starlight/components'
+
+## Pricing
+
+<Aside type="note">
+  Pricing accuracy is actively being improved. A new `variants_detailed` field is in development that will include direct Cardmarket and TCGPlayer IDs per card variant, which will significantly improve how prices are matched and displayed. No action is needed on your part — this will roll out automatically.
+</Aside>
+
+### Why do some cards show no pricing data?
+
+Not every card is listed on Cardmarket or TCGPlayer. The most common cases are:
+
+- **EX / Full Art cards from older sets** (BW era, HGSS era) — many of these do not have individual listings on either marketplace, so the `pricing` field is omitted entirely from the API response.
+- **Very recent releases** — new cards may not yet have enough market activity to appear in our pricing feeds.
+- **Regional exclusives** — cards released only in certain markets may only appear on one provider, or neither.
+
+If `pricing` is `null` or absent for a card, it simply means no data is available from our market sources for that card at this time. Coverage will improve as the new `variants_detailed` field rolls out.
+
+### Why does a regular card show the same price as its Special Illustration Rare?
+
+This is a known issue currently being addressed. Pricing is matched to Cardmarket and TCGPlayer listings using card IDs, and in some cases two different printings of the same Pokémon end up mapped to the same external listing — causing them to show identical prices.
+
+The upcoming `variants_detailed` field will store explicit marketplace IDs per variant, fixing this class of problem at the source. In the meantime, treat prices for cards that share a Pokémon name across rarities with some caution.
+
+### Why are some Cardmarket or TCGPlayer IDs wrong?
+
+Marketplace ID mapping is part of what the new `variants_detailed` field is designed to solve — each variant will carry its own explicit IDs for Cardmarket and TCGPlayer, replacing the current approach which can produce incorrect matches.
+
+This is actively being worked on. If you need to flag a specific card in the meantime, you can report it via [Discord](https://tcgdex.dev/discord) or a [GitHub issue](https://github.com/tcgdex/cards-database/issues/new?assignees=&labels=issue%2Cserver&projects=&template=api-issue.yml&title=issue%3A).
+
+---
+
+## Variants & Card Data
+
+<Aside type="note">
+  Variant data is being improved as part of the same `variants_detailed` initiative. This new field will provide richer, more accurate per-variant information including direct marketplace IDs. It is actively in development.
+</Aside>
+
+### How do normal / reverse / holo variants work?
+
+Each card object currently contains a `variants` field that describes which printings are known to exist:
+
+```json
+"variants": {
+  "normal": true,
+  "reverse": true,
+  "holo": false,
+  "firstEdition": false
+}
+```
+
+A value of `true` means that printing is known to exist. The upcoming `variants_detailed` field will expand on this by including marketplace-specific IDs for each variant, enabling more accurate pricing and data lookups.
+
+If a variant is showing clearly incorrect data for a specific set (for example, Ascended Heroes variants), you're welcome to report it via [Discord](https://tcgdex.dev/discord) or a [GitHub issue](https://github.com/tcgdex/cards-database/issues), though many known issues are already captured as part of the ongoing improvements.
+
+### Why is a card missing from a set, or showing the wrong local ID?
+
+Card data is community-maintained. If you notice a missing card or an incorrect `localId`, you can contribute a fix directly in the [cards database repository](https://github.com/tcgdex/cards-database).
+
+---
+
+## Images
+
+### Why are some card images missing?
+
+Card images are hosted separately from the card data. An image URL will be present in the API response when the image has been contributed and processed. If a card has no `image` field, the image has not yet been added to the database.
+
+### How do I contribute a missing card image?
+
+At the moment, image contributions are handled through the [Discord community](https://tcgdex.dev/discord). Reach out there and a maintainer will guide you through the process.
+
+<Aside type="tip">
+  When contributing images, high-resolution scans in PNG or WebP format are preferred. See the [Assets documentation](/assets) for details on how image URLs are structured.
+</Aside>
+
+### Why does an image URL have no file extension?
+
+This is intentional — see the [Assets Management](/assets) page for a full explanation. You append the quality and extension yourself:
+
+```
+https://assets.tcgdex.net/en/swsh/swsh3/136/high.webp
+https://assets.tcgdex.net/en/swsh/swsh3/136/low.png
+```
+
+---
+
+## Contributing & Reporting Issues
+
+### How do I report incorrect data?
+
+- **Discord** — fastest way to get a response: [tcgdex.dev/discord](https://tcgdex.dev/discord)
+- **GitHub Issues** — for bugs and data errors: [cards-database issues](https://github.com/tcgdex/cards-database/issues/new?assignees=&labels=issue%2Cserver&projects=&template=api-issue.yml&title=issue%3A)
+
+Please include the affected card ID (e.g. `bw10-99`) and a description of what is wrong and what the correct value should be.
+
+### How do I contribute card data or translations?
+
+The card database is open source. You can submit pull requests to add missing cards, fix data, or add translations:
+
+<CardGrid>
+  <LinkCard href="https://github.com/tcgdex/cards-database" title="cards-database on GitHub" description="The main repository for all card data and translations" />
+  <LinkCard href="https://tcgdex.dev/discord" title="Join our Discord" description="Ask questions and get help before contributing" />
+</CardGrid>
+
+Translation files live in the `meta/translations` directory of the repository.
+
+---
+
+## General API Questions
+
+### Is authentication required?
+
+No. The TCGdex API is free to use and requires no API key.
+
+### Are there rate limits?
+
+There are no published hard rate limits, but please be considerate. For bulk data needs, cache responses locally rather than fetching the same data repeatedly.
+
+### What formats does the API support?
+
+The REST API returns JSON. A [GraphQL API](/graphql) is also available for more flexible querying.
+
+### Which languages are supported?
+
+The API supports over 10 languages including English, French, Spanish, German, Italian, Portuguese (Brazilian), Japanese, Chinese (Traditional), Indonesian, and Thai. See the [project status page](/status) for current completion levels per language.
