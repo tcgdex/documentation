@@ -4,7 +4,7 @@
 	</a>
 </p>
 <p align="center">
-	<a href="https://discord.gg/NehYTAhsZE">
+	<a href="https://tcgdex.dev/discord">
 		<img src="https://img.shields.io/discord/857231041261076491?color=%235865F2&label=Discord" alt="Discord Link">
 	</a>
 	<a href="https://github.com/tcgdex/cards-database/issues">
@@ -21,4 +21,4 @@ A Multilanguage Pokémon TCG Database with Cards Pictures and most of the inform
 
 ## Getting Started
 
-_If you need help for using/editing the database, [join us on Discord](https://discord.gg/NehYTAhsZE)!_
+_If you need help for using/editing the database, [join us on Discord](https://tcgdex.dev/discord)!_

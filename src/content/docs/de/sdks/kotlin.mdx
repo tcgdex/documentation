@@ -5,8 +5,8 @@ description: Erfahren Sie, wie Sie das Kotlin SDK von TCGdex installieren und ve
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 
 <p class="flex gap-2 justify-center">
-	<a href="https://jitpack.io/#net.tcgdex/java-sdk">
-		<img src="https://img.shields.io/jitpack/v/github/tcgdex/java-sdk?style=flat-square" alt="Version des Pakets" />
+	<a href="https://central.sonatype.com/artifact/net.tcgdex/java-sdk/overview">
+		<img src="https://img.shields.io/maven-central/v/net.tcgdex/java-sdk?style=flat-square&logo=apachemaven" alt="Package Version" />
 	</a>
 	<a href="https://github.com/tcgdex/java-sdk/stargazers">
 		<img src="https://img.shields.io/github/stars/tcgdex/java-sdk?style=flat-square" alt="Sterne auf Github" />
@@ -23,61 +23,27 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 
 <Tabs>
 	<TabItem label="Gradle (Groovy)">
-		<Steps>
-			1. Fügen Sie das Repository in Ihre `build.gradle` hinzu
-
-				```groovy
-				repositories {
-					...
-					maven { url 'https://jitpack.io' }
-				}
-				```
-
-			2. Fügen Sie die Abhängigkeit in Ihre `build.gradle` hinzu
+			Fügen Sie die Abhängigkeit in Ihre `build.gradle` hinzu
 
 				```groovy
 				dependencies {
 					implementation 'net.tcgdex:java-sdk:{Version}'
 				}
 				```
-		</Steps>
 	</TabItem>
 
 	<TabItem label="Gradle (Kotlin)">
-		<Steps>
-			1. Fügen Sie das Repository in Ihre `build.gradle.kts` hinzu
-
-				```groovy
-				repositories {
-					...
-					maven(url = "https://jitpack.io")
-				}
-				```
-
-			2. Fügen Sie die Abhängigkeit in Ihre `build.gradle.kts` hinzu
+			Fügen Sie die Abhängigkeit in Ihre `build.gradle.kts` hinzu
 
 				```groovy
 				dependencies {
 					implementation("net.tcgdex:java-sdk:{Version}")
 				}
 				```
-		</Steps>
 	</TabItem>
 
 	<TabItem label="Maven">
-		<Steps>
-			1. Fügen Sie das **Repository** in Ihre `pom.xml` hinzu
-
-				```xml
-				<repositories>
-					<repository>
-						<id>jitpack.io</id>
-						<url>https://jitpack.io</url>
-					</repository>
-				</repositories>
-				```
-
-			2. Fügen Sie die **Abhängigkeit** in Ihre `pom.xml` hinzu
+			Fügen Sie die **Abhängigkeit** in Ihre `pom.xml` hinzu
 
 				```xml
 				<dependency>
@@ -86,7 +52,6 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components'
 					<version>{Version}</version>
 				</dependency>
 				```
-		</Steps>
 	</TabItem>
 </Tabs>
 

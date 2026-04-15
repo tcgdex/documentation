@@ -2,11 +2,17 @@
 title: Die mehrsprachige Pokémon TCG API
 description: TCGdex ist eine 14-sprachige API für das Pokémon TCG, mit detaillierten Daten zu den Karten und einfachem Zugang über eine REST/GraphQL API und mehrere SDKs.
 # template: splash
+head:
+  - tag: meta
+    attrs:
+      property: "og:title"
+      content: "Die mehrsprachige Pokémon TCG API - TCGdex API"
 hero:
   tagline: Jede Information zu deinen Karten frei verfügbar und Open Source!
   image:
     dark: ../../../assets/furret_dark.png
     light: ../../../assets/furret_light.png
+    alt: Pokémon-Sammelkartenspiel-Karte, die Wiesenior darstellt, gemischt mit ihrer JSON-Darstellung
   actions:
     - text: Probiere es mit einem SDK
       link: /de/sdks
@@ -68,7 +74,7 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components'
 ## Möchten Sie der Community helfen? Treten Sie uns bei!
 
 <CardGrid>
-	<LinkCard href="https://discord.gg/NehYTAhsZE" title="Treten Sie unserem Discord bei" description="Discord ist unser Hauptkommunikationsmittel zwischen den Community-Mitgliedern" />
+	<LinkCard href="https://tcgdex.dev/discord" title="Treten Sie unserem Discord bei" description="Discord ist unser Hauptkommunikationsmittel zwischen den Community-Mitgliedern" />
 	<LinkCard href="https://github.com/tcgdex/cards-database" title="Markieren Sie das Repository mit einem Stern!" description="Helfen Sie unserem Repository, indem Sie es auf Github mit einem Stern markieren" />
 	<LinkCard href="https://github.com/tcgdex/cards-database" title="Beitragen" description="Beiträge helfen Ihnen und anderen Community-Mitgliedern" />
 	<LinkCard href="https://github.com/sponsors/tcgdex" title="Sponsoren Sie das Projekt" description="Die API ist kostspielig im Betrieb, außerdem erhalten Sie eine Gegenleistung für Ihre Investition :D" />

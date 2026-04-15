@@ -1,0 +1,276 @@
+---
+title: The Card object
+description: A comprehensive guide to Pokémon TCG card objects in the API
+---
+import { Aside, Tabs, TabItem, CardGrid, LinkCard } from '@astrojs/starlight/components'
+
+The Card object is the core data structure used throughout the TCGdx API. It represents a single Pokémon Trading Card Game card with all its properties, variants, and associated metadata.
+
+<Aside type="note">
+	The required column indicates which fields are mandatory.
+	- ✅ field is always present in the response.
+	- ❌ field is omitted when there is no value in the response.
+</Aside>
+
+## Card Types
+
+All cards share common properties, with additional fields specific to their category:
+
+- **[Common Properties](#common-properties)** - Common Properties for every cards
+- **[Pokémon Card Properties](#pokémon-cards)** - Battle creatures with HP, attacks, and abilities
+- **[Trainer Card Properties](#trainer-cards)** - Support cards with various effects and types
+- **[Energy Card Properties](#energy-cards)** - Resource cards needed to power Pokémon attacks
+
+## Common Properties
+
+Properties shared by all cards regardless of category:
+
+| Property      | Type                             | Required | Description                                                                        |
+|---------------|----------------------------------|----------|------------------------------------------------------------------------------------|
+| `id`          | String                           | ✅        | Unique identifier for the card (e.g., "swsh3-136")                                 |
+| `localId`     | String or Number                 | ✅        | Card number within its set                                                         |
+| `name`        | String                           | ✅        | Official card name                                                                 |
+| `image`       | String                           | ❌        | Card image URL (see [Assets](/assets))                                             |
+| `category`    | String                           | ✅        | Card type: "Pokemon", "Energy", or "Trainer"                                       |
+| `illustrator` | String                           | ❌        | Artist who illustrated the card                                                    |
+| `rarity`      | String                           | ❌        | Card rarity (Common, Uncommon, Rare, etc.)                                         |
+| `set`         | [SetBrief](/reference/set-brief) | ✅        | Set information (see [Sets API](/rest/set))                                        |
+| `variants`    | [Object](#variants)              | ✅        | Available card variants                                                            |
+| `boosters`    | [Array](#boosters)               | ❌        | Booster packs containing this card (null if available in all boosters)             |
+| `pricing`     | [Object](#pricing)               | ❌        | Market pricing information                                                         |
+| `updated`     | String (ISO9601)                 | ✅        | Indicate when is the last time the card data was updated (excluding [pricing](#pricing) infos) |
+
+### Variants
+
+| Property                | Type    | Required | Description                         |
+|-------------------------|---------|----------|-------------------------------------|
+| `variants.normal`       | Boolean | ✅        | Standard non-foil version available |
+| `variants.reverse`      | Boolean | ✅        | Reverse holofoil version available  |
+| `variants.holo`         | Boolean | ✅        | Holofoil version available          |
+| `variants.firstEdition` | Boolean | ✅        | First edition printing available    |
+
+### Boosters
+
+| Property                   | Type   | Required | Description               |
+|----------------------------|--------|----------|---------------------------|
+| `boosters[].id`            | String | ✅        | Unique booster identifier |
+| `boosters[].name`          | String | ✅        | Localized booster name    |
+| `boosters[].logo`          | String | ❌        | Booster pack logo image   |
+| `boosters[].artwork_front` | String | ❌        | Front artwork image       |
+| `boosters[].artwork_back`  | String | ❌        | Back artwork image        |
+
+## Pricing
+
+Market pricing information from multiple sources:
+
+| Property             | Type                          | Required | Description                |
+|----------------------|-------------------------------|----------|----------------------------|
+| `pricing.tcgplayer`  | [Object](#tcgplayer-pricing)  | ❌        | TCGPlayer marketplace data |
+| `pricing.cardmarket` | [Object](#cardmarket-pricing) | ❌        | Cardmarket pricing data    |
+
+### TCGPlayer Pricing
+
+| Property                                 | Type                     | Required | Description                                   |
+|------------------------------------------|--------------------------|----------|-----------------------------------------------|
+| `pricing.tcgplayer.updated`              | Number                   | ✅        | Indicate when is the last time it was fetched |
+| `pricing.tcgplayer.unit`                 | Number                   | ✅        | Indicate the unit in which the card is sold   |
+| `pricing.tcgplayer.normal`               | [Object](#variant-infos) | ❌        | Standard non-foil cards                       |
+| `pricing.tcgplayer.holofoil`             | [Object](#variant-infos) | ❌        | Holofoil finish cards                         |
+| `pricing.tcgplayer.reverse-holofoil`     | [Object](#variant-infos) | ❌        | Reverse holofoil cards                        |
+| `pricing.tcgplayer.1st-edition`          | [Object](#variant-infos) | ❌        | First edition cards                           |
+| `pricing.tcgplayer.1st-edition-holofoil` | [Object](#variant-infos) | ❌        | First edition holofoil cards                  |
+| `pricing.tcgplayer.unlimited`            | [Object](#variant-infos) | ❌        | Unlimited edition cards                       |
+| `pricing.tcgplayer.unlimited-holofoil`   | [Object](#variant-infos) | ❌        | Unlimited holofoil cards                      |
+
+#### Variant infos
+TCGPlayer data is organized by card variant. Each variant may contain:
+
+| Property                    | Type   | Required | Description                                   |
+|-----------------------------|--------|----------|-----------------------------------------------|
+| `lowPrice`                  | Number | ❌        | Lowest available price                        |
+| `midPrice`                  | Number | ❌        | Median market price                           |
+| `highPrice`                 | Number | ❌        | Highest available price                       |
+| `marketPrice`               | Number | ❌        | Current market price                          |
+| `directLowPrice`            | Number | ❌        | Lowest direct seller price                    |
+
+### Cardmarket Pricing
+
+European market data with separate pricing for foil and non-foil variants:
+
+| Property                        | Type   | Required | Description                                   |
+|---------------------------------|--------|----------|-----------------------------------------------|
+| `pricing.cardmarket.updated`    | Number | ❌        | Indicate when is the last time it was fetched |
+| `pricing.cardmarket.unit`       | Number | ❌        | Indicate the unit in which the card is sold   |
+| `pricing.cardmarket.avg`        | Number | ❌        | Average selling price (non-foil)              |
+| `pricing.cardmarket.low`        | Number | ❌        | Lowest market price (non-foil)                |
+| `pricing.cardmarket.trend`      | Number | ❌        | Trend price from charts (non-foil)            |
+| `pricing.cardmarket.avg1`       | Number | ❌        | Average price (last 24 hours)                 |
+| `pricing.cardmarket.avg7`       | Number | ❌        | Average price (last 7 days)                   |
+| `pricing.cardmarket.avg30`      | Number | ❌        | Average price (last 30 days)                  |
+| `pricing.cardmarket.avg-holo`   | Number | ❌        | Average selling price (foil)                  |
+| `pricing.cardmarket.low-holo`   | Number | ❌        | Lowest market price (foil)                    |
+| `pricing.cardmarket.trend-holo` | Number | ❌        | Trend price from charts (foil)                |
+| `pricing.cardmarket.avg1-holo`  | Number | ❌        | Average price (last 24 hours, foil)           |
+| `pricing.cardmarket.avg7-holo`  | Number | ❌        | Average price (last 7 days, foil)             |
+| `pricing.cardmarket.avg30-holo` | Number | ❌        | Average price (last 30 days, foil)            |
+
+## Pokémon Cards
+
+Additional properties for Pokémon cards (includes all [common properties](#common-properties)):
+
+| Property      | Type            | Required | Description                                |
+|---------------|-----------------|----------|--------------------------------------------|
+| `category`    | "Pokemon"       | ✅        | Always "Pokemon" for these cards           |
+| `dexId`       | Array of Number | ❌        | National Pokédex ID(s) of the Pokémon      |
+| `hp`          | Number          | ❌        | Hit Points of the Pokémon                  |
+| `types`       | Array of String | ❌        | Pokémon types (Fire, Water, Grass, etc.)   |
+| `evolveFrom`  | String          | ❌        | Name of the Pokémon it evolves from        |
+| `description` | String          | ❌        | Flavor text description                    |
+| `level`       | String          | ❌        | Pokémon level (for LV.X cards, level is X) |
+| `stage`       | String          | ❌        | Evolution stage (Basic, Stage1, Stage2)    |
+| `suffix`      | String          | ❌        | Additional card identifiers                |
+| `item`        | Object          | ❌        | Held item information                      |
+| `item.name`   | String          | ✅        | Item name                                  |
+| `item.effect` | String          | ✅        | Item effect description                    |
+
+## Trainer Cards
+
+Additional properties for Trainer cards (includes all [common properties](#common-properties)):
+
+| Property      | Type      | Required | Description                      |
+|---------------|-----------|----------|----------------------------------|
+| `category`    | "Trainer" | ✅        | Always "Trainer" for these cards |
+| `effect`      | String    | ✅        | Card effect text                 |
+| `trainerType` | String    | ✅        | Type of trainer card             |
+
+## Energy Cards
+
+Additional properties for Energy cards (includes all [common properties](#common-properties)):
+
+| Property     | Type     | Required | Description                     |
+|--------------|----------|----------|---------------------------------|
+| `category`   | "Energy" | ✅        | Always "Energy" for these cards |
+| `effect`     | String   | ✅        | Card effect text                |
+| `energyType` | String   | ✅        | Type of energy card             |
+
+### Energy Types
+
+| Type      | Description                         |
+|-----------|-------------------------------------|
+| `Basic`   | Standard single-type energy         |
+| `Special` | Multi-type or special effect energy |
+
+## Example
+
+Complete Pokémon card response:
+
+```json
+{
+	"category": "Pokemon",
+	"id": "swsh3-136",
+	"illustrator": "tetsuya koizumi",
+	"image": "https://assets.tcgdex.net/en/swsh/swsh3/136",
+	"localId": "136",
+	"name": "Furret",
+	"rarity": "Uncommon",
+	"set": {
+		"cardCount": {
+			"official": 189,
+			"total": 201
+		},
+		"id": "swsh3",
+		"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+		"name": "Darkness Ablaze",
+		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+	},
+	"variants": {
+		"firstEdition": false,
+		"holo": false,
+		"normal": true,
+		"reverse": true,
+		"wPromo": false
+	},
+	"dexId": [
+		162
+	],
+	"hp": 110,
+	"types": [
+		"Colorless"
+	],
+	"evolveFrom": "Sentret",
+	"description": "It makes a nest to suit its long and skinny body. The nest is impossible for other Pokémon to enter.",
+	"stage": "Stage1",
+	"attacks": [
+		{
+			"cost": [
+				"Colorless"
+			],
+			"name": "Feelin' Fine",
+			"effect": "Draw 3 cards."
+		},
+		{
+			"cost": [
+				"Colorless"
+			],
+			"name": "Tail Smash",
+			"effect": "Flip a coin. If tails, this attack does nothing.",
+			"damage": 90
+		}
+	],
+	"weaknesses": [
+		{
+			"type": "Fighting",
+			"value": "×2"
+		}
+	],
+	"retreat": 1,
+	"regulationMark": "D",
+	"legal": {
+		"standard": false,
+		"expanded": true
+	},
+	"updated": "2024-02-04T22:55:32+02:00",
+	"pricing": {
+		"cardmarket": {
+			"updated": "2025-08-05T00:42:15.000Z",
+			"unit": "EUR",
+			"avg": 0.08,
+			"low": 0.02,
+			"trend": 0.08,
+			"avg1": 0.03,
+			"avg7": 0.08,
+			"avg30": 0.08,
+			"avg-holo": 0.27,
+			"low-holo": 0.03,
+			"trend-holo": 0.21,
+			"avg1-holo": 0.19,
+			"avg7-holo": 0.19,
+			"avg30-holo": 0.26
+		},
+		"tcgplayer": {
+			"updated": "2025-08-05T20:07:54.000Z",
+			"unit": "USD",
+			"normal": {
+				"lowPrice": 0.02,
+				"midPrice": 0.17,
+				"highPrice": 25.09,
+				"marketPrice": 0.09,
+				"directLowPrice": 0.04
+			},
+			"reverse": {
+				"lowPrice": 0.09,
+				"midPrice": 0.26,
+				"highPrice": 5.17,
+				"marketPrice": 0.23,
+				"directLowPrice": 0.23
+			}
+		}
+	}
+}
+```
+
+## Related Resources
+
+<CardGrid>
+  <LinkCard title="rest API endpoint" href="/rest/card" />
+</CardGrid>
