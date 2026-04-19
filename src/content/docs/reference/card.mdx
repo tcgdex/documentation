@@ -2,7 +2,10 @@
 title: The Card object
 description: A comprehensive guide to Pokémon TCG card objects in the API
 ---
-import { Aside, Tabs, TabItem, CardGrid, LinkCard } from '@astrojs/starlight/components'
+
+
+
+import {Aside, CardGrid, LinkCard} from '@astrojs/starlight/components'
 
 The Card object is the core data structure used throughout the TCGdx API. It represents a single Pokémon Trading Card Game card with all its properties, variants, and associated metadata.
 
@@ -41,6 +44,29 @@ Properties shared by all cards regardless of category:
 | `updated`     | String (ISO9601)                 | ✅        | Indicate when is the last time the card data was updated (excluding [pricing](#pricing) infos) |
 
 ### Variants
+
+variants has two structures best described as a new and old, the older structure is a selection of booleans
+and a newer structure in the form of the detailed variants. new contributions should use the detailed variants structure.
+
+both are returned in the api currently as two fields, `variants` and `variants_detailed`. the old structure will be converted
+to `variants_detailed` during compilation and `variants_detailed` will be converted to `variants` for backwards compatibility.
+
+the older `variants` structure is planned to be removed in `V3` of the api.
+
+#### Detailed Variants
+New structure:
+
+| Property              | Type            | Required | Description                                                             |
+|-----------------------|-----------------|----------|-------------------------------------------------------------------------|
+| `variants[].type`     | String          | ✅        | Variant type (normal, holo, etc.)                                       |
+| `variants[].subtype`  | String          | ❌        | Variant subtype ( shadowless, unlimited, etc.)                          |
+| `variants[].size`     | String          | ❌        | Physical size (standard, jumbo, etc.) defaults to standard              |
+| `variants[].stamps[]` | Array of String | ❌        | Special stamps or marks on the card (1st Edition, Staff, etc.)          |
+| `variants[].foil`     | String          | ❌        | Foils type (pokeball,masterball, etc.)                                  |
+| `variants[].language` | String          | ❌        | if supplied this variants will only be avilable for the selected lang's |
+
+#### Variants
+Old structure to be phased out with `V3`:
 
 | Property                | Type    | Required | Description                         |
 |-------------------------|---------|----------|-------------------------------------|
@@ -118,20 +144,55 @@ European market data with separate pricing for foil and non-foil variants:
 
 Additional properties for Pokémon cards (includes all [common properties](#common-properties)):
 
-| Property      | Type            | Required | Description                                |
-|---------------|-----------------|----------|--------------------------------------------|
-| `category`    | "Pokemon"       | ✅        | Always "Pokemon" for these cards           |
-| `dexId`       | Array of Number | ❌        | National Pokédex ID(s) of the Pokémon      |
-| `hp`          | Number          | ❌        | Hit Points of the Pokémon                  |
-| `types`       | Array of String | ❌        | Pokémon types (Fire, Water, Grass, etc.)   |
-| `evolveFrom`  | String          | ❌        | Name of the Pokémon it evolves from        |
-| `description` | String          | ❌        | Flavor text description                    |
-| `level`       | String          | ❌        | Pokémon level (for LV.X cards, level is X) |
-| `stage`       | String          | ❌        | Evolution stage (Basic, Stage1, Stage2)    |
-| `suffix`      | String          | ❌        | Additional card identifiers                |
-| `item`        | Object          | ❌        | Held item information                      |
-| `item.name`   | String          | ✅        | Item name                                  |
-| `item.effect` | String          | ✅        | Item effect description                    |
+| Property         | Type                                           | Required | Description                                |
+|------------------|------------------------------------------------|----------|--------------------------------------------|
+| `category`       | "Pokemon"                                      | ✅        | Always "Pokemon" for these cards           |
+| `dexId`          | Array of Number                                | ❌        | National Pokédex ID(s) of the Pokémon      |
+| `hp`             | Number                                         | ❌        | Hit Points of the Pokémon                  |
+| `types`          | Array of String                                | ❌        | Pokémon types (Fire, Water, Grass, etc.)   |
+| `evolveFrom`     | String                                         | ❌        | Name of the Pokémon it evolves from        |
+| `description`    | String                                         | ❌        | Flavor text description                    |
+| `level`          | String                                         | ❌        | Pokémon level (for LV.X cards, level is X) |
+| `stage`          | String                                         | ❌        | Evolution stage (Basic, Stage1, Stage2)    |
+| `suffix`         | String                                         | ❌        | Additional card identifiers                |
+| `item`           | Object                                         | ❌        | Held item information                      |
+| `item.name`      | String                                         | ✅        | Item name                                  |
+| `item.effect`    | String                                         | ✅        | Item effect description                    |
+| `attacks`        | Array of [Object](#attacks)                    | ❌        | List of attacks the Pokémon can perform    |
+| `abilities`      | Array of [Object](#abilities)                  | ❌        | List of abilities the Pokémon has          |
+| `weaknesses`     | Array of [Object](#Resistances and Weaknesses) | ❌        | Pokémon weaknesses                         |
+| `resistances`    | Array of [Object](#Resistances and Weaknesses) | ❌        | Pokémon resistances                        |
+| `retreat`        | Number                                         | ❌        | Retreat cost in energys                    |
+| `regulationMark` | String                                         | ❌        | Regulation mark for standard play          |
+| `legal.standard` | Boolean                                        | ❌        | Is the card legal in Standard format       |
+| `legal.expanded` | Boolean                                        | ❌        | Is the card legal in Expanded format       |
+
+### Attacks
+Pokémon cards may have multiple attacks, each with the following structure:
+
+| Property | Type             | Required | Description                          |
+|----------|------------------|----------|--------------------------------------|
+| `cost`   | Array of String  | ❌        | Energy types required for the attack |
+| `name`   | String           | ✅        | Name of the attack                   |
+| `effect` | String           | ❌        | Description of the attack effect     |
+| `damage` | Number or String | ❌        | Damage dealt by the attack           |
+
+### Abilities
+Pokémon cards may have abilities with the following structure:
+
+| Property | Type   | Required | Description                                   |
+|----------|--------|----------|-----------------------------------------------|
+| `name`   | String | ✅        | Name of the ability                           |
+| `effect` | String | ✅        | Description of the ability effect             |
+| `type`   | String | ✅        | Type of ability (Poké-POWER, Poké-BODY, etc.) |
+
+### Resistances and Weaknesses
+Both resistances and weaknesses share the same structure:
+
+| Property | Type   | Required | Description                       |
+|----------|--------|----------|-----------------------------------|
+| `type`   | String | ✅        | Type of resistance or weakness    |
+| `value`  | String | ❌        | Multiplier or value of the effect |
 
 ## Trainer Cards
 
@@ -166,106 +227,117 @@ Complete Pokémon card response:
 
 ```json
 {
-	"category": "Pokemon",
-	"id": "swsh3-136",
-	"illustrator": "tetsuya koizumi",
-	"image": "https://assets.tcgdex.net/en/swsh/swsh3/136",
-	"localId": "136",
-	"name": "Furret",
-	"rarity": "Uncommon",
-	"set": {
-		"cardCount": {
-			"official": 189,
-			"total": 201
-		},
-		"id": "swsh3",
-		"logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
-		"name": "Darkness Ablaze",
-		"symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
-	},
-	"variants": {
-		"firstEdition": false,
-		"holo": false,
-		"normal": true,
-		"reverse": true,
-		"wPromo": false
-	},
-	"dexId": [
-		162
-	],
-	"hp": 110,
-	"types": [
-		"Colorless"
-	],
-	"evolveFrom": "Sentret",
-	"description": "It makes a nest to suit its long and skinny body. The nest is impossible for other Pokémon to enter.",
-	"stage": "Stage1",
-	"attacks": [
-		{
-			"cost": [
-				"Colorless"
-			],
-			"name": "Feelin' Fine",
-			"effect": "Draw 3 cards."
-		},
-		{
-			"cost": [
-				"Colorless"
-			],
-			"name": "Tail Smash",
-			"effect": "Flip a coin. If tails, this attack does nothing.",
-			"damage": 90
-		}
-	],
-	"weaknesses": [
-		{
-			"type": "Fighting",
-			"value": "×2"
-		}
-	],
-	"retreat": 1,
-	"regulationMark": "D",
-	"legal": {
-		"standard": false,
-		"expanded": true
-	},
-	"updated": "2024-02-04T22:55:32+02:00",
-	"pricing": {
-		"cardmarket": {
-			"updated": "2025-08-05T00:42:15.000Z",
-			"unit": "EUR",
-			"avg": 0.08,
-			"low": 0.02,
-			"trend": 0.08,
-			"avg1": 0.03,
-			"avg7": 0.08,
-			"avg30": 0.08,
-			"avg-holo": 0.27,
-			"low-holo": 0.03,
-			"trend-holo": 0.21,
-			"avg1-holo": 0.19,
-			"avg7-holo": 0.19,
-			"avg30-holo": 0.26
-		},
-		"tcgplayer": {
-			"updated": "2025-08-05T20:07:54.000Z",
-			"unit": "USD",
-			"normal": {
-				"lowPrice": 0.02,
-				"midPrice": 0.17,
-				"highPrice": 25.09,
-				"marketPrice": 0.09,
-				"directLowPrice": 0.04
-			},
-			"reverse": {
-				"lowPrice": 0.09,
-				"midPrice": 0.26,
-				"highPrice": 5.17,
-				"marketPrice": 0.23,
-				"directLowPrice": 0.23
-			}
-		}
-	}
+  "category": "Pokemon",
+  "id": "swsh3-136",
+  "illustrator": "tetsuya koizumi",
+  "image": "https://assets.tcgdex.net/en/swsh/swsh3/136",
+  "localId": "136",
+  "name": "Furret",
+  "rarity": "Uncommon",
+  "set": {
+    "cardCount": {
+      "official": 189,
+      "total": 201
+    },
+    "id": "swsh3",
+    "logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+    "name": "Darkness Ablaze",
+    "symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol"
+  },
+  "variants": {
+    "firstEdition": false,
+    "holo": false,
+    "normal": true,
+    "reverse": true,
+    "wPromo": false
+  },
+  "variants_detailed": [
+    {
+      "type": "normal",
+      "size": "standard"
+    },
+    {
+      "type": "reverse",
+      "size": "standard"
+    }
+  ],
+  "dexId": [162],
+  "hp": 110,
+  "types": [
+    "Colorless"
+  ],
+  "evolveFrom": "Sentret",
+  "description": "It makes a nest to suit its long and skinny body. The nest is impossible for other Pokémon to enter.",
+  "stage": "Stage1",
+  "attacks": [
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Feelin' Fine",
+      "effect": "Draw 3 cards."
+    },
+    {
+      "cost": [
+        "Colorless"
+      ],
+      "name": "Tail Smash",
+      "effect": "Flip a coin. If tails, this attack does nothing.",
+      "damage": 90
+    }
+  ],
+  "weaknesses": [
+    {
+      "type": "Fighting",
+      "value": "×2"
+    }
+  ],
+  "retreat": 1,
+  "regulationMark": "D",
+  "legal": {
+    "standard": false,
+    "expanded": true
+  },
+  "updated": "2025-08-16T20:39:55Z",
+  "pricing": {
+    "cardmarket": {
+      "updated": "2026-02-02T01:47:49.000Z",
+      "unit": "EUR",
+      "idProduct": 483559,
+      "avg": 0.13,
+      "low": 0.02,
+      "trend": 0.08,
+      "avg1": 0.08,
+      "avg7": 0.07,
+      "avg30": 0.09,
+      "avg-holo": 0.32,
+      "low-holo": 0.03,
+      "trend-holo": 0.28,
+      "avg1-holo": 0.34,
+      "avg7-holo": 0.28,
+      "avg30-holo": 0.28
+    },
+    "tcgplayer": {
+      "updated": "2026-02-01T20:04:46.000Z",
+      "unit": "USD",
+      "normal": {
+        "productId": 219333,
+        "lowPrice": 0.01,
+        "midPrice": 0.18,
+        "highPrice": 25.18,
+        "marketPrice": 0.17,
+        "directLowPrice": 0.14
+      },
+      "reverse-holofoil": {
+        "productId": 219333,
+        "lowPrice": 0.14,
+        "midPrice": 0.3,
+        "highPrice": 5.18,
+        "marketPrice": 0.3,
+        "directLowPrice": null
+      }
+    }
+  }
 }
 ```
 
