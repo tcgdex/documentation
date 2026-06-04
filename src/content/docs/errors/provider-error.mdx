@@ -1,0 +1,43 @@
+---
+title: Provider error
+description: A provider of the API encountered an error
+---
+
+This error is used when a provider the server is using encountered an error or when the server encounter an error while communicating with a provider.
+
+## Status Code
+
+## 2xx
+
+When the `errors` field appear inside a 200 response, it will contain a list of errors in the page with a pointer to the field that cannot be correctly rendered but without the `status` field
+
+### Example
+
+```json
+{
+  ...
+  "errors": [
+    {
+    	"type": "https://tcgdex.dev/errors/provider-error",
+    	"title": "TCGdex encountered an error while communicating with a provider",
+      "provider": "tcgcsv",
+      "details": "Your application has flagged for overuse and has been blocked. [...]",
+      "pointer": "#/pricing/tcgplayer"  
+    }
+  ]
+}
+```
+
+## 5xx
+
+### Example
+
+```json
+{
+	"type": "https://tcgdex.dev/errors/provider-error",
+	"title": "TCGdex encountered an error while communicating with a provider",
+  "status": 500,
+  "provider": "tcgcsv",
+  "details": "Your application has flagged for overuse and has been blocked. [...]"
+}
+```
