@@ -14,9 +14,35 @@ RFC 9457 is a standardized format for expressing error details in HTTP API respo
   - **`title`**: A short, human-readable summary of the problem type.
   - **`status`**: The HTTP status code.
   - **`detail`**: A human-readable explanation specific to this occurrence of the problem.
-  {/* - **`instance`**: An indication on which instance of the server the error occured NOT USED currently */}
+  - **`instance`**: An indication on which instance of the server the error occured NOT USED currently
 
 ## Example
+
+### partial response error (2xx)
+
+When the `errors` field appear inside a 200 response, it will contain a list of errors in the page with a pointer to the field that cannot be correctly rendered but without the `status` field
+
+### Example
+
+```json
+{
+  "id": "swsh3-136",
+  "name": "Furret",
+  ...
+  "errors": [
+    {
+      "type": "https://tcgdex.dev/errors/provider-error",
+      "title": "TCGdex encountered an error while communicating with a provider",
+      "provider": "tcgcsv",
+      "details": "Your application has flagged for overuse and has been blocked. [...]",
+      "pointer": "#/pricing/tcgplayer",
+      "instance": "eu2"
+    }
+  ]
+}
+```
+
+### Full Error response (4xx/5xx)
 An example JSON response using RFC 9457 look like this:
 ```json
 {
@@ -24,7 +50,8 @@ An example JSON response using RFC 9457 look like this:
 	"title": "The resource you are trying to reach does not exists",
 	"status": 404,
 	"endpoint": "/v2/i-do-not-exists",
-	"method": "GET"
+	"method": "GET",
+	"instance": "eu2"
 }
 ```
 
