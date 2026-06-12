@@ -31,6 +31,18 @@ export default defineConfig({
 			tag: 'script',
 			content: 'window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }'
 		}, {
+			tag: 'meta',
+			attrs: {
+				property: 'og:image',
+				content: '/og.png'
+			}
+		}, {
+			tag: 'meta',
+			attrs: {
+				property: 'twitter:image',
+				content: '/og.png'
+			}
+		}, {
 			tag: 'link',
 			attrs: {
 				rel: 'apple-touch-icon',
