@@ -1,0 +1,4 @@
+Contact: mailto:security@tcgdex.net
+Expires: 2027-05-31T00:00:00.000Z
+Preferred-Languages: en, fr
+Canonical: https://tcgdex.dev/.well-known/security.txt
