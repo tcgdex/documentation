@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import LogoDzeio from '../assets/sponsors/dzeio.svg'
 import LogoCardCodex from '../assets/sponsors/card-codex.png'
+import LogoPokecompare from '../assets/sponsors/pokecompare.svg'
 
 const sponsors: Array<{
 	name: string
@@ -16,9 +17,15 @@ const sponsors: Array<{
 		size: 'large'
 	},
 	{
-		name: 'Card-Codex',
+		name: 'Card Codex', // frinja313
 		img: LogoCardCodex,
 		url: 'https://cardcodex.com/',
+		size: 'small'
+	},
+	{
+		name: 'pokecompare', // lauridskern
+		img: LogoPokecompare,
+		url: 'https://pokecompare.com',
 		size: 'small'
 	}
 ]
@@ -31,7 +38,7 @@ const sponsors: Array<{
 			<a href={sponsor.url} class:list={{'col-span-2': sponsor.size === 'large'}} target="_blank" rel="noopener">
 				<article>
 					{sponsor.img ? (
-						<Image height={sponsor.size === 'large' ? 30 : 24} src={sponsor.img} alt={`Logo ${sponsor.name}`}/>
+						<Image height={sponsor.size === 'large' ? 30 : 24} src={sponsor.img} style={{width: '100%'}} alt={`Logo ${sponsor.name}`}/>
 					) : (
 						<p class:list={["font-bold text-black text-center", {'text-xl w-full': sponsor.size === 'large', 'text-sm': sponsor.size !== 'large'}]}>{sponsor.name}</p>
 					)}
@@ -56,7 +63,7 @@ const sponsors: Array<{
 		background-color: var(--sl-color-gray-6);
 		justify-content: center;
 		align-items: center;
-		padding: 1.5rem;
+		padding: 8px;
 		height: 68px;
 		width: 100%;
 		transition: all 0.1s linear;
