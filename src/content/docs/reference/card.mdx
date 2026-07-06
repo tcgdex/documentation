@@ -72,8 +72,8 @@ Market pricing information from multiple sources:
 
 | Property                                 | Type                     | Required | Description                                   |
 |------------------------------------------|--------------------------|----------|-----------------------------------------------|
-| `pricing.tcgplayer.updated`              | Number                   | ✅        | Indicate when is the last time it was fetched |
-| `pricing.tcgplayer.unit`                 | Number                   | ✅        | Indicate the unit in which the card is sold   |
+| `pricing.tcgplayer.updated`              | String                   | ✅        | Indicate when is the last time it was fetched |
+| `pricing.tcgplayer.unit`                 | String                   | ✅        | Indicate the unit in which the card is sold   |
 | `pricing.tcgplayer.normal`               | [Object](#variant-infos) | ❌        | Standard non-foil cards                       |
 | `pricing.tcgplayer.holofoil`             | [Object](#variant-infos) | ❌        | Holofoil finish cards                         |
 | `pricing.tcgplayer.reverse-holofoil`     | [Object](#variant-infos) | ❌        | Reverse holofoil cards                        |
@@ -99,8 +99,8 @@ European market data with separate pricing for foil and non-foil variants:
 
 | Property                        | Type   | Required | Description                                   |
 |---------------------------------|--------|----------|-----------------------------------------------|
-| `pricing.cardmarket.updated`    | Number | ❌        | Indicate when is the last time it was fetched |
-| `pricing.cardmarket.unit`       | Number | ❌        | Indicate the unit in which the card is sold   |
+| `pricing.cardmarket.updated`    | String | ❌        | Indicate when is the last time it was fetched |
+| `pricing.cardmarket.unit`       | String | ❌        | Indicate the unit in which the card is sold   |
 | `pricing.cardmarket.avg`        | Number | ❌        | Average selling price (non-foil)              |
 | `pricing.cardmarket.low`        | Number | ❌        | Lowest market price (non-foil)                |
 | `pricing.cardmarket.trend`      | Number | ❌        | Trend price from charts (non-foil)            |
