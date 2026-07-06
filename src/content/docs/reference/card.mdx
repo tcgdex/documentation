@@ -72,6 +72,7 @@ Market pricing information from multiple sources:
 
 | Property                                 | Type                     | Required | Description                                   |
 |------------------------------------------|--------------------------|----------|-----------------------------------------------|
+| `pricing.tcgplayer.productId`            | Number                   | ✅        | The unique tcgplayer id for this card         |
 | `pricing.tcgplayer.updated`              | String                   | ✅        | Indicate when is the last time it was fetched |
 | `pricing.tcgplayer.unit`                 | String                   | ✅        | Indicate the unit in which the card is sold   |
 | `pricing.tcgplayer.normal`               | [Object](#variant-infos) | ❌        | Standard non-foil cards                       |
@@ -99,6 +100,7 @@ European market data with separate pricing for foil and non-foil variants:
 
 | Property                        | Type   | Required | Description                                   |
 |---------------------------------|--------|----------|-----------------------------------------------|
+| `pricing.cardmarket.idProduct`  | Number | ❌        | The unique cardmarket id for this card        |
 | `pricing.cardmarket.updated`    | String | ❌        | Indicate when is the last time it was fetched |
 | `pricing.cardmarket.unit`       | String | ❌        | Indicate the unit in which the card is sold   |
 | `pricing.cardmarket.avg`        | Number | ❌        | Average selling price (non-foil)              |
