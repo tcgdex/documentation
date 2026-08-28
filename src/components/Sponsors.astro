@@ -4,6 +4,7 @@ import LogoDzeio from '../assets/sponsors/dzeio.svg'
 import LogoCardCodex from '../assets/sponsors/card-codex.png'
 import NinthPocket from '../assets/sponsors/ninthpocket.svg'
 import PCC from '../assets/sponsors/pcc.svg'
+import Folio from '../assets/sponsors/foliofyi.png'
 
 const sponsors: Array<{
 	name: string
@@ -17,6 +18,13 @@ const sponsors: Array<{
 		url: 'https://dzeio.com',
 		size: 'large'
 	},
+	{
+		name: 'Folio', // foliofyi
+		img: Folio,
+		url: 'https://folio.fyi/',
+		size: 'large'
+	},
+
 	{
 		name: 'Card Codex', // frinja313
 		img: LogoCardCodex,
@@ -40,12 +48,12 @@ const sponsors: Array<{
 
 <section class="mt-6 max-w-64">
 	<p>Sponsors</p>
-	<div class="grid 2xl:grid-cols-2 rounded-xl overflow-hidden gap-1 w-full mt-2">
+	<div class="grid lg:grid-cols-2 rounded-xl overflow-hidden gap-1 w-full mt-2">
 		{sponsors.map(sponsor => (
 			<a href={sponsor.url} class:list={{'col-span-2': sponsor.size === 'large'}} target="_blank" rel="noopener">
 				<article>
 					{sponsor.img ? (
-						<Image height={sponsor.size === 'large' ? 30 : 24} src={sponsor.img} style={{width: '100%'}} alt={`Logo ${sponsor.name}`}/>
+						<Image height={sponsor.size === 'large' ? 30 : 24} src={sponsor.img} style={{ maxWidth: '100%' }} alt={`Logo ${sponsor.name}`}/>
 					) : (
 						<p class:list={["font-bold text-black text-center", {'text-xl w-full': sponsor.size === 'large', 'text-sm': sponsor.size !== 'large'}]}>{sponsor.name}</p>
 					)}
