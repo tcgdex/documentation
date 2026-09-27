@@ -5,6 +5,7 @@ import LogoCardCodex from '../assets/sponsors/card-codex.png'
 import NinthPocket from '../assets/sponsors/ninthpocket.svg'
 import PCC from '../assets/sponsors/pcc.svg'
 import Folio from '../assets/sponsors/foliofyi.png'
+import RIPCompass from '../assets/sponsors/ripcompass.svg'
 
 const sponsors: Array<{
 	name: string
@@ -22,6 +23,12 @@ const sponsors: Array<{
 		name: 'Folio', // foliofyi
 		img: Folio,
 		url: 'https://folio.fyi/',
+		size: 'large'
+	},
+	{
+		name: 'RipCompass', // rippin-create
+		img: RIPCompass,
+		url: 'https://www.ripcompass.com/',
 		size: 'large'
 	},
 
@@ -95,8 +102,11 @@ const sponsors: Array<{
 	article:hover :global(img) {
 		filter: none !important;
 	}
+	:root[data-theme='light'] article :global(img) {
+		filter: grayscale(100%);
+	}
 	:root article :global(img) {
-		filter: grayscale(1) ;
+		filter: grayscale(100%) brightness(80%) invert(1);
 		transition: all 0.1s linear;
 	}
 	div a:nth-child(even):last-child article,
